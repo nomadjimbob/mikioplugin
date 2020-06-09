@@ -73,8 +73,6 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
             case DOKU_LEXER_SPECIAL:
                 $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', substr($match, strlen($this->tag) + 1, -1));
                 
-                $options_clean = array();
-
                 $options = array();
                 foreach($optionlist as $item) {
                     $i = strpos($item, '=');
@@ -90,27 +88,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
                     }
                 }
 
-                foreach($this->options as $item => $value) {
-                    if(is_string($value)) {
-                        if(array_key_exists($value, $options)) {
-                            $options_clean[$value] = $options[$value];
-                        } else {
-                            $options_clean[$value] = false;
-                        }
-                    } else if(is_array($value)) {
-                        foreach($value as $avalue) {
-                            if(array_key_exists($avalue, $options)) {
-                                $options_clean[$item] = $avalue;
-                            }
-                        }
-                    }
-                }
-
-                foreach($this->defaults as $item => $value) {
-                    if(array_key_exists($item, $options_clean) == false) {
-                        $options_clean[$item] = $value;
-                    }
-                }
+                $options_clean = $this->cleanOptions($options);
 
                 $this->values = $options_clean;
 
@@ -124,6 +102,35 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
         }
     
         return array();
+    }
+
+
+    public function cleanOptions($options) {
+        $options_clean = array();
+
+        foreach($this->options as $item => $value) {
+            if(is_string($value)) {
+                if(array_key_exists($value, $options)) {
+                    $options_clean[$value] = $options[$value];
+                } else {
+                    $options_clean[$value] = false;
+                }
+            } else if(is_array($value)) {
+                foreach($value as $avalue) {
+                    if(array_key_exists($avalue, $options)) {
+                        $options_clean[$item] = $avalue;
+                    }
+                }
+            }
+        }
+
+        foreach($this->defaults as $item => $value) {
+            if(array_key_exists($item, $options_clean) == false) {
+                $options_clean[$item] = $value;
+            }
+        }
+
+        return $options_clean;
     }
    
 
@@ -280,11 +287,19 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
 
 
-    public function syntaxRender(Doku_Renderer $renderer, $className, $text) {
+    public function syntaxRender(Doku_Renderer $renderer, $className, $text, $data=null) {
         $class = new $className;
 
-        $class->render_lexer_enter($renderer, null);
-        $renderer->doc .= $text;
-        $class->render_lexer_exit($renderer, null);
+        if(!is_array($data)) $data = array();
+
+        $data = $class->cleanOptions($data);
+
+        if($class->noEndTag) {
+            $class->render_lexer_special($renderer, $data);
+        } else {
+            $class->render_lexer_enter($renderer, $data);
+            $renderer->doc .= $text;
+            $class->render_lexer_exit($renderer, null);    
+        }
     }
 }
