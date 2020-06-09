@@ -16,7 +16,9 @@ class syntax_plugin_mikioplugin_cardheader extends syntax_plugin_mikioplugin_cor
     public $tag                 = 'card-header';
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="card-header">';
+        $classes = $this->buildClassString($data);
+        
+        $renderer->doc .= '<div class="card-header ' . $classes . '">';
     }
 
 

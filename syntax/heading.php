@@ -21,7 +21,9 @@ class syntax_plugin_mikioplugin_heading extends syntax_plugin_mikioplugin_core {
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<h' . $data['size'] . '>';
+        $classes = $this->buildClassString($data);
+
+        $renderer->doc .= '<h' . $data['size'] . ' class="' . $classes . '">';
     }
 
 

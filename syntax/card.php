@@ -20,11 +20,12 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = [];
         $body = true;
+        $classes = $this->buildClassString($data);
 
         $this->setAttr($styles, 'width', $data);
         $this->setAttr($styles, 'height', $data);
 
-        $renderer->doc .= '<div class="card"' . $this->listAttr('style', $styles) . '>';
+        $renderer->doc .= '<div class="card ' . $classes . '"' . $this->listAttr('style', $styles) . '>';
         if((array_key_exists('placeholder-text', $data) && $data['placeholder-text'] != '') || (array_key_exists('placeholder-colour', $data) && $data['placeholder-colour'] != '') || (array_key_exists('placeholder-text-colour', $data) && $data['placeholder-text-colour'] != '')) {
             $placeholderData = array('classes' => 'card-img-top');
             if(array_key_exists('placeholder-text', $data) && $data['placeholder-text'] != '') $placeholderData['text'] = $data['placeholder-text'];

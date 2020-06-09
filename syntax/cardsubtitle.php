@@ -16,7 +16,9 @@ class syntax_plugin_mikioplugin_cardsubtitle extends syntax_plugin_mikioplugin_c
     public $tag                 = 'card-subtitle';
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="card-subtitle">';
+        $classes = $this->buildClassString($data);
+
+        $renderer->doc .= '<div class="card-subtitle ' . $classes . '">';
     }
 
 

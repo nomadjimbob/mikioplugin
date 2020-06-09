@@ -16,7 +16,9 @@ class syntax_plugin_mikioplugin_cardbody extends syntax_plugin_mikioplugin_core 
     public $tag                 = 'card-body';
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="card-body">';
+        $classes = $this->buildClassString($data);
+        
+        $renderer->doc .= '<div class="card-body ' . $classes . '">';
     }
 
 

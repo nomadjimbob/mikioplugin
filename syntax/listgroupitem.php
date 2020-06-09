@@ -17,7 +17,9 @@ class syntax_plugin_mikioplugin_listgroupitem extends syntax_plugin_mikioplugin_
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<li class="list-group-item">';
+        $classes = $this->buildClassString($data);
+
+        $renderer->doc .= '<li class="list-group-item' . $classes . '">';
     }
 
 

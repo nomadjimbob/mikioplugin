@@ -18,7 +18,9 @@ class syntax_plugin_mikioplugin_collapse extends syntax_plugin_mikioplugin_core 
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="collapse" id="' . $data['id'] . '">';
+        $classes = $this->buildClassString($data);
+
+        $renderer->doc .= '<div class="collapse ' . $classes . '" id="' . $data['id'] . '">';
     }
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
