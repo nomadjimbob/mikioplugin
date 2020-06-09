@@ -18,7 +18,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     public $defaults            = array();
     public $options             = array();
     public $values              = array();
-    public $incClasses          = array('shadow');
+    public $incClasses          = array('shadow', 'text-center', 'text-right');
 
 
     function __construct() {
@@ -183,51 +183,55 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
 
 
-    public function buildClassString($options, $classes, $prefix) {
+    public function buildClassString($options=null, $classes=null, $prefix='') {
         $s = array();
 
-        foreach($classes as $item) {
-            if(array_key_exists($item, $options) && $options[$item] !== false) {
-                $classname = $item;
-                
-                if(is_string($options[$item])) {
-                    $classname = $options[$item];
-                }
-
-                if(is_string($prefix)) {
-                    $classname = $prefix . $classname;
-                } else if(is_array($prefix)) {
-                    foreach($prefix as $pitem => $pvalue) {
-                        if(is_string($pvalue)) {
-                            if($pvalue == $item) {
-                                if(is_string($options[$item])) {
-                                    $classname = $pitem . $options[$item];
-                                } else {
-                                    $classname = $pitem . $item;
-                                }
-                            }
+        if($options != null) {
+            if($classes != null) {
+                foreach($classes as $item) {
+                    if(array_key_exists($item, $options) && $options[$item] !== false) {
+                        $classname = $item;
+                        
+                        if(is_string($options[$item])) {
+                            $classname = $options[$item];
                         }
 
-                        if(is_array($pvalue)) {
-                            foreach($pvalue as $ppitem) {
-                                if($ppitem == $item) {
-                                    if(is_string($options[$item])) {
-                                        $classname = $pitem . $options[$item];
-                                    } else {
-                                        $classname = $pitem . $item;
+                        if(is_string($prefix)) {
+                            $classname = $prefix . $classname;
+                        } else if(is_array($prefix)) {
+                            foreach($prefix as $pitem => $pvalue) {
+                                if(is_string($pvalue)) {
+                                    if($pvalue == $item) {
+                                        if(is_string($options[$item])) {
+                                            $classname = $pitem . $options[$item];
+                                        } else {
+                                            $classname = $pitem . $item;
+                                        }
+                                    }
+                                }
+
+                                if(is_array($pvalue)) {
+                                    foreach($pvalue as $ppitem) {
+                                        if($ppitem == $item) {
+                                            if(is_string($options[$item])) {
+                                                $classname = $pitem . $options[$item];
+                                            } else {
+                                                $classname = $pitem . $item;
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
+
+                        $s[] = $classname;
                     }
                 }
-
-                $s[] = $classname;
             }
-        }
 
-        foreach($this->incClasses as $item) {
-            if(array_key_exists($item, $options) && $options[$item] == true) $s[] = $item;
+            foreach($this->incClasses as $item) {
+                if(array_key_exists($item, $options) && $options[$item] == true) $s[] = $item;
+            }
         }
 
         $s = ' ' . implode(' ', $s);
