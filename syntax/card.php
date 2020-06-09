@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: Card
  *
- * Syntax:  <CARD [width=] [height=] [image=] [title=] [header=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=]></CARD>
+ * Syntax:  <CARD [width=] [height=] [image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=]></CARD>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
@@ -14,7 +14,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card';
-    public $options             = array('width', 'height', 'image', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour');
+    public $options             = array('width', 'height', 'image', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour');
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
@@ -54,6 +54,8 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         if((!array_key_exists('listgroup', $this->values) || $this->values['listgroup'] == false) && (!array_key_exists('nobody', $this->values) || $this->values['nobody'] == false)) {
             $renderer->doc .= '</div>'; 
         }
+
+        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardfooter', $this->values['footer']);
 
         $renderer->doc .= '</div>'; 
     }
