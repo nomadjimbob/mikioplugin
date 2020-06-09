@@ -238,6 +238,14 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
 
 
+    public function getLink($str) {
+        $i = strpos($str, '://');
+        if($i !== false) return $str;
+
+        return wl($str);
+    }
+
+
     public function setAttr(&$attrList, $attr, $data, $newAttrName='', $newAttrVal='') {
         if(array_key_exists($attr, $data) && $data[$attr] !== false) {
             $value = $data[$attr];
