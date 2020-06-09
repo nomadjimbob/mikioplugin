@@ -12,7 +12,7 @@ if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
-class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
+class syntax_plugin_mikioplugin_dropdown extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'dropdown';
     public $defaults            = array('type' => 'primary');
     public $options             = array(

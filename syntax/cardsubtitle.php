@@ -1,6 +1,6 @@
 <?php
 /**
- * Mikio Syntax Plugin: Card
+ * Mikio Syntax Plugin: Card Subtitle
  *
  * Syntax:  <CARD-SUBTITLE></CARD-SUBTITLE>
  * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Mikio Syntax Plugin: Card
+ * Mikio Syntax Plugin: Card Header
  *
  * Syntax:  <CARD-HEADER></CARD-HEADER>
  * 
