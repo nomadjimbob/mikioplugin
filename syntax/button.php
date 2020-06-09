@@ -32,18 +32,18 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
         $classes = $this->buildClassString($data, array('type', 'size', 'block', 'active', 'disabled'), array('btn-' => array('type', 'size', 'block')));
 
         $url = '#';
-        if(array_key_exists('url', $data) && $data['url'] != '') $url = $data['url'];
+        if(array_key_exists('url', $data) && $data['url'] != '') $url = $this->getLink($data['url']);
 
         $target = '';
-        if(array_key_exists('target', $data) && $data['target'] != '') $target = 'target="' . $data['target'] . '" ';
-        if(array_key_exists('newtab', $data) && $data['newtab'] != false) $target = 'target="_blank" ';
+        if(array_key_exists('target', $data) && $data['target'] != '') $target = ' target="' . $data['target'] . '"';
+        if(array_key_exists('newtab', $data) && $data['newtab'] != false) $target = ' target="_blank"';
 
         $collapse = '';
         if(array_key_exists('collapse-id', $data) && $data['collapse-id'] != '') {
             $collapse = ' data-toggle="collapse" data-target="#' . $data['collapse-id'] . '"';
         }
 
-        $renderer->doc .= '<a href="' . $url . '" ' . $target . 'class="btn ' . $classes . '" role="button"' . $collapse . '>';
+        $renderer->doc .= '<a href="' . $url . '"' . $target . ' class="btn ' . $classes . '" role="button"' . $collapse . '>';
     }
 
 
