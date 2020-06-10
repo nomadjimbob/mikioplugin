@@ -1,0 +1,50 @@
+.box {
+    padding:0 !important;
+}
+
+.rounded-pill img {
+    border-radius: 50rem !important
+}
+
+.rounded-circle img {
+    border-radius: 50% !important
+}
+
+.rounded-lg img {
+    border-radius: .3rem !important
+}
+
+.rounded img {
+    border-radius: .25rem !important
+}
+
+.rounded-sm img {
+    border-radius: .2rem !important
+}
+
+.rounded-top img {
+    border-top-left-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+}
+
+.rounded-bottom img {
+    border-bottom-left-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+.rounded-left img {
+    border-top-left-radius: .25rem !important;
+    border-bottom-left-radius: .25rem !important;
+}
+
+.rounded-right img {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+.box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
