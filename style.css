@@ -48,3 +48,16 @@
     object-fit: contain;
     overflow: hidden;
 }
+
+.carousel { 
+    overflow: hidden;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-size: 100% !important;
+}
+
+.carousel-item img, .carousel-item svg {
+    display: block !important;
+    width: 100% !important;
+}
