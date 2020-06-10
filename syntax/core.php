@@ -239,21 +239,35 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
             }
         }
 
-        // $borderSet = false;
-        // $borderColourSet = false;
-        // $roundedSet = false;
-
-
-
-        // if(in_array('rounded-pill', $s)) {
-        //     if($borderSet == false) $s[] = 'border';
-        //     if($borderColourSet == false) $s[] = 'border-white';
-        // }
-
         $s = ' ' . implode(' ', $s);
         return $s;
     }
 
+    public function buildStyleString($options=null) {
+        $s = array();
+
+        if($options != null) {
+            foreach($options as $item => $value) {
+                switch($item) {
+                    case 'width':
+                        $s[] = 'width:' . $value;
+                        break;
+                    case 'height':
+                        $s[] = 'height:' . $value;
+                        break;
+                    case 'max-width':
+                        $s[] = 'max-width:' . $value;
+                        break;
+                    case 'max-height':
+                        $s[] = 'max-height:' . $value;
+                        break;
+                }
+            }
+        }
+
+        $s = implode(';', $s);
+        return $s;
+    }
 
     public function getMediaFile($str) {
         $i = strpos($str, '?');
