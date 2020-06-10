@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: Card
  *
- * Syntax:  <CARD [width=] [height=] [image=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=]></CARD>
+ * Syntax:  <CARD [width=] [height=] [image=] [image-overlay=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=]></CARD>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
@@ -14,20 +14,23 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card';
-    public $options             = array('width', 'height', 'image', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour');
+    public $options             = array('width', 'height', 'image', 'overlay', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour');
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = [];
         $body = true;
+        $overlay = false;
         $classes = $this->buildClassString($data);
 
         $this->setAttr($styles, 'width', $data);
         $this->setAttr($styles, 'height', $data);
 
+        if(array_key_exists('overlay', $data) && $data['overlay'] != false) $overlay = true;
+
         $renderer->doc .= '<div class="card ' . $classes . '"' . $this->listAttr('style', $styles) . '>';
         if((array_key_exists('placeholder-text', $data) && $data['placeholder-text'] != '') || (array_key_exists('placeholder-colour', $data) && $data['placeholder-colour'] != '') || (array_key_exists('placeholder-text-colour', $data) && $data['placeholder-text-colour'] != '')) {
-            $placeholderData = array('classes' => 'card-img-top');
+            $placeholderData = array('classes' => ($overlay ? 'card-img' : 'card-img-top'));
             if(array_key_exists('placeholder-text', $data) && $data['placeholder-text'] != '') $placeholderData['text'] = $data['placeholder-text'];
             if(array_key_exists('placeholder-colour', $data) && $data['placeholder-colour'] != '') $placeholderData['colour'] = $data['placeholder-colour'];
             if(array_key_exists('placeholder-text-colour', $data) && $data['placeholder-text-colour'] != '') $placeholderData['text-colour'] = $data['placeholder-text-colour'];
@@ -43,7 +46,11 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         if(array_key_exists('header', $data) && $data['header'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardheader', $data['header']);
 
         if($body) {
-            $renderer->doc .= '<div class="card-body">';
+            if($overlay) {
+                $renderer->doc .= '<div class="card-img-overlay">';
+            } else {
+                $renderer->doc .= '<div class="card-body">';
+            }
         }
         
         if(array_key_exists('title', $data) && $data['title'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardtitle', $data['title']);
