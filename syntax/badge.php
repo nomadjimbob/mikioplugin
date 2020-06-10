@@ -44,7 +44,7 @@ class syntax_plugin_mikioplugin_badge extends syntax_plugin_mikioplugin_core {
             $collapse = ' data-toggle="collapse" data-target="#' . $data['collapse-id'] . '"';
         }
 
-        $renderer->doc .= '<' . $tag . $href . ' class="badge ' . $classes . '"' . $target . $collapse . $this->buildStyleString($data) . '>';
+        $renderer->doc .= '<' . $tag . $href . ' class="badge ' . $classes . '"' . $target . $collapse . $this->buildStyleString($data) . $this->buildTooltipString($data) . '>';
     }
 
 

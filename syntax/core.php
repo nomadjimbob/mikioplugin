@@ -18,12 +18,13 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     public $defaults            = array();
     public $options             = array();
     public $values              = array();
-    public $incClasses          = array('shadow', 'shadow-none', 'shadow-sm', 'shadow-lg', 'w-25', 'w-50', 'w-75', 'w-100', 'w-auto', 'h-25', 'h-50', 'h-75', 'h-100', 'h-auto', 'text-left', 'text-center', 'text-right', 'text-justify', 'text-wrap', 'text-nowrap', 'text-truncate', 'text-break', 'text-lowercase', 'text-uppercase', 'text-capitalize', 'font-weight-bold', 'font-weight-bolder', 'font-weight-normal', 'font-weight-light', 'font-weight-lighter', 'font-italic', 'text-monospace', 'text-reset', 'text-muted', 'text-decoration-none', 'text-primary', 'text-secondary', 'text-success', 'text-danger', 'text-warning', 'text-info', 'text-light'. 'text-dark', 'text-body', 'text-white', 'text-black', 'text-white-50', 'text-black-50', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white', 'bg-transparent', 'border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-0', 'border-top-0', 'border-right-0', 'border-bottom-0', 'border-left-0', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark', 'border-white', 'rounded', 'rounded-top', 'rounded-right', 'rounded-bottom', 'rounded-left', 'rounded-circle', 'rounded-pill', 'rounded-0', 'rounded-sm', 'rounded-lg', 'clearfix', 'align-baseline', 'align-top', 'align-middle', 'align-bottom', 'align-text-top', 'align-text-bottom', 'sm-1', 'sm-2', 'sm-3', 'sm-4', 'sm-5', 'sm-6', 'sm-7', 'sm-8', 'sm-9', 'sm-10', 'sm-11', 'sm-12', 'md-1', 'md-2', 'md-3', 'md-4', 'md-5', 'md-6', 'md-7', 'md-8', 'md-9', 'md-10', 'md-11', 'md-12', 'lg-1', 'lg-2', 'lg-3', 'lg-4', 'lg-5', 'lg-6', 'lg-7', 'lg-8', 'lg-9', 'lg-10', 'lg-11', 'lg-12', 'width', 'min-width', 'max-width', 'height', 'min-height', 'max-height', 'overflow');
+    public $incClasses          = array('shadow', 'shadow-none', 'shadow-sm', 'shadow-lg', 'w-25', 'w-50', 'w-75', 'w-100', 'w-auto', 'h-25', 'h-50', 'h-75', 'h-100', 'h-auto', 'text-left', 'text-center', 'text-right', 'text-justify', 'text-wrap', 'text-nowrap', 'text-truncate', 'text-break', 'text-lowercase', 'text-uppercase', 'text-capitalize', 'font-weight-bold', 'font-weight-bolder', 'font-weight-normal', 'font-weight-light', 'font-weight-lighter', 'font-italic', 'text-monospace', 'text-reset', 'text-muted', 'text-decoration-none', 'text-primary', 'text-secondary', 'text-success', 'text-danger', 'text-warning', 'text-info', 'text-light'. 'text-dark', 'text-body', 'text-white', 'text-black', 'text-white-50', 'text-black-50', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white', 'bg-transparent', 'border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-0', 'border-top-0', 'border-right-0', 'border-bottom-0', 'border-left-0', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark', 'border-white', 'rounded', 'rounded-top', 'rounded-right', 'rounded-bottom', 'rounded-left', 'rounded-circle', 'rounded-pill', 'rounded-0', 'rounded-sm', 'rounded-lg', 'clearfix', 'align-baseline', 'align-top', 'align-middle', 'align-bottom', 'align-text-top', 'align-text-bottom', 'sm-1', 'sm-2', 'sm-3', 'sm-4', 'sm-5', 'sm-6', 'sm-7', 'sm-8', 'sm-9', 'sm-10', 'sm-11', 'sm-12', 'md-1', 'md-2', 'md-3', 'md-4', 'md-5', 'md-6', 'md-7', 'md-8', 'md-9', 'md-10', 'md-11', 'md-12', 'lg-1', 'lg-2', 'lg-3', 'lg-4', 'lg-5', 'lg-6', 'lg-7', 'lg-8', 'lg-9', 'lg-10', 'lg-11', 'lg-12');
+    public $incOptions          = array('width', 'min-width', 'max-width', 'height', 'min-height', 'max-height', 'overflow', 'tooltip', 'tooltip-html', 'tooltop-left', 'tooltip-top', 'tooltip-right', 'tooltip-bottom', 'tooltip-html-top', 'tooltip-html-left', 'tooltip-html-right', 'tooltip-html-bottom');
 
 
     function __construct() {
         if(count($this->incClasses) > 0) {
-            $this->options = array_merge($this->options, $this->incClasses);
+            $this->options = array_merge($this->options, $this->incClasses, $this->incOptions);
         }
     }
 
@@ -243,7 +244,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
         return $s;
     }
 
-    public function buildStyleString($options=null, $ignore=null, $append='') {
+    public function buildStyleString($options, $ignore=null, $append='') {
         $s = array();
 
         if($options != null) {
@@ -281,6 +282,70 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
         if($s != '') $s = ' style="' . $s . '" ';
 
         return $s;
+    }
+
+    public function buildTooltipString($options) {
+        $dataPlacement = 'top';
+        $dataHtml = false;
+        $title = '';
+
+        if($options != null) {
+            if(array_key_exists('tooltip-html-top', $options) && $options['tooltip-html-top'] != '') {
+                $title = $options['tooltip-html-top'];
+                $dataPlacement = 'top';
+            }
+
+            if(array_key_exists('tooltip-html-left', $options) && $options['tooltip-html-left'] != '') {
+                $title = $options['tooltip-html-left'];
+                $dataPlacement = 'left';
+            }
+
+            if(array_key_exists('tooltip-html-bottom', $options) && $options['tooltip-html-bottom'] != '') {
+                $title = $options['tooltip-html-bottom'];
+                $dataPlacement = 'bottom';
+            }
+
+            if(array_key_exists('tooltip-html-right', $options) && $options['tooltip-html-right'] != '') {
+                $title = $options['tooltip-html-right'];
+                $dataPlacement = 'right';
+            }
+
+            if(array_key_exists('tooltip-top', $options) && $options['tooltip-top'] != '') {
+                $title = $options['tooltip-top'];
+                $dataPlacement = 'top';
+            }
+
+            if(array_key_exists('tooltip-left', $options) && $options['tooltip-left'] != '') {
+                $title = $options['tooltip-left'];
+                $dataPlacement = 'left';
+            }
+
+            if(array_key_exists('tooltip-bottom', $options) && $options['tooltip-bottom'] != '') {
+                $title = $options['tooltip-bottom'];
+                $dataPlacement = 'bottom';
+            }
+
+            if(array_key_exists('tooltip-right', $options) && $options['tooltip-right'] != '') {
+                $title = $options['tooltip-right'];
+                $dataPlacement = 'right';
+            }
+
+            if(array_key_exists('tooltip-html', $options) && $options['tooltip-html'] != '') {
+                $title = $options['tooltip-html'];
+                $dataPlacement = 'top';
+            }
+
+            if(array_key_exists('tooltip', $options) && $options['tooltip'] != '') {
+                $title = $options['tooltip'];
+                $dataPlacement = 'top';
+            }
+        }
+
+        if($title != '') {
+            return ' data-toggle="tooltip" data-placement="' . $dataPlacement . '" ' . ($dataHtml == true ? 'data-html="true" ' : '') . 'title="' . $title . '" ';
+        }
+
+        return '';
     }
 
     public function getMediaFile($str) {

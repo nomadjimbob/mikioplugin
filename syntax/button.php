@@ -44,7 +44,7 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
             $collapse = ' data-toggle="collapse" data-target="#' . $data['collapse-id'] . '"';
         }
 
-        $renderer->doc .= '<a href="' . $url . '"' . $target . ' class="btn ' . $classes . '" role="button"' . $collapse . $this->buildStyleString($data) . '>';
+        $renderer->doc .= '<a href="' . $url . '"' . $target . ' class="btn ' . $classes . '" role="button"' . $collapse . $this->buildStyleString($data) . $this->buildTooltipString($data) . '>';
     }
 
 
