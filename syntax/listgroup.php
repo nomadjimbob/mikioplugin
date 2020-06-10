@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: List Group
  *
- * Syntax:  <LISTGROUP [flush]></LISTGROUP>
+ * Syntax:  <LISTGROUP [flush] [horizontal]></LISTGROUP>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
@@ -15,12 +15,13 @@ require_once(dirname(__FILE__).'/core.php');
 class syntax_plugin_mikioplugin_listgroup extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'listgroup';
     public $options             = array(
-        'flush'
+        'flush',
+        'horizontal'
     );
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClassString($data, array('flush'), 'list-group-');
+        $classes = $this->buildClassString($data, array('flush', 'horizontal'), 'list-group-');
 
         $renderer->doc .= '<ul class="list-group ' . $classes . '">';
     }
