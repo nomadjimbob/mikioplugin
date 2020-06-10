@@ -77,7 +77,9 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         $footerOptions = array();
         if(array_key_exists('footer-small', $this->values) && $this->values['footer-small'] != false) $footerOptions['small'] = true;
 
-        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardfooter', $this->values['footer'], $footerOptions);
+        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') {
+            $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardfooter', $this->values['footer'], $footerOptions);
+        }
 
         if((array_key_exists('footer-placeholder-text', $this->values) && $this->values['footer-placeholder-text'] != '') || (array_key_exists('footer-placeholder-colour', $this->values) && $this->values['footer-placeholder-colour'] != '') || (array_key_exists('footer-placeholder-text-colour', $this->values) && $this->values['footer-placeholder-text-colour'] != '')) {
             $placeholderData = array('classes' => 'card-img-top');
