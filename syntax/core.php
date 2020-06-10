@@ -171,9 +171,9 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
                     $this->render_lexer_exit($renderer, $match);
                     return true;
 
-                    case DOKU_LEXER_SPECIAL:
-                        $this->render_lexer_special($renderer, $match);
-                        return true;
+                case DOKU_LEXER_SPECIAL:
+                    $this->render_lexer_special($renderer, $match);
+                    return true;
             }
     
             return true;
@@ -297,6 +297,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
         if(!is_array($data)) $data = array();
 
         $data = $class->cleanOptions($data);
+        $class->values = $data;
 
         if($class->noEndTag) {
             $class->render_lexer_special($renderer, $data);
