@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: Card
  *
- * Syntax:  <CARD [width=] [height=] [image=] [image-overlay=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=] [horizontal]></CARD>
+ * Syntax:  <CARD [width=] [height=] [image=] [image-overlay=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=] [horizontal] [footer-small]></CARD>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
@@ -14,7 +14,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card';
-    public $options             = array('width', 'height', 'image', 'overlay', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour', 'horizontal');
+    public $options             = array('width', 'height', 'image', 'overlay', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour', 'horizontal', 'footer-small');
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
@@ -74,7 +74,10 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
             $renderer->doc .= '</div></div>';
         }
 
-        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardfooter', $this->values['footer']);
+        $footerOptions = array();
+        if(array_key_exists('footer-small', $this->values) && $this->values['footer-small'] != false) $footerOptions['small'] = true;
+
+        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') $this->syntaxRender($renderer, 'syntax_plugin_mikioplugin_cardfooter', $this->values['footer'], $footerOptions);
 
         if((array_key_exists('footer-placeholder-text', $this->values) && $this->values['footer-placeholder-text'] != '') || (array_key_exists('footer-placeholder-colour', $this->values) && $this->values['footer-placeholder-colour'] != '') || (array_key_exists('footer-placeholder-text-colour', $this->values) && $this->values['footer-placeholder-text-colour'] != '')) {
             $placeholderData = array('classes' => 'card-img-top');
