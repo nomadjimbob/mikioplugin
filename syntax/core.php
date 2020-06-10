@@ -18,7 +18,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     public $defaults            = array();
     public $options             = array();
     public $values              = array();
-    public $incClasses          = array('shadow', 'text-center', 'text-right');
+    public $incClasses          = array('shadow', 'text-left', 'text-center', 'text-right', 'text-justify', 'text-wrap', 'text-nowrap', 'text-truncate', 'text-break', 'text-lowercase', 'text-uppercase', 'text-capitalize', 'font-weight-bold', 'font-weight-bolder', 'font-weight-normal', 'font-weight-light', 'font-weight-lighter', 'font-italic', 'text-monospace', 'text-reset', 'text-muted', 'text-decoration-none', 'text-primary', 'text-secondary', 'text-success', 'text-danger', 'text-warning', 'text-info', 'text-light'. 'text-dark', 'text-body', 'text-white', 'text-black', 'text-white-50', 'text-black-50', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white', 'bg-transparent');
 
 
     function __construct() {
