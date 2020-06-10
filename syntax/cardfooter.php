@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: Card Footer
  *
- * Syntax:  <CARD-FOOTER></CARD-FOOTER>
+ * Syntax:  <CARD-FOOTER [small]></CARD-FOOTER>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
