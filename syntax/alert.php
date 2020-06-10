@@ -24,7 +24,7 @@ class syntax_plugin_mikioplugin_alert extends syntax_plugin_mikioplugin_core {
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClassString($data, array('type', 'dismissible'), 'alert-');
 
-        $renderer->doc .= '<div class="alert ' . $classes . '" role="alert">';
+        $renderer->doc .= '<div class="alert ' . $classes . '" role="alert"' . $this->buildStyleString($data) . '>';
 
         if(isset($data['dismissible']) && $data['dismissible'] == true) {
             $renderer->doc .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';

@@ -18,7 +18,7 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClassString($data);
         
-        $renderer->doc .= '<div class="box ' . $classes . '">';
+        $renderer->doc .= '<div class="box ' . $classes . '"' . $this->buildStyleString($data) . '>';
     }
 
 

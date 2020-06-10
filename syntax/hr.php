@@ -26,7 +26,7 @@ class syntax_plugin_mikioplugin_hr extends syntax_plugin_mikioplugin_core {
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClassString($data);
         
-        $renderer->doc .= '<hr class="' . $classes . '">';
+        $renderer->doc .= '<hr class="' . $classes . '"' . $this->buildStyleString($data) . '>';
     }
 }
 ?>
