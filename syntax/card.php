@@ -2,7 +2,7 @@
 /**
  * Mikio Syntax Plugin: Card
  *
- * Syntax:  <CARD [width=] [height=] [image=] [image-overlay=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=] [horizontal] [footer-small]></CARD>
+ * Syntax:  <CARD [image=] [image-overlay=] [footer-image=] [title=] [header=] [footer=] [subtitle=] [listgroup] [nobody] [placeholder-text=] [placeholder-colour=] [placeholder-text-colour=] [footer-placeholder-text=] [footer-placeholder-colour=] [footer-placeholder-text-colour=] [horizontal] [footer-small]></CARD>
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
@@ -14,23 +14,19 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card';
-    public $options             = array('width', 'height', 'image', 'overlay', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour', 'horizontal', 'footer-small');
+    public $options             = array('image', 'overlay', 'title', 'subtitle', 'listgroup', 'nobody', 'header', 'footer', 'placeholder-text', 'placeholder-colour', 'placeholder-text-colour', 'footer-image', 'footer-placeholder-text', 'footer-placeholder-colour', 'footer-placeholder-text-colour', 'horizontal', 'footer-small');
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $styles = [];
         $body = true;
         $overlay = false;
         $horizontal = false;
         $classes = $this->buildClassString($data);
 
-        $this->setAttr($styles, 'width', $data);
-        $this->setAttr($styles, 'height', $data);
-
         if(array_key_exists('overlay', $data) && $data['overlay'] != false) $overlay = true;
         if(array_key_exists('horizontal', $data) && $data['horizontal'] != false) $horizontal = true;
 
-        $renderer->doc .= '<div class="card ' . $classes . '"' . $this->listAttr('style', $styles) . '>';
+        $renderer->doc .= '<div class="card ' . $classes . '"' . $this->buildStyleString($data) . '>';
 
         if($horizontal) $renderer->doc .= '<div class="row no-gutters"><div class="col-md-4">';
 
