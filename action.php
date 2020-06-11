@@ -2,8 +2,8 @@
 /**
  * Mikio Plugin
  * 
- * @version    0.1
- * @copyright  Copyright 2020 James Collins
+ * @version    1.0
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     James Collins <james.collins@outlook.com.au>
  */
  
@@ -13,13 +13,41 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin {
 
 	public function register(Doku_Event_Handler $controller) {
 		$controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, '_load');
-		// $controller->register_hook('DOKUWIKI_DONE', 'BEFORE', $this, 'dw_done');
 	}
 
 	public function _load(Doku_Event $event, $param) {
-
 		global $conf;
-	}
+
+        $baseDir = DOKU_BASE.'lib/plugins' . str_replace(dirname(dirname(__FILE__)), '', dirname(__FILE__)) . '/';
+        $stylesheets = [];
+        $scripts = [];
+
+        if($conf['template'] !== 'mikio') {
+            if($this->getConf('loadBootstrap')) {
+                $stylesheets[]  = $baseDir . 'css/bootstrap.min.css';
+                $scripts[]      = $baseDir . 'js/bootstrap.min.css';
+                $scripts[]      = $baseDir . 'js/popper.min.css';
+            }
+
+            if($this->getConf('loadFontAwesome')) {
+                $stylesheets[]  = $baseDir . 'css/fontawesome.min.css';
+            }
+        }
+
+        foreach ($stylesheets as $style) {
+            array_unshift($event->data['link'], array(
+                'type' => 'text/css',
+                'rel'  => 'stylesheet',
+                'href' => $style
+            ));
+        }
+
+        foreach ($scripts as $script) {
+            $event->data['script'][] = array(
+                 'type'  => 'text/javascript',
+              '_data' => '',
+              'src'   => $script
+          );
+      }
+    }
 }
-
-

@@ -12,6 +12,7 @@ if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
  
 class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     public $pattern_entry       = '';
+    public $pattern             = '';
     public $pattern_exit        = '';
     public $tag                 = '';
     public $noEndTag            = false;
@@ -34,7 +35,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
     
     
-    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }   
+    // public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }   
     public function getSort(){ return 32; }
 
 
@@ -54,6 +55,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
                 $this->Lexer->addEntryPattern($this->pattern_entry, $mode, 'plugin_mikioplugin_'.$this->getPluginComponent());
             }
         }
+
+        // if($this->pattern != '') {
+        //     $this->Lexer->addPattern($this->pattern, 'plugin_mikioplugin_'.$this->getPluginComponent());
+        // }
     }
     
     
@@ -96,6 +101,9 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
 
                 return array($state, $options_clean);
 
+            case DOKU_LEXER_MATCHED:
+                return array($state, $match);
+            
             case DOKU_LEXER_UNMATCHED:
                 return array($state, $match);
             
@@ -161,6 +169,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
 
 
+    public function render_lexer_match(Doku_Renderer $renderer, $data) {
+
+    }
+
+
     public function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
             list($state,$match) = $data;
@@ -172,6 +185,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
 
                 case DOKU_LEXER_UNMATCHED :  
                     $this->render_lexer_unmatched($renderer, $match);
+                    return true;
+
+                case DOKU_LEXER_MATCHED:
+                    $this->render_lexer_match($renderer, $match);
                     return true;
     
                 case DOKU_LEXER_EXIT :
@@ -378,9 +395,9 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
 
             if($newAttrName != '') $attr = $newAttrName;
             if($newAttrVal != '') {
-                $newAttrVal = str_replace('%%VALUE%%', $value, $newAttrVal);
-                if(strpos($newAttrVal, '%%MEDIA%%') !== false) {
-                    $newAttrVal = str_replace('%%MEDIA%%', $this->getMediaFile($value), $newAttrVal);
+                $newAttrVal = str_ireplace('%%VALUE%%', $value, $newAttrVal);
+                if(stripos($newAttrVal, '%%MEDIA%%') !== false) {
+                    $newAttrVal = str_ireplace('%%MEDIA%%', $this->getMediaFile($value), $newAttrVal);
                 }
 
                 $value = $newAttrVal;
