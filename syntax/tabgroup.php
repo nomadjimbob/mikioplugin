@@ -16,6 +16,8 @@ class syntax_plugin_mikioplugin_tabgroup extends syntax_plugin_mikioplugin_core 
     public $tag                 = 'tabgroup';
 
     
+    public function getAllowedTypes() {  return array(); }
+
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClassString($data);
 

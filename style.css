@@ -42,11 +42,12 @@
     border-bottom-right-radius: .25rem !important;
 }
 
-.box img {
+.box img, .box a.media, .box svg {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     overflow: hidden;
+    border-radius:inherit;
 }
 
 .carousel { 

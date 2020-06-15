@@ -23,6 +23,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         $horizontal = false;
         $classes = $this->buildClassString($data);
 
+
         if(array_key_exists('overlay', $data) && $data['overlay'] != false) $overlay = true;
         if(array_key_exists('horizontal', $data) && $data['horizontal'] != false) $horizontal = true;
 
@@ -62,7 +63,12 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        if((!array_key_exists('listgroup', $this->values) || $this->values['listgroup'] == false) && (!array_key_exists('nobody', $this->values) || $this->values['nobody'] == false)) {
+        $body = true;
+        $this->values = $data;
+
+        if((array_key_exists('listgroup', $this->values) && $this->values['listgroup'] == true) || (array_key_exists('nobody', $this->values) && $this->values['nobody'] == true)) $body = false;
+
+        if($body == true) {
             $renderer->doc .= '</div>'; 
         }
 

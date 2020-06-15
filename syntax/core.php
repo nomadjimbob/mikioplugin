@@ -25,8 +25,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
 
 
     function __construct() {
-        if(count($this->incClasses) > 0 && !$this->privateOptions) {
-            $this->options = array_merge($this->options, $this->incClasses, $this->incOptions);
+        if($this->tag != '') {
+            if(count($this->incClasses) > 0 && !$this->privateOptions) {
+                $this->options = array_merge($this->options, $this->incClasses, $this->incOptions);
+            }
         }
     }
 
@@ -35,7 +37,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
     
     
-    // public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }   
+    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }   
     public function getSort(){ return 32; }
 
 
@@ -44,7 +46,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
             if($this->noEndTag) {
                 $this->pattern_entry = '<(?:' . strtoupper($this->tag) . '|' . strtolower($this->tag) . ').*?>';
             } else {
-                $this->pattern_entry = '<(?:' . strtoupper($this->tag) . '|' . strtolower($this->tag) . ').*?>(?=.*?</(?:' . strtoupper($this->tag) . '|' . strtolower($this->tag) . ')>)';
+                $this->pattern_entry = '<(?:' . strtoupper($this->tag) . '|' . strtolower($this->tag) . ')(?=[ >]).*?>(?=.*?</(?:' . strtoupper($this->tag) . '|' . strtolower($this->tag) . ')>)';
             }
         }
 
@@ -75,6 +77,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
     }
    
     public function handle($match, $state, $pos, Doku_Handler $handler){
+        if($this->tag == '') return array($state, $match);
+
         switch($state) {
             case DOKU_LEXER_ENTER:
             case DOKU_LEXER_SPECIAL:
@@ -108,7 +112,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
                 return array($state, $match);
             
             case DOKU_LEXER_EXIT:
-                return array($state, '');
+                return array($state, $this->values);
         }
     
         return array();
@@ -300,7 +304,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin {
             }
         }
 
-        $s = implode(';', $s) . $append;
+        $s = implode(';', $s) . '; ' . $append;
 
         if($s != '') $s = ' style="' . $s . '" ';
 
