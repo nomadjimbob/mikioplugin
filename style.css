@@ -76,3 +76,8 @@
 .btn {
     text-decoration: none;
 }
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
