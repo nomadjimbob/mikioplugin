@@ -2,45 +2,53 @@
 /**
  * Mikio Syntax Plugin: Blockquote
  *
- * Syntax:  <BLOCKQUOTE [footer=] footer-text-colour footer-small></BLOCKQUOTE>
- * 
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     James Collins <james.collins@outlook.com.au>
+ * @link        http://github.com/nomadjimbob/mikioplugin
+ * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author      James Collins <james.collins@outlook.com.au>
  */
- 
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'blockquote';
-    public $options             = array('footer', 'footer-small', 'footer-text-colour');
+    public $hasEndTag           = true;
+    public $options             = array(
+        'footer'                => array('type' => 'text',      'default'   => ''),
+        'cite'                  => array('type' => 'text',      'default'   => ''),
+    );
+
+    public function __construct() {
+        $this->addCommonOptions('text-align');
+    }
+
+    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled', 'container'); }
+    public function getPType() { return 'normal'; }    
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClassString($data);
-        
-        $renderer->doc .= '<blockquote class="blockquote ' . $classes . '">';
+        $classes = $this->buildClass($data);
+
+        $renderer->doc .= '<blockquote class="' . $this->elemClass . ' ' . $this->classPrefix . 'blockquote' . $classes . '"><p>';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        $footerSmallPrefix = '';
-        $footerSmallPostfix = '';
-        $footerStyle = '';
+        $renderer->doc .= '</p>';
 
-        if(array_key_exists('footer-small', $this->values) && $this->values['footer-small'] != false) {
-            $footerSmallPrefix = '<small>';
-            $footerSmallPostfix = '</small>';
-        }
+        if($data['footer'] != '') {
+            $footer = $data['footer'];
 
-        if(array_key_exists('footer-text-colour', $this->values) && $this->values['footer-text-colour'] != '') {
-            $footerStyle = 'color:' . $this->values['footer-text-colour'] . ';';
-        }
+            if($data['cite'] != '') {
+                $i = strripos($footer, $data['cite']);
+                if($i !== FALSE) {
+                    $cite = substr($footer, $i, strlen($data['cite']));
+                    $footer = substr($footer, 0, $i) . '<cite class="' . $this->elemClass . ' ' . $this->classPrefix . 'cite" title="' . $cite . '">' . substr($footer, $i, strlen($cite)) . '</cite>' . substr($footer, $i + strlen($cite));
+                }
+            }
 
-        if($footerStyle != '') $footerStyle = 'style="' . $footerStyle . '"';
-
-        if(array_key_exists('footer', $this->values) && $this->values['footer'] != '') {
-            $renderer->doc .= '<footer class="blockquote-footer" ' . $footerStyle . '>'. $footerSmallPrefix . $this->values['footer'] . $footerSmallPostfix . '</footer>';
+            $renderer->doc .= '<footer class="' . $this->elemClass . ' ' . $this->classPrefix . 'blockquote-footer">';
+            $renderer->doc .= $footer;
+            $renderer->doc .= '</footer>';
         }
 
         $renderer->doc .= '</blockquote>'; 

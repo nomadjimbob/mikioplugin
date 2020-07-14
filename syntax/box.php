@@ -1,38 +1,36 @@
 <?php
 /**
- * Mikio Syntax Plugin: BOX
+ * Mikio Syntax Plugin: Box
  *
- * Syntax:  <BOX [round=]></BOX>
- * 
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     James Collins <james.collins@outlook.com.au>
+ * @link        http://github.com/nomadjimbob/mikioplugin
+ * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author      James Collins <james.collins@outlook.com.au>
  */
- 
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'box';
-    public $options             = array('round');
+    public $hasEndTag           = true;
+    public $options             = array(
+        'round'         => array('type'     => 'size',  'default'   => '0'),
+        'border-color'  => array('type'     => 'color', 'default'   => ''),
+        'border-width'  => array('type'     => 'size',  'default'   => ''),
+        'reveal'        => array('type'     => 'boolean', 'default' => 'false'),
+        'reveal-text'   => array('type'     => 'text',  'default'   => 'Reveal'),
+    );
+
+    public function __construct() {
+        $this->addCommonOptions('width height type shadow text-align');
+    }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClassString($data);
-        
-        $style = '';
-        if(array_key_exists('round', $data)) {
-            if($data['round'] != '' && $data['round'] !== true) {
-                if(is_numeric($data['round'])) {
-                    $style = 'border-radius:'.$data['round'].'px';
-                } else {
-                    $style = 'border-radius:'.$data['round'];
-                }
-            } else if($data['round'] === true) {
-                $style = 'border-radius:10px';
-            }
-        }
+        $classes = $this->buildClass($data);
+        $styles = $this->buildStyle(array('width' => $data['width'], 'height' => $data['height'], 'border-radius' => $data['round'], 'border-color' => $data['border-color'], 'border-width' => $data['border-width']), TRUE);
 
-        $renderer->doc .= '<div class="box ' . $classes . '"' . $this->buildStyleString($data, null, $style) . '>';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'box'. $classes .'"' . $styles. '>';
+        if($data['reveal']) $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'reveal">' . $data['reveal-text'] . '</div>';
     }
 
 

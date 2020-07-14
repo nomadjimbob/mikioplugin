@@ -2,33 +2,40 @@
 /**
  * Mikio Syntax Plugin: Button Group
  *
- * Syntax:  <BUTTON-GROUP [lg|sm] [vertical]></BUTTON-GROUP>
- * 
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     James Collins <james.collins@outlook.com.au>
+ * @link        http://github.com/nomadjimbob/mikioplugin
+ * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author      James Collins <james.collins@outlook.com.au>
  */
- 
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_buttongroup extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'button-group';
-    public $options             = array('size' => array('lg', 'sm'), 'vertical');
+    public $hasEndTag           = true;
+    public $options             = array(
+        'size'          => array('type'     => 'choice',
+                                 'data'     => array('large'=> array('large', 'lg'), 'small' => array('small', 'sm')),
+                                 'default'  => ''),
+        'vertical'      => array('type'     => 'boolean',   'default'   => 'false'));
     
-    
+    public function __construct() {
+        $this->addCommonOptions('align shadow');
+    }
+
+    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }
+    public function getPType() { return 'normal'; }
+        
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClassString($data, array('size'), 'btn-group-');
+        $classes = $this->buildClass($data, array('size', 'vertical'));
 
-        $class = 'btn-group';
-        if(array_key_exists('vertical', $data) && $data['vertical'] != false) $class = 'btn-group-vertical';
-
-        $renderer->doc .= '<div class="' . $class . ' ' . $classes . '" role="group">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'button-group' . $classes . '" role="group">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'button-group-inner" role="group">';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '</div>'; 
+        $renderer->doc .= '</div></div>'; 
     }
 }
 ?>

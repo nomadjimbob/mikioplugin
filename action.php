@@ -8,6 +8,8 @@
  */
  
 if(!defined('DOKU_INC')) die();
+
+require_once('icons/icons.php');
  
 class action_plugin_mikioplugin extends DokuWiki_Action_Plugin {
 
@@ -17,21 +19,30 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin {
 
 	public function _load(Doku_Event $event, $param) {
 		global $conf;
+        global $MIKIO_ICONS;
 
         $baseDir = DOKU_BASE.'lib/plugins' . str_replace(dirname(dirname(__FILE__)), '', dirname(__FILE__)) . '/';
         $stylesheets = [];
         $scripts = [];
 
-        if($conf['template'] !== 'mikio') {
-            if($this->getConf('loadBootstrap')) {
-                $stylesheets[]  = $baseDir . 'css/bootstrap.min.css';
-                $scripts[]      = $baseDir . 'js/bootstrap.min.css';
-                $scripts[]      = $baseDir . 'js/popper.min.css';
-            }
+        if(is_array($MIKIO_ICONS)) {
+            $icons = Array();
+            foreach($MIKIO_ICONS as $icon) {
+                if(isset($icon['name']) && isset($icon['css']) && isset($icon['insert'])) {
+                    $icons[] = $icon;
 
-            if($this->getConf('loadFontAwesome')) {
-                $stylesheets[]  = $baseDir . 'css/fontawesome.min.css';
+                    if($icon['css'] != '') {
+                        if(strpos($icon['css'], '//') === FALSE) {
+                            $stylesheets[] = $baseDir . 'icons/' . $icon['css'];
+                        } else {
+                            $stylesheets[] = $icon['css'];
+                        }
+                    }
+                }
             }
+            $MIKIO_ICONS = $icons;
+        } else {
+            $MIKIO_ICONS = [];
         }
 
         foreach ($stylesheets as $style) {

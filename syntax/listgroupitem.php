@@ -1,34 +1,42 @@
 <?php
 /**
- * Mikio Syntax Plugin: List Group
+ * Mikio Syntax Plugin: List Group Item
  *
- * Syntax:  <LISTGROUP-ITEM [active] [disabled]></LISTGROUP-ITEM>
- * 
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     James Collins <james.collins@outlook.com.au>
+ * @link        http://github.com/nomadjimbob/mikioplugin
+ * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author      James Collins <james.collins@outlook.com.au>
  */
- 
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_listgroupitem extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'listgroup-item';
+    public $hasEndTag           = true;
     public $options             = array(
-        'active',
-        'disabled',
-        'type' => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark')
+        'active'            => array('type' => 'boolean',   'default'   => 'false'),
+        'disabled'          => array('type' => 'boolean',   'default'   => 'false'),
+        'url'               => array('type' => 'url',       'default'   => ''),
+        'content-vertical'  => array('type' => 'boolean',   'default'   => 'false'),
     );
+
+    public function __construct() {
+        $this->addCommonOptions('type text-align');
+    }
     
+    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }
+    public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClassString($data, array('active', 'disabled', 'type'), array('list-group-item-' => array('type')));
+        $classes = $this->buildClass($data, array('active', 'disabled', 'content-vertical'));
 
-        $renderer->doc .= '<li class="list-group-item' . $classes . '">';
+        $renderer->doc .= '<li class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group-item' . $classes . '">';
+        if($data['url'] != '') $renderer->doc .= '<a href="' . $data['url'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group-item-link">';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
+        if($data['url'] != '') $renderer->doc .= '</a>';
         $renderer->doc .= '</li>'; 
     }
 }
