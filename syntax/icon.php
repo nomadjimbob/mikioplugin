@@ -16,7 +16,9 @@ class syntax_plugin_mikioplugin_icon extends syntax_plugin_mikioplugin_core {
     public $hasEndTag           = false;
     
     // not declaring $options will return all options in the $data variable in lexer functions
-    
+    public function getType() { return 'substition'; }
+    public function getPType() { return 'normal'; }
+
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
         global $MIKIO_ICONS;
 
