@@ -15,6 +15,7 @@ class syntax_plugin_mikioplugin_alert extends syntax_plugin_mikioplugin_core {
     public $hasEndTag           = true;
     public $options             = array(
         'dismissible'   => array('type'     => 'boolean',   'default'   => 'false'),
+        'icon'          => array('type'     => 'text',      'default'   => ''),
     );
     
     public function __construct() {
@@ -31,6 +32,14 @@ class syntax_plugin_mikioplugin_alert extends syntax_plugin_mikioplugin_core {
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert ' . $classes . '" role="alert"' . $styles . '>';
 
+        if($data['icon'] != '') {
+            $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert-icon">';
+            $this->syntaxRender($renderer, 'icon', '', array_flip(explode(' ', $data['icon'])), MIKIO_LEXER_SPECIAL);
+            $renderer->doc .= '</div>';
+        }
+
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert-content">';
+
         if($data['dismissible'] == true) {
             $renderer->doc .= '<a href="#" class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert-close">&times;</a>';
         }
@@ -38,7 +47,7 @@ class syntax_plugin_mikioplugin_alert extends syntax_plugin_mikioplugin_core {
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '</div>'; 
+        $renderer->doc .= '</div></div>'; 
     }
 }
 ?>

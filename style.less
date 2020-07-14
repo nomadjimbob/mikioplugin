@@ -497,56 +497,68 @@
     }
 
     .mikiop-alert {
-        position: relative;
+        .display-flex;
+        .flex-direction(row);
+        ._mikiop-alert-types;
+        ._mikiop-shadows;
         padding: .75em 1.25em;
         margin-bottom: 1em;
         border: 1px solid transparent;
         border-radius: .25em;
+        position: relative;
 
-        ._mikiop-alert-types;
-        ._mikiop-shadows;
-        ._mikiop-text-align;
-        ._mikiop-align;
-
-        span.curid a, a {
-            text-decoration: none;
-            color: inherit;
-            font-weight: 700;
-
-            &:hover {
-                text-decoration: underline;
-            }
+        .mikiop-alert-icon {
+            padding-right: .5em;
         }
 
-        p:last-child {
-            margin-bottom: 0;
+        &.mikiop-dismissible .mikiop-alert-content {
+            padding-right: 2em;
         }
 
-        .mikiop-alert-close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: .5em .75em;
-            background-color: transparent;
-            border: 0;
-            font-size: 1.5em;
-            font-weight: 700;
-            line-height: 1;
-            opacity: .5;
-            text-decoration: none;
-            transition: all .15s ease-in-out;
+        .mikiop-alert-content {
+            ._mikiop-text-align;
+            ._mikiop-align;
 
-            &:hover {
-                opacity: 1;
+            span.curid a, a {
                 text-decoration: none;
-            }
-        }
-
-        ul {
-            list-style: disc;
-
-            li, .li {
                 color: inherit;
+                font-weight: 700;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+
+            .mikiop-alert-close {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: .5em .75em;
+                background-color: transparent;
+                border: 0;
+                font-size: 1.5em;
+                font-weight: 700;
+                line-height: 1;
+                opacity: .5;
+                text-decoration: none;
+                transition: all .15s ease-in-out;
+
+                &:hover {
+                    opacity: 1;
+                    text-decoration: none;
+                }
+            }
+
+            ul {
+                list-style: disc;
+
+                li, .li {
+                    color: inherit;
+                }
             }
         }
     }
