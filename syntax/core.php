@@ -467,8 +467,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     */
     public function buildLink($url)
     {
+        return $url;
+
         $i = strpos($url, '://');
-        if ($i !== FALSE) return $url;
+        if ($i !== FALSE || substr($url, 0, 1) == '#') return $url;
 
         return wl($url);
     }
