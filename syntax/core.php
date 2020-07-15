@@ -539,6 +539,21 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     }
 
 
+    protected function callMikioOptionDefault($className, $option) {
+        $className = 'syntax_plugin_mikioplugin_'.$className;
+
+        if(class_exists($className)) {
+            $class = new $className;
+
+            if(array_key_exists($option, $class->options) && array_key_exists('default', $class->options[$option])) {
+                return $class->options[$option]['default'];
+            }
+        }
+
+        return '';
+    }
+
+
     protected function buildTooltip($text) {
         if($text != '') {
             return ' data-tooltip="' . $text . '"';

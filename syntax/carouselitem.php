@@ -26,6 +26,11 @@ class syntax_plugin_mikioplugin_carouselitem extends syntax_plugin_mikioplugin_c
         'delay'                     => array('type' => 'float',    'default'   =>'4.5'),
     );
     
+    public function __construct() {
+        $this->options['placeholder-color']['default'] = $this->callMikioOptionDefault('placeholder', 'color');
+        $this->options['placeholder-text-color']['default'] = $this->callMikioOptionDefault('placeholder', 'text-color');
+    }
+
     
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('active'), '');
