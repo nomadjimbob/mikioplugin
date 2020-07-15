@@ -643,7 +643,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                         }
                     }
 
-                    $this->cleanOptions($item['options'], $options);
+                    $item['options'] = $this->cleanOptions($item['options'], $options);
 
                     $items[] = $item;
                 }
