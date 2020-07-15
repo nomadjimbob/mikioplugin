@@ -273,6 +273,175 @@ jQuery().ready(function () {
         }
     });
 
+    // Quiz
+    jQuery('.mikiop-quiz').each(function () {
+        jQuery(this).find('.mikiop-quiz-button-prev').attr('disabled', true);
+        jQuery(this).find('.mikiop-quiz-result').hide();
+
+        var status = jQuery(this).attr('data-status');
+        status = status.replace('$1', '1');
+        status = status.replace('$2', jQuery(this).children('.mikiop-quiz-item').length);
+        jQuery(this).find('.mikiop-quiz-status-text').html(status);
+
+        if (jQuery(this).children('.mikiop-quiz-item').length == 1) {
+            jQuery(this).find('.mikiop-quiz-button-next').attr('disabled', true);    
+        }
+
+        jQuery(this).children('.mikiop-quiz-item').not(':first-child').hide();
+
+    });
+
+    jQuery('.mikiop-quiz-button-prev').on('click', function (event) {
+        var parent = jQuery(this).closest('.mikiop-quiz');
+        var questions = parent.children('.mikiop-quiz-item');
+        parent.find('.mikiop-quiz-button-next').attr('disabled', false);
+
+        for (var i = 0; i < questions.length; i++) {
+            if (jQuery(questions[i]).is(':visible')) {
+                i--;
+
+                if (i <= 0) {
+                    jQuery(this).attr('disabled', true);
+                }
+
+                jQuery(questions[i + 1]).hide();
+                jQuery(questions[i]).show();
+                parent.find('.mikiop-quiz-status-number').html(i + 1);
+
+                var status = parent.attr('data-status');
+                status = status.replace('$1', i + 1);
+                status = status.replace('$2', parent.children('.mikiop-quiz-item').length);
+                parent.find('.mikiop-quiz-status-text').html(status);
+        
+                break;
+            }
+        }
+    });
+
+    jQuery('.mikiop-quiz-button-next').on('click', function (event) {
+        var parent = jQuery(this).closest('.mikiop-quiz');
+        var questions = parent.children('.mikiop-quiz-item');
+        parent.find('.mikiop-quiz-button-prev').attr('disabled', false);
+
+        for (var i = 0; i < questions.length; i++) {
+            if (jQuery(questions[i]).is(':visible')) {
+                i++;
+
+                if (i >= questions.length - 1) {
+                    jQuery(this).attr('disabled', true);
+                }
+
+                jQuery(questions[i - 1]).hide();
+                jQuery(questions[i]).show();
+
+                var status = parent.attr('data-status');
+                status = status.replace('$1', i + 1);
+                status = status.replace('$2', parent.children('.mikiop-quiz-item').length);
+                parent.find('.mikiop-quiz-status-text').html(status);
+
+                break;
+            }
+        }
+    });
+    
+    jQuery('.mikiop-quiz-button-submit').on('click', function (event) {
+        var parent = jQuery(this).closest('.mikiop-quiz');
+        var questions = parent.children('.mikiop-quiz-item');
+        var correct = 0;
+        var result = '<div class="mikiop-quiz-question">Result</div>';
+
+        parent.find('.mikiop-quiz-button-prev').attr('disabled', true);
+        parent.find('.mikiop-quiz-button-next').attr('disabled', true);
+        parent.find('.mikiop-quiz-button-submit').attr('disabled', true);
+        parent.find('.mikiop-quiz-status-text').html('');
+
+        for (var i = 0; i < questions.length; i++) {
+            var question = jQuery(questions[i]).attr('data-question');
+            var answer = jQuery(questions[i]).attr('data-answer');
+
+            result += '<p><strong>' + question + '</strong><br>';
+
+            var value = jQuery(questions[i]).find("input:radio:checked").val();
+            if (typeof value == 'undefined') {
+                result += 'Not answered';
+            } else {
+                result += value + ' - ';
+
+                if (answer.localeCompare(value) == 0) {
+                    correct++;
+                    result += 'Correct';
+                } else {
+                    result += 'Incorrect';
+                }
+            }
+            
+            result += '</p>';
+
+            jQuery(questions[i]).hide();
+        }
+
+        var status = parent.attr('data-result');
+        status = status.replace('$1', correct);
+        status = status.replace('$2', questions.length);
+        result += '<p>' + status + '</p>';
+
+        parent.find('.mikiop-quiz-result').html(result).show();
+    });
+
+    // Pagenation
+    var pages = jQuery('.mikiop-pagenation').find('li');
+    if (pages.length > 0) {
+        var active = -1;
+        var found = -1;
+        var location = window.location.pathname + window.location.search;
+
+        if (window.location.search == '') {
+            location += '?id=start';
+        }
+
+        for (i = 1; i < pages.length - 1; i++) {
+            if (jQuery(pages[i]).hasClass('mikiop-active')) {
+                if (active != -1) {
+                    jQuery(pages[i]).removeClass('mikiop-active')
+                } else {
+                    active = i;
+                }
+            }
+
+            var link = jQuery(pages[i]).find('a').attr('href');
+            link = link.replace('id=:', 'id=');
+
+            if (location.localeCompare(link) == 0) {
+                found = i;
+            }
+        }
+
+        if (active == -1 && found != -1) {
+            active = found;
+            jQuery(pages[found]).addClass('mikiop-active');
+        }
+
+        if (active != -1) {
+            if (active == 1) {
+                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
+            } else {
+                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').find('a').attr('href', jQuery(pages[active - 1]).find('a').attr('href'));
+            }
+
+            if (active == pages.length - 2) {
+                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+            } else {
+                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').find('a').attr('href', jQuery(pages[active + 1]).find('a').attr('href'));
+            }
+        } else {
+            jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
+            jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+        }
+    } else {
+        jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
+        jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+    }
+
     jQuery('.mikiop-box').on('mouseenter', function () {
         jQuery(this).children('.mikiop-reveal').fadeOut();
     });
@@ -282,7 +451,6 @@ jQuery().ready(function () {
     });
 
     jQuery('.mikiop-collapse').hide();
-
 });
 
 

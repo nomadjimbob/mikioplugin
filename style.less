@@ -1140,6 +1140,61 @@
         }
     }
 
+    .mikiop-pagenation {
+        text-align: center;
+
+        .mikiop-pagenation-inner {
+            display: inline-block;
+            list-style: none;
+            padding-left: 0;
+
+            .mikiop-pagenation-item {
+                display: inline-block;
+                padding: 0;
+                border: 1px solid #dee2e6;
+                border-radius: .25em;
+
+                a {
+                    padding: .5em .75em;
+                    color: #007bff;
+                    text-decoration: none;
+                    display: block;
+
+                    &:hover {
+                        text-decoration: none;
+                        background-color: #e9ecef;
+                    }
+
+                }
+
+                &:not(:last-child) {
+                    border-right-width: 0;
+                    border-bottom-right-radius: 0;
+                    border-top-right-radius: 0;
+                }
+
+                &:not(:first-child) {
+                    border-bottom-left-radius: 0;
+                    border-top-left-radius: 0;
+                }
+
+                &.mikiop-active {
+                    a {
+                        background-color: #007bff;
+                        color: #fff;
+                    }
+                }
+
+                &.mikiop-disabled {
+                    a {
+                        pointer-events: none;
+                        color: #6c757d;
+                    }
+                }
+            }
+        }
+    }
+
     .mikiop-placeholder {
         display: flex;
 
