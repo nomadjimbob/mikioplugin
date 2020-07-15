@@ -609,12 +609,18 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     * @param $tagName       tagName to search for. Name is exclusive
     * @param $content       search within content
     * @param $options       parse options similar to syntax element options
+    * @param $hasEndTag     tagName search also looks for an end tag
     * @return               array of tags containing 'options' => array of 'name' => 'value', 'content' => content inside the tag
     */
-    protected function findTags($tagName, $content, $options) {
+    protected function findTags($tagName, $content, $options, $hasEndTag = true) {
         $items = array();
+        $search = '/<(?i:' . $tagName . ')(.*?)>(.*?)<\/(?i:' . $tagName . ')>/s';
 
-        if(preg_match_all('/<(?i:' . $tagName . ')(.*?)>(.*?)<\/(?i:' . $tagName . ')>/s', $content, $match)) {
+        if(!$hasEndTag) {
+            $search = '/<(?i:' . $tagName . ')(.*?)>/s';
+        }
+
+        if(preg_match_all($search, $content, $match)) {
             if(count($match) >= 2) {
                 for($i = 0; $i < count($match[1]); $i++) {
                     $item = array('options' => array(), 'content' => $this->render_text($match[2][$i]));
