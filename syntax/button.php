@@ -23,7 +23,7 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
         'block'         => array('type'     => 'boolean',   'default'   => 'false'),
         'active'        => array('type'     => 'boolean',   'default'   => 'false'),
         'disabled'      => array('type'     => 'boolean',   'default'   => 'false'),    // also supports prefix => ''
-        'url'           => array('type'     => 'text',      'default'   => ''),
+        'url'           => array('type'     => 'url',       'default'   => ''),
         'target'        => array('type'     => 'text',      'default'   => ''),
         'newtab'        => array('type'     => 'set',       'option'    => 'target',    'data'  => '_blank'),
         'collapse-id'   => array('type'     => 'text',      'default'   => ''),
