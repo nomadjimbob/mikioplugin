@@ -27,7 +27,7 @@ class syntax_plugin_mikioplugin_listgroup extends syntax_plugin_mikioplugin_core
 
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('flush', 'horizontal'));
-        $styles = $this->buildStyle($data, array('width' => $data['width']), TRUE);
+        $styles = $this->buildStyle(array('width' => $data['width']), TRUE);
 
         $renderer->doc .= '<ul class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group ' . $classes . '"' . $styles . '>';
     }
