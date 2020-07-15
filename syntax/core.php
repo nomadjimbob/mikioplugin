@@ -310,16 +310,18 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     * @param $options       options of syntax element. Options with key 'class'=true are automatically added
     * @param $classes       classes to build from options as array
     * @param $inclAttr      include class="" in the return string
+    * @param $optionsTemplate   allow a different options template instead of $this->options (for findTags)
     * @return               a string of classes from options/classes variable
     */
-    public function buildClass($options = null, $classes = null, $inclAttr = false)
+    public function buildClass($options = null, $classes = null, $inclAttr = false, $optionsTemplate = null)
     {
         $s = array();
 
         if (is_array($options)) {
             if($classes == null) $classes = array();
+            if($optionsTemplate == null) $optionsTemplate = $this->options;
 
-            foreach($this->options as $key => $value) {
+            foreach($optionsTemplate as $key => $value) {
                 if(array_key_exists('class', $value) && $value['class'] == TRUE) {
                     array_push($classes, $key);
                 }
@@ -329,8 +331,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                 if (array_key_exists($class, $options) && $options[$class] !== FALSE && $options[$class] != '') {
                     $prefix = $this->classPrefix;
 
-                    if (array_key_exists($class, $this->options) && array_key_exists('prefix', $this->options[$class])) {
-                        $prefix .= $this->options[$class]['prefix'];
+                    if (array_key_exists($class, $optionsTemplate) && array_key_exists('prefix', $optionsTemplate[$class])) {
+                        $prefix .= $optionsTemplate[$class]['prefix'];
                     }
 
                     $s[] = $prefix . $class . ($options[$class] !== TRUE ? '-' . $options[$class] : '');
