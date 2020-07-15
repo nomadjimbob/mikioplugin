@@ -442,6 +442,7 @@ jQuery().ready(function () {
         jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
     }
 
+    // Reveal
     jQuery('.mikiop-box').on('mouseenter', function () {
         jQuery(this).children('.mikiop-reveal').fadeOut();
     });
@@ -449,6 +450,21 @@ jQuery().ready(function () {
     jQuery('.mikiop-box').on('mouseleave', function () {
         jQuery(this).children('.mikiop-reveal').fadeIn();
     });
+
+    // Tooltip
+    jQuery('.mikiop-tooltip').hover(function (event) {
+        jQuery('<div class="mikiop-tooltip-banner">' + jQuery(this).attr('data-tooltip') + '</div>').appendTo('body');
+        }, function () {
+            jQuery('.mikiop-tooltip-banner').remove();
+    });
+   
+    jQuery('.mikiop-tooltip').on('mousemove', function (event) {
+        var moveLeft = 20;
+        var moveDown = 10;
+        jQuery('.mikiop-tooltip-banner').css('top', event.pageY + moveDown).css('left', event.pageX + moveLeft);
+    });
+   
+   
 
     jQuery('.mikiop-collapse').hide();
 });

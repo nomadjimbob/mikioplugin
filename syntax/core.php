@@ -335,7 +335,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                         $prefix .= $optionsTemplate[$class]['prefix'];
                     }
 
-                    $s[] = $prefix . $class . ($options[$class] !== TRUE ? '-' . $options[$class] : '');
+                    if (array_key_exists($class, $optionsTemplate) && array_key_exists('classNoSuffix', $optionsTemplate[$class]) && $optionsTemplate[$class]['classNoSuffix'] == TRUE) {
+                        $s[] = $prefix . $class;
+                    } else {
+                        $s[] = $prefix . $class . ($options[$class] !== TRUE ? '-' . $options[$class] : '');
+                    }
                 }
             }
 
@@ -475,11 +479,6 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         return wl($url);
     }
 
-
-
-
-  
-
     /*
     * Call syntax renderer of mikio syntax plugin
     *
@@ -524,6 +523,28 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                     break;
             }
         }
+    }
+
+
+    protected function callMikioSyntaxTag($className, $data) {
+        $className = 'syntax_plugin_mikioplugin_'.$className;
+
+        if(class_exists($className)) {
+            $class = new $className;
+
+            if(method_exists($class, 'render_lexer_enter')) $class->call($data);
+        }
+
+        return '';
+    }
+
+
+    protected function buildTooltip($text) {
+        if($text != '') {
+            return ' data-tooltip="' . $text . '"';
+        }
+
+        return '';
     }
 
     /*
@@ -601,6 +622,13 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                                           'default'  => '',
                                                           'class'    => true);
             }
+
+            if(strcasecmp($type, 'tooltip') == 0) {
+                $this->options['tooltip'] =         array('type'     => 'text',
+                                                          'default'  => '',
+                                                          'class'    => true,
+                                                          'classNoSuffix'   => true);
+            }            
         }
     }
 
