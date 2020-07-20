@@ -16,10 +16,21 @@ class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
         'size'          =>  array('type'    => 'choice',
                                   'data'    => array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'),
                                   'default' => ''),
+        'border-color'  => array('type'     => 'color', 'default'   => ''),
+        'border-width'  => array('type'     => 'multisize',  'default'   => ''),
+        'padding'       => array('type'     => 'multisize',  'default'   => ''),
+        'margin'       => array('type'     => 'multisize',  'default'   => ''),
     );
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'col ' . ($data['size'] != '' ? $this->classPrefix . 'col-' . $data['size'] : '') . '">';
+        $styles = $this->buildStyle(array(
+            'border-color'  => $data['border-color'],
+            'border-width'  => $data['border-width'],
+            'padding'       => $data['padding'],
+            'margin'        => $data['margin'],
+        ), TRUE);
+
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'col ' . ($data['size'] != '' ? $this->classPrefix . 'col-' . $data['size'] : '') . '"' . $styles . '>';
     }
 
 

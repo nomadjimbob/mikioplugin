@@ -14,8 +14,15 @@ class syntax_plugin_mikioplugin_cardbody extends syntax_plugin_mikioplugin_core 
     public $tag                 = 'card-body';
     public $hasEndTag           = true;
     
+    public function __construct() {
+        $this->addCommonOptions('text-color vertical-align');
+    }
+
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-body">';
+        $classes = $this->buildClass($data);
+        $styles = $this->buildStyle(array('color' => $data['text-color']), TRUE);
+
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-body' . $classes . '"' . $styles . '>';
     }
 
 

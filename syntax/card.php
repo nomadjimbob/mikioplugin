@@ -34,7 +34,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     
 
     public function __construct() {
-        $this->addCommonOptions('type shadow width height text-align');
+        $this->addCommonOptions('type shadow width height text-align vertical-align text-color');
     }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
@@ -53,7 +53,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         
         if($data['header'] != '') $this->syntaxRender($renderer, 'cardheader', $data['header']);
 
-        if($data['no-body'] == FALSE) $this->syntaxRender($renderer, 'cardbody', '', null, MIKIO_LEXER_ENTER);
+        if($data['no-body'] == FALSE) $this->syntaxRender($renderer, 'cardbody', '', $this->arrayRemoveEmpties(array('vertical-align' => $data['vertical-align'], 'text-color' => $data['text-color'])), MIKIO_LEXER_ENTER);
         
         if($data['title'] != '') $this->syntaxRender($renderer, 'cardtitle', $data['title']);
         if($data['subtitle'] != '') $this->syntaxRender($renderer, 'cardsubtitle', $data['subtitle']);

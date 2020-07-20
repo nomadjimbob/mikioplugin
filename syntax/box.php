@@ -14,28 +14,97 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'box';
     public $hasEndTag           = true;
     public $options             = array(
+        'attr'          => array('type'     => 'text'),
         'round'         => array('type'     => 'size',  'default'   => '0'),
         'border-color'  => array('type'     => 'color', 'default'   => ''),
-        'border-width'  => array('type'     => 'size',  'default'   => ''),
+        'border-width'  => array('type'     => 'multisize',  'default'   => ''),
         'reveal'        => array('type'     => 'boolean', 'default' => 'false'),
         'reveal-text'   => array('type'     => 'text',  'default'   => 'Reveal'),
+        'url'           => array('type'     => 'url',       'default'   => ''),
+        'color'         => array('type'    => 'color',    'default' => ''),
+        'padding'       => array('type'     => 'multisize',  'default'   => ''),
+        'margin'       => array('type'     => 'multisize',  'default'   => ''),
+        'grid-row'          => array('type' => 'text'),
+        'grid-row-start'    => array('type' => 'number'),
+        'grid-row-end'      => array('type' => 'number'),
+        'grid-row-span'     => array('type' => 'number'),
+        'grid-col'          => array('type' => 'text'),
+        'grid-col-start'    => array('type' => 'number'),
+        'grid-col-end'      => array('type' => 'number'),
+        'grid-col-span'     => array('type' => 'number'),
     );
 
     public function __construct() {
-        $this->addCommonOptions('width height type shadow text-align');
+        $this->addCommonOptions('width height type shadow text-align links-match');
     }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $classes = $this->buildClass($data);
-        $styles = $this->buildStyle(array('width' => $data['width'], 'height' => $data['height'], 'border-radius' => $data['round'], 'border-color' => $data['border-color'], 'border-width' => $data['border-width']), TRUE);
+        if($data['attr'] != '') {
+            $data = array_merge($data, $this->callMikioTag('setattr', $data['attr']));
+            // echo '#' . $this->callMikioTag('setattr', $data['attr']) . '#';
+        }
 
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'box'. $classes .'"' . $styles. '>';
+        $tag = 'div';
+        if($data['url'] != '') $tag = 'a';
+
+        if($data['grid-row-span'] != '') $data['grid-row-end'] = 'span ' . $data['grid-row-span'];
+        if($data['grid-col-span'] != '') $data['grid-col-end'] = 'span ' . $data['grid-col-span'];
+
+        if($data['grid-row'] != '') {
+            $parts = explode(' ', $data['grid-row']);
+            $i = count($parts);
+            if($i == 2 || $i == 3) {
+                $data['grid-row-start'] = filter_var($parts[0], FILTER_VALIDATE_INT);
+            }
+
+            if($i == 2) {
+                $data['grid-row-end'] = filter_var($parts[1], FILTER_VALIDATE_INT);
+            } else {
+                $data['grid-row-end'] = strtolower($parts[1]) . ' ' . filter_var($parts[2], FILTER_VALIDATE_INT);
+            }
+        }
+
+        if($data['grid-col'] != '') {
+            $parts = explode(' ', $data['grid-col']);
+            $i = count($parts);
+            if($i == 2 || $i == 3) {
+                $data['grid-col-start'] = filter_var($parts[0], FILTER_VALIDATE_INT);
+            }
+
+            if($i == 2) {
+                $data['grid-col-end'] = filter_var($parts[1], FILTER_VALIDATE_INT);
+            } else {
+                $data['grid-col-end'] = strtolower($parts[1]) . ' ' . filter_var($parts[2], FILTER_VALIDATE_INT);
+            }
+        }
+
+        $classes = $this->buildClass($data);
+        $styles = $this->buildStyle(array(
+            'width'         => $data['width'],
+            'height'        => $data['height'],
+            'border-radius' => $data['round'],
+            'border-color'  => $data['border-color'],
+            'border-width'  => $data['border-width'],
+            'color'         => $data['color'],
+            'padding'       => $data['padding'],
+            'margin'        => $data['margin'],
+            'grid-row-start'    => $data['grid-row-start'],
+            'grid-row-end'      => $data['grid-row-end'],
+            'grid-col-start'    => $data['grid-col-start'],
+            'grid-col-end'      => $data['grid-col-end'],
+            
+        ), TRUE);
+
+        $renderer->doc .= '<' . $tag . ($data['url'] != '' ? ' href="' . $data['url'] . '"' : '') . ' class="' . $this->elemClass . ' ' . $this->classPrefix . 'box'. $classes .'"' . $styles. '>';
         if($data['reveal']) $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'reveal">' . $data['reveal-text'] . '</div>';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '</div>'; 
+        $tag = 'div';
+        if($data['url'] != '') $tag = 'a';
+
+        $renderer->doc .= '</' . $tag . '>'; 
     }
 }
 ?>
