@@ -21,12 +21,17 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core 
         'controls'      => array('type'     => 'boolean',   'default'   => 'true'),
         'start'         => array('type'     => 'boolean',   'default'   => 'false'),
     );
+
+    public function __construct() {
+        $this->addCommonOptions('height');
+    }
     
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('transition'));
+        $styles = $this->buildStyle(array('height' => $data['height']), TRUE);
 
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel' . $classes . '" data-auto-start="' . ($data['start'] ? 'true' : 'false') . '">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel' . $classes . '" data-auto-start="' . ($data['start'] ? 'true' : 'false') . '"' . $styles . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-inner">';
     }
 
