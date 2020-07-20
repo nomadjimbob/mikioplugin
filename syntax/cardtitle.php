@@ -14,6 +14,8 @@ class syntax_plugin_mikioplugin_cardtitle extends syntax_plugin_mikioplugin_core
     public $tag                 = 'card-title';
     public $hasEndTag           = true;
     
+    public function getPType() { return 'normal'; }
+    
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-title">';
     }

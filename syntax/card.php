@@ -37,6 +37,8 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         $this->addCommonOptions('type shadow width height text-align vertical-align text-color');
     }
     
+    public function getPType() { return 'normal'; }
+    
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('overlay', 'horizontal'));
         $styles = $this->buildStyle(array('height' => $data['height'], 'width' => $data['width']), TRUE);

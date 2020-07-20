@@ -22,6 +22,8 @@ class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
         'margin'       => array('type'     => 'multisize',  'default'   => ''),
     );
     
+    public function getPType() { return 'normal'; }
+    
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = $this->buildStyle(array(
             'border-color'  => $data['border-color'],

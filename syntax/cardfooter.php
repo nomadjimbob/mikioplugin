@@ -17,6 +17,8 @@ class syntax_plugin_mikioplugin_cardfooter extends syntax_plugin_mikioplugin_cor
         'small'         => array('type' => 'boolean',   'default'   => 'false')
     );
     
+    public function getPType() { return 'normal'; }
+    
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-footer">';
         if($data['small'] != FALSE) $renderer->doc .= '<small>';

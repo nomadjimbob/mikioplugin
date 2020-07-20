@@ -18,6 +18,8 @@ class syntax_plugin_mikioplugin_cardbody extends syntax_plugin_mikioplugin_core 
         $this->addCommonOptions('text-color vertical-align');
     }
 
+    public function getPType() { return 'normal'; }
+    
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array('color' => $data['text-color']), TRUE);
