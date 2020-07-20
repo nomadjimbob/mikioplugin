@@ -91,8 +91,8 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
             'margin'        => $data['margin'],
             'grid-row-start'    => $data['grid-row-start'],
             'grid-row-end'      => $data['grid-row-end'],
-            'grid-col-start'    => $data['grid-col-start'],
-            'grid-col-end'      => $data['grid-col-end'],
+            'grid-column-start'    => $data['grid-col-start'],
+            'grid-column-end'      => $data['grid-col-end'],
             
         ), TRUE);
 
