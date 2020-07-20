@@ -194,6 +194,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                         $i = substr($s, 0, -2);
                                         $s = 'px';
                                     }
+                                    elseif (substr($s, -2) == 'fr') {
+                                        $i = substr($s, 0, -2);
+                                        $s = 'fr';
+                                    }
                                     elseif (substr($s, -1) == '%') {
                                         $i = substr($s, 0, -1);
                                         $s = '%';
