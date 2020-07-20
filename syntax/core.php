@@ -168,13 +168,53 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                     $s = '%';
                                 }
                                 else {
-                                    $i = filter_var($s, FILTER_VALIDATE_INT);
-                                    if ($i == '') $i = '1';
-                                    $s = 'rem';
+                                    if($s != 'auto') {
+                                        $i = filter_var($s, FILTER_VALIDATE_INT);
+                                        if ($i == '') $i = '1';
+                                        $s = 'rem';
+                                    }
                                 }
 
                                 $optionsCleaned[$syntaxKey] = $i . $s;
                                 break;
+                            case 'multisize':
+                                $val = '';
+                                $parts = explode(' ', $optionValue);
+                                foreach($parts as &$part) {
+                                    $s = strtolower($part);
+                                    $i = '';
+                                    if (substr($s, -3) == 'rem') {
+                                        $i = substr($s, 0, -3);
+                                        $s = 'rem';
+                                    } elseif (substr($s, -2) == 'em') {
+                                        $i = substr($s, 0, -2);
+                                        $s = 'em';
+                                    }
+                                    elseif (substr($s, -2) == 'px') {
+                                        $i = substr($s, 0, -2);
+                                        $s = 'px';
+                                    }
+                                    elseif (substr($s, -1) == '%') {
+                                        $i = substr($s, 0, -1);
+                                        $s = '%';
+                                    }
+                                    else {
+                                        if($s != 'auto') {
+                                            $i = filter_var($s, FILTER_VALIDATE_INT);
+                                            if ($i === '') $i = '1';
+                                            if ($i != 0) {
+                                                $s = 'rem';
+                                            } else {
+                                                $s = '';
+                                            }
+                                        }
+                                    }
+
+                                    $part = $i . $s;
+                                }
+
+                                $optionsCleaned[$syntaxKey] = implode(' ' , $parts);
+                                break;    
                             case 'color':
                                 if (strlen($optionValue) == 3 || strlen($optionValue) == 6) {
                                     preg_match('/([[:xdigit:]]{3}){1,2}/', $optionValue, $matches);
@@ -194,6 +234,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                             case 'choice':
                                 if (array_key_exists('data', $options[$syntaxKey])) {
                                     foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
+                                        if (strcasecmp($optionValue, $choiceKey) == 0) {
+                                            $optionsCleaned[$syntaxKey] = $choiceKey;
+                                            break;
+                                        }
+                                        
                                         if (is_array($choiceValue)) {
                                             foreach ($choiceValue as $choiceItem) {
                                                 if (strcasecmp($optionValue, $choiceItem) == 0) {
@@ -495,10 +540,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         if(class_exists($className)) {
             $class = new $className;
 
-            if (!is_array($data)) $data = array();
+            if(!is_array($data)) $data = array();
+
 
             if(count($class->options) > 0) {
-                $data = $class->cleanOptions($data);
+                $data = $class->cleanOptions($data, $class->options);
             }
 
             switch($lexer) {
@@ -526,14 +572,22 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     }
 
 
-    protected function callMikioSyntaxTag($className, $data) {
-        $className = 'syntax_plugin_mikioplugin_'.$className;
+    protected function callMikioTag($className, $data) {
+        // $className = 'syntax_plugin_mikioplugin_'.$className;
 
-        if(class_exists($className)) {
-            $class = new $className;
 
-            if(method_exists($class, 'render_lexer_enter')) $class->call($data);
-        }
+        // if(class_exists($className)) {
+            //$class = new $className;
+            if(!plugin_isdisabled('mikioplugin')) {
+                $class = plugin_load('syntax', 'mikioplugin_' . $className);
+                // echo '^^'.$className.'^^';
+                
+
+                if(method_exists($class, 'mikioCall')) return $class->mikioCall($data);
+
+            }
+
+        // }
 
         return '';
     }
@@ -617,6 +671,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                                           'default'  => '');
             }
 
+            if(strcasecmp($type, 'text-color') == 0) {
+                $this->options['text-color'] =          array('type'      => 'color',
+                                                          'default'  => '');
+            }
+
             if(strcasecmp($type, 'type') == 0) {
                 $this->options['type'] =            array('type'     => 'choice',
                                                           'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
@@ -643,7 +702,21 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                                           'default'  => '',
                                                           'class'    => true,
                                                           'classNoSuffix'   => true);
-            }            
+            }
+
+            if(strcasecmp($type, 'vertical-align') == 0) {
+                $this->options['vertical-align'] =  array('type'    => 'choice',
+                                                          'data'    => array('top' => array('align-top'), 'middle' => array('align-middle'), 'bottom' => array('align-bottom')),
+                                                          'default' => '',
+                                                          'class'   => true);
+            }
+
+            if(strcasecmp($type, 'links-match') == 0) {
+                $this->options['links-match'] =     array('type'    => 'boolean',
+                                                          'default' => 'false',
+                                                          'class'   => true);
+            }
+
         }
     }
 
