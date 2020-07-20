@@ -17,6 +17,8 @@ class syntax_plugin_mikioplugin_grid extends syntax_plugin_mikioplugin_core {
         'rows'          => array('type'     => 'multisize'),
         'cols'           => array('type'     => 'multisize'),
     );
+
+    public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = $this->buildStyle(array(

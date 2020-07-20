@@ -10,7 +10,7 @@ if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
  
-class syntax_plugin_mikioplugin_color extends syntax_plugin_mikioplugin_core {
+class syntax_plugin_mikioplugin_text extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'text';
     public $hasEndTag           = true;
     public $options             = array(
@@ -22,7 +22,8 @@ class syntax_plugin_mikioplugin_color extends syntax_plugin_mikioplugin_core {
         'style'                 => array('type'    => 'text',     'default' => ''),
         'background-color'      => array('type'    => 'color',    'default' => ''),
         'line-height'           => array('type'    => 'float',    'default' => ''),
-        'text-decoration'       => array('type'    => 'text',     'default' => '1')
+        'text-decoration'       => array('type'    => 'text',     'default' => '1'),
+        'block'                 => array('type'    => 'boolean',    'default' => 'false'),
     );
 
     public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }
@@ -38,6 +39,7 @@ class syntax_plugin_mikioplugin_color extends syntax_plugin_mikioplugin_core {
             'background-color'  => $data['background-color'],
             'line-height'       => $data['line-height'],
             'text-decoration'   => $data['text-decoration'],
+            'display'           => ($data['block'] ? 'block' : 'inline-block'),
         ), TRUE);
         
         $renderer->doc .= '<span' . $styles . '>';

@@ -35,13 +35,14 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     );
 
     public function __construct() {
-        $this->addCommonOptions('width height type shadow text-align links-match');
+        $this->addCommonOptions('width height type shadow text-align links-match vertical-align');
     }
     
+    public function getPType() { return 'normal'; }
+
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         if($data['attr'] != '') {
             $data = array_merge($data, $this->callMikioTag('setattr', $data['attr']));
-            // echo '#' . $this->callMikioTag('setattr', $data['attr']) . '#';
         }
 
         $tag = 'div';
