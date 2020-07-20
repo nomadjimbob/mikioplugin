@@ -416,6 +416,20 @@
     }
 }
 
+._mikiop-vertical-align {
+    &.mikiop-vertical-align-top {
+        .justify-content(flex-start);
+    }
+
+    &.mikiop-vertical-align-middle {
+        .justify-content(center);
+    }
+
+    &.mikiop-vertical-align-bottom {
+        .justify-content(flex-end);
+    }
+}
+
 ._mikiop-nowrap {
     white-space: nowrap;
 }
@@ -453,6 +467,10 @@
 
 
 #dokuwiki__content {
+    .mikiop-links-match a {
+        color: inherit;
+    }
+
     .mikiop-accordian {
         border: 1px solid rgba(0,0,0,.125);
         border-radius: .25em;
@@ -622,7 +640,8 @@
 
     .mikiop-box {
         position: relative;
-        display: inline-block;
+        .display-flex;
+        .flex-direction(column);
         padding: 0 !important;
         border:1px solid transparent;
         margin-bottom: 1em;
@@ -656,6 +675,15 @@
             background-color: #868e96;
             color: #dee2e6;
             font-weight: 500;
+        }
+    }
+
+    a.mikiop-box {
+        text-decoration: none;
+        transition: all .15s ease-in-out;
+        
+        &:hover {
+            background-color: rgba(0,0,0,0.05);
         }
     }
 
@@ -768,9 +796,17 @@
         ._mikiop-text-align;
 
         .mikiop-card-body {
+            .display-flex;
             .flex(1 1 auto);
+            .flex-direction(column);
+            ._mikiop-vertical-align;
             min-height: 1px;
             padding: 1.25em;
+            box-sizing: border-box;
+
+            p {
+                margin-top: 0;
+            }
         }
 
         .mikiop-card-header {
@@ -820,6 +856,11 @@
             .mikiop-card-header, .mikiop-card-footer {
                 border: 0;
                 background-color: transparent;
+            }
+
+            .mikiop-card-body {
+                justify-content: center;
+                height: 100%;
             }
         }
 
@@ -992,9 +1033,14 @@
 
     .mikiop-col {
         .flex(1 0 0);
-        padding: 0 .75em;
+        .display-flex;
+        .flex-direction(column);
+        .justify-content(space-between);
+        margin: 0 .75em;
         box-sizing: border-box;
-
+        border-style: solid;
+        border-width: 0;
+    
         &.mikiop-col-1 { ._mikiop-col(8.333333%); }
         &.mikiop-col-2 { ._mikiop-col(16.666667%); }
         &.mikiop-col-3 { ._mikiop-col(25%); }
@@ -1015,6 +1061,15 @@
         &:last-child {
             padding-right: 0;
         }
+
+        .mikiop-card {
+            margin-bottom: 0;
+        }
+    }
+
+    .mikiop-grid {
+        display: grid;
+        box-sizing: border-box;
     }
 
     .mikiop-heading {
@@ -1249,7 +1304,9 @@
         .display-flex;
         // overflow-x: scroll;
 
-        padding: .75em 0;
+        margin: .75em 0;
+        border-style: solid;
+        border-width: 0;
 
         &:first-child {
             padding-top: 0;
@@ -1502,6 +1559,23 @@
             button {
                 margin-left: 1em;
             }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #dokuwiki__content {
+        .mikiop-row {
+            .flex-wrap(wrap);
+        }
+
+        .mikiop-col {
+            .flex(0 0 100%);
+            padding: 0;
+        }
+
+        .mikiop-grid {
+            grid-template-columns: 100% !important;
         }
     }
 }
