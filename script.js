@@ -117,7 +117,7 @@ jQuery().ready(function () {
 
     jQuery('.mikiop-carousel-control-next').on('click', function (event) {
         event.preventDefault();
-        var parent = elem.parent();
+        var parent = jQuery(this).parent();
 
         carouselNext(parent);
     });
