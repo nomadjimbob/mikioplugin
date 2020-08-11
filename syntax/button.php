@@ -43,7 +43,8 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
         $classes = $this->buildClass($data, array('size', 'block', 'active', 'disabled', 'nowrap'));
         $styles = $this->buildStyle(array('width' => $data['width']), TRUE);
 
-        $url = ($data['url'] != '' ? $this->buildLink($data['url']) : '#');
+        // $url = ($data['url'] != '' ? $this->buildLink($data['url']) : '#');
+        $url = $data['url'];
         $target = $data['target'];
         $collapse = $data['collapse-id'];
 
