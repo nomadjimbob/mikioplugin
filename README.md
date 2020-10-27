@@ -19,8 +19,8 @@ Download the [latest release](https://github.com/nomadjimbob/mikioplugin/release
 
   * DokuWiki Plugin Page: (http://dokuwiki.org/plugin:mikioplugin)
   * Download: (https://github.com/nomadjimbob/mikioplugin/releases/latest)
+  * Docs: (https://github.com/nomadjimbob/mikioplugin/wiki)
   * Donate: (https://www.ko-fi.com/nomadjimbob)
-  * Wiki: (https://github.com/nomadjimbob/mikioplugin/wiki)
   * License: (https://raw.githubusercontent.com/nomadjimbob/mikioplugin/master/LICENSE)
   
 ## Contributing
