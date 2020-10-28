@@ -509,7 +509,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         $i = strpos($url, '?');
         if ($i !== FALSE) $url = substr($url, 0, $i);
 
-        $url = preg_replace('/[^\da-zA-Z:_.]+/', '', $url);
+        $url = preg_replace('/[^\da-zA-Z:_.-]+/', '', $url);
 
         return (tpl_getMediaFile(array($url), FALSE));
     }
