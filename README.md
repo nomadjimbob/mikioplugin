@@ -31,4 +31,4 @@ directory of your DokuWiki installation.
   
 ## Contributing
 
-Any contributions are appreciated. Please feel free to reach out ot me at james.collins@outlook.com.au if you're interested in helping out with this project.
+Any contributions are appreciated. Please feel free to reach out to me at james.collins@outlook.com.au or on [Discord](https://discord.com/channels/@me/672393169517674506) if you're interested in helping out with this project.
