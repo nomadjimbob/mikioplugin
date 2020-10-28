@@ -20,6 +20,8 @@ Download the [latest release](https://github.com/nomadjimbob/mikioplugin/release
 
 directory of your DokuWiki installation.
 
+Sometimes GitHub releases change the name of the mikioplugin directory, so make sure that the directory is `mikioplugin` else you may see errors in DokuWiki.
+
 
 ## Links
 
