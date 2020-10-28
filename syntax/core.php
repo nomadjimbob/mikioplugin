@@ -76,7 +76,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         switch ($state) {
             case DOKU_LEXER_ENTER:
             case DOKU_LEXER_SPECIAL:
-                $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
+                $match_fix = preg_replace('/\s*=\s*/', '=', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
+                $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $match_fix);
 
                 $options = array();
                 foreach ($optionlist as $item) {
