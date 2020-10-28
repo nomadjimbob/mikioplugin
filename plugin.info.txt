@@ -1,8 +1,7 @@
-# General Plugin Info do not edit
 base   mikioplugin
 author James Collins
 email  james.collins@outlook.com.au
-date   2020-10-28
+date   2020-10-29
 name   Mikio plugin
 desc   Plugin that adds Bootstrap 4 and Mikio elements
 url    https://github.com/nomadjimbob/mikioplugin
