@@ -12,7 +12,13 @@ This plugin can be used by itself, however is designed to complement the [Mikio 
 
 ## Setting Up
 
-Download the [latest release](https://github.com/nomadjimbob/mikioplugin/releases/latest) and place it in the :file_folder: lib / :file_folder: plugins directory of your DokuWiki installation.
+Download the [latest release](https://github.com/nomadjimbob/mikioplugin/releases/latest) and place it in the\
+\
+:file_folder: dokuwiki\
+&nbsp;&nbsp;&nbsp;&nbsp;:file_folder: lib\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:file_folder: plugins
+
+directory of your DokuWiki installation.
 
 
 ## Links
