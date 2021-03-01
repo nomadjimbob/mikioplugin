@@ -37,6 +37,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         $this->addCommonOptions('type shadow width height text-align vertical-align text-color');
     }
     
+    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled', 'container'); }
     public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
