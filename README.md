@@ -9,7 +9,6 @@ Mikio Plugin adds a heap of layout and Bootstrap 4 elements that can be used on 
 
 This plugin can be used by itself, however is designed to complement the [Mikio DokuWiki theme](http://dokuwiki.org/template:mikio).
 
-
 ## Setting Up
 
 Download the [latest release](https://github.com/nomadjimbob/mikioplugin/releases/latest) and place it in the\
@@ -22,15 +21,20 @@ directory of your DokuWiki installation.
 
 Sometimes GitHub releases change the name of the mikioplugin directory, so make sure that the directory is `mikioplugin` else you may see errors in DokuWiki.
 
+## Releases
+
+- **_2021-03-02_**
+  - Fixed a dokuwiki rendering issue in card bodies [#7](https://github.com/nomadjimbob/mikioplugin/issues/7)
+  - Fixed a text alignment not being applied in alerts [#8](https://github.com/nomadjimbob/mikioplugin/issues/8)
 
 ## Links
 
-  * DokuWiki Plugin Page: (http://dokuwiki.org/plugin:mikioplugin)
-  * Download: (https://github.com/nomadjimbob/mikioplugin/releases/latest)
-  * Docs: (https://github.com/nomadjimbob/mikioplugin/wiki)
-  * Donate: (https://www.ko-fi.com/nomadjimbob)
-  * License: (https://raw.githubusercontent.com/nomadjimbob/mikioplugin/master/LICENSE)
-  
+- DokuWiki Plugin Page: (http://dokuwiki.org/plugin:mikioplugin)
+- Download: (https://github.com/nomadjimbob/mikioplugin/releases/latest)
+- Docs: (https://github.com/nomadjimbob/mikioplugin/wiki)
+- Donate: (https://www.ko-fi.com/nomadjimbob)
+- License: (https://raw.githubusercontent.com/nomadjimbob/mikioplugin/master/LICENSE)
+
 ## Contributing
 
-Any contributions are appreciated. Please feel free to reach out to me at james.collins@outlook.com.au or on [Discord](https://discord.com/channels/@me/672393169517674506) if you're interested in helping out with this project.
+Any contributions are appreciated. Please feel free to reach out to me at james.collins@outlook.com.au
