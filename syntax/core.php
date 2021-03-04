@@ -682,8 +682,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
 
             if(strcasecmp($type, 'type') == 0) {
-                $this->options['type'] =            array('type'     => 'choice',
-                                                          'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
+                $this->options['type'] =            array('type'     => 'text',
+                                                          // 'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
                                                           'default'  => '',
                                                           'class'    => true);
             }
