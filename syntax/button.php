@@ -14,9 +14,6 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'button';
     public $hasEndTag           = true;
     public $options             = array(
-        'type'          => array('type'     => 'choice',
-                                 'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
-                                 'default'  => 'primary'),
         'size'          => array('type'     => 'choice',
                                  'data'     => array('large'=> array('large', 'lg'), 'small' => array('small', 'sm')),
                                  'default'  => ''),
