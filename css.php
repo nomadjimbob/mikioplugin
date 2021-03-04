@@ -110,46 +110,27 @@ try {
         @require_once($lesscLib);
 
         if(isset($_GET['css'])) {
-            $baseDir = dirname(__FILE__) . '/';
-            $cssFile = realpath($baseDir . $_GET['css']);
+          $css = '';
+          $baseDir = dirname(__FILE__) . '/';
+          $cssFileList = explode(',', $_GET['css']);
+          foreach($cssFileList as $cssFileItem) {
+            $cssFile = realpath($baseDir . $cssFileItem);
 
             if(strpos($cssFile, $baseDir) === 0 && file_exists($cssFile)) {
-                $rawVars = Array();
-                $file = 'style.ini';
-                if(file_exists($file)) $rawVars = array_merge($rawVars, parse_ini_file($file, TRUE));
-
-                $file = '../../../conf/tpl/mikio/style.ini';
-                if(file_exists($file)) $rawVars = array_merge($rawVars, parse_ini_file($file, TRUE));
-
-                $css = file_get_contents($cssFile);
-
-                header('Content-Type: text/css; charset=utf-8');
-
-                $less = new lessc();
-                $less->setPreserveComments(false);
-                
-                $vars = Array();
-                if(isset($rawVars['replacements'])) {
-                    foreach($rawVars['replacements'] as $key=>$val) {
-                        if(substr($key, 0, 2) == '__' && substr($key, -2) == '__') {
-                            $vars['ini_' . substr($key, 2, -2)] = $val;
-                        }
-                    }
-                }
-
-                if(count($vars) > 0) {
-                    $less->setVariables($vars);
-                }
-                
-                $css = $less->compile($css);
-                echo $css;
-            } else {
-                header('HTTP/1.1 404 Not Found'); 
-                echo "The requested file could not be found";              
+              $css .= file_get_contents($cssFile);
             }
+          }
+          
+          header('Content-Type: text/css; charset=utf-8');
+
+          $less = new lessc();
+          $less->setPreserveComments(false);
+          
+          $css = $less->compile($css);
+          echo $css;          
         } else {
-            header('HTTP/1.1 404 Not Found'); 
-            echo "The requested file could not be found";              
+          header('HTTP/1.1 404 Not Found'); 
+          echo "The requested file could not be found";              
         }
     } else {
         throw new Exception('Lessc library not found');
