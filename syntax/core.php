@@ -130,6 +130,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         if($options == null) $options = $this->options;
 
+        file_put_contents('output.txt', print_r($data, true), FILE_APPEND);
+
         // Match DokuWiki passed options to syntax options
         foreach ($data as $optionKey => $optionValue) {
             foreach ($options as $syntaxKey => $syntaxValue) {
@@ -269,26 +271,18 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                     }
 
                     break;
-                } else {
-                    if (array_key_exists('type', $options[$syntaxKey]) && $options[$syntaxKey]['type'] == 'choice' && array_key_exists('data', $options[$syntaxKey])) {
-                        foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
-                            if (is_array($choiceValue)) {
-                                foreach ($choiceValue as $choiceItem) {
-                                    if (strcasecmp($optionKey, $choiceItem) == 0) {
-                                        $optionsCleaned[$syntaxKey] = $choiceKey;
-                                        break 2;
-                                    }
-                                }
-                            } else {
-                                if (strcasecmp($optionKey, $choiceValue) == 0) {
-                                    $optionsCleaned[$syntaxKey] = $choiceValue;
-                                    break;
-                                }
-                            }
-                        }
-                    }
                 }
             }
+        }
+
+        // Add in type shortcut if element uses types
+        if(array_key_exists('type', $options) && !array_key_exists('type', $optionsCleaned)) {
+          foreach ($data as $optionKey => $optionValue) {
+            if($optionValue == 1 && !array_key_exists($optionKey, $optionsCleaned)) {
+              $optionsCleaned['type'] = $optionKey;
+              break;
+            }
+          }
         }
 
         // Add in syntax options that are missing
@@ -309,7 +303,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                 }
             }
         }
-
+        
         return $optionsCleaned;
     }
 
