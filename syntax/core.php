@@ -278,7 +278,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         // Add in type shortcut if element uses types
         if(array_key_exists('type', $options) && !array_key_exists('type', $optionsCleaned)) {
           foreach ($data as $optionKey => $optionValue) {
-            if($optionValue == 1 && !array_key_exists($optionKey, $optionsCleaned)) {
+            if($optionKey != '' && $optionValue == 1 && !array_key_exists($optionKey, $optionsCleaned)) {
               $optionsCleaned['type'] = $optionKey;
               break;
             }
@@ -304,6 +304,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
         }
         
+        file_put_contents('output.txt', print_r($optionsCleaned, true), FILE_APPEND);
         return $optionsCleaned;
     }
 
