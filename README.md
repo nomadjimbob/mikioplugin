@@ -1,4 +1,4 @@
-<img src="https://github.com/nomadjimbob/nomadjimbob/raw/master/images/mikioplugin/mikio_plugin_header.png">
+<img src="https://github.com/nomadjimbob/wiki_content/raw/main/mikioplugin/mikio_plugin_header.png">
 
 [![License: GPL-2](https://img.shields.io/github/license/nomadjimbob/mikioplugin?color=blue)](LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/nomadjimbob/mikioplugin/total.svg)](https://github.com/nomadjimbob/mikioplugin/releases/)
@@ -22,6 +22,10 @@ directory of your DokuWiki installation.
 Sometimes GitHub releases change the name of the mikioplugin directory, so make sure that the directory is `mikioplugin` else you may see errors in DokuWiki.
 
 ## Releases
+
+- **_2021-03-05_**
+
+  - Added support for custom element types and styling [#6](https://github.com/nomadjimbob/mikioplugin/issues/6)
 
 - **_2021-03-02_**
   - Fixed a dokuwiki rendering issue in card bodies [#7](https://github.com/nomadjimbob/mikioplugin/issues/7)
