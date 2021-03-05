@@ -1517,6 +1517,42 @@
   }
 }
 
+._mikiop-custom-type(@type) {
+  #dokuwiki__content {
+    .mikiop-button {
+      &.mikiop-type-@{type} {
+        ._mikiop-btn-type('@{type}');
+      }
+    }
+
+    .mikiop-badge,
+    .mikiop-box,
+    .mikiop-card,
+    .mikiop-progress-bar {
+      &.mikiop-type-@{type} {
+        ._mikiop-block-type('@{type}');
+      }
+    }
+
+    .mikiop-accordian-item,
+    .mikiop-alert,
+    .mikiop-list-group,
+    .mikiop-step {
+      &.mikiop-type-@{type} {
+        ._mikiop-block-type('@{type}', 'alert');
+      }
+    }
+
+    .mikiop-list-group-item {
+      &.mikiop-type-@{type} {
+        .mikiop-list-group-item-link:hover {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #dokuwiki__content {
     .mikiop-row {
