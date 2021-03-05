@@ -29,7 +29,6 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
 
     public function __construct() {
         $this->addCommonOptions('type shadow width align text-align tooltip');
-        $this->options['type']['data'] = array_merge($this->options['type']['data'], array('link', 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark'));
         $this->options['type']['default'] = 'primary';
     }
 
