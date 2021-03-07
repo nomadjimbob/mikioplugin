@@ -1,4 +1,4 @@
-<img src="https://github.com/nomadjimbob/wiki_content/raw/main/mikioplugin/mikio_plugin_header.png">
+<img src="https://raw.githubusercontent.com/nomadjimbob/nomadjimbob/master/wiki/mikioplugin/images/mikio_plugin_header.png">
 
 [![License: GPL-2](https://img.shields.io/github/license/nomadjimbob/mikioplugin?color=blue)](LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/nomadjimbob/mikioplugin/total.svg)](https://github.com/nomadjimbob/mikioplugin/releases/)
