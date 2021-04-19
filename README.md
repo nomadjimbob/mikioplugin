@@ -23,6 +23,10 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-04-19_**
+
+  - Fixed images not always being contained within elements such as card headers [#9](https://github.com/nomadjimbob/mikioplugin/issues/9)
+
 - **_2021-03-05_**
 
   - Added support for custom element types and styling [#6](https://github.com/nomadjimbob/mikioplugin/issues/6)
