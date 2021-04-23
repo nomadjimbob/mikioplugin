@@ -16,6 +16,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $options             = array(
         'image'         => array('type'     => 'media',      'default'   => ''),
         'image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
+        'image-height' => array('type' => 'size', 'default' => ''),
         'overlay'       => array('type'     => 'boolean',   'default'   => 'false'),
         'title'         => array('type'     => 'text',      'default'   => ''),
         'subtitle'      => array('type'     => 'text',      'default'   => ''),
@@ -25,6 +26,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         'placeholder-text'      => array('type'     => 'text',      'default'   => ''),
         'placeholder-color'      => array('type'     => 'text',      'default'   => ''),
         'placeholder-text-color'      => array('type'     => 'text',      'default'   => ''),
+        'placeholder-height' => array('type' => 'size', 'default' => ''),
         'footer-image'      => array('type'     => 'media',      'default'   => ''),
         'footer-image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
         'footer-placeholder-text'      => array('type'     => 'text',      'default'   => ''),
@@ -50,9 +52,13 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
 
         if($data['horizontal']) $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-image">';
         if($data['placeholder-text'] != '') {
-            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['placeholder-text'], 'color' => $data['placeholder-color'], 'text-color' => $data['placeholder-text-color'])));
+            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['placeholder-text'], 'color' => $data['placeholder-color'], 'text-color' => $data['placeholder-text-color'], 'height' => $data['placeholder-height'])));
         } elseif($data['image'] != '') {
-            $renderer->doc .= '<img src="' . $data['image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . '">';
+            $style = '';
+            if($data['image-height'] != '') {
+              $style = 'height:' . $data['image-height'] . ';';
+            }
+            $renderer->doc .= '<img src="' . $data['image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . '" style="' . $style . '">';
         }
         if($data['horizontal']) $renderer->doc .= '</div><div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-body">';
         

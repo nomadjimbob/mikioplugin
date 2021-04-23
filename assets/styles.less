@@ -686,6 +686,7 @@
     overflow: hidden;
     margin: 0.75em;
     .flex(1);
+    height: 100%;
 
     ._mikiop-shadows;
     ._mikiop-block-types;
@@ -696,12 +697,21 @@
       .flex(1 1 100%);
       .flex-direction(column);
       ._mikiop-vertical-align;
-      min-height: 1px;
+      // min-height: 1px;
       padding: 1.25em;
       box-sizing: border-box;
 
       p {
         margin-top: 0;
+      }
+      
+      .mikiop-card-footer {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        border-top: 0;
+        padding: 0;
       }
     }
 
