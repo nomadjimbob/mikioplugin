@@ -20,6 +20,7 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core 
         'indicators'    => array('type'     => 'boolean',   'default'   => 'true'),
         'controls'      => array('type'     => 'boolean',   'default'   => 'true'),
         'start'         => array('type'     => 'boolean',   'default'   => 'false'),
+        'cover'         => array('type'     => 'boolean',   'default'   => 'false'),
     );
 
     public function __construct() {
@@ -31,7 +32,7 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core 
         $classes = $this->buildClass($data, array('transition'));
         $styles = $this->buildStyle(array('height' => $data['height']), TRUE);
 
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel' . $classes . '" data-auto-start="' . ($data['start'] ? 'true' : 'false') . '"' . $styles . '>';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel' . ($data['cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . $classes . '" data-auto-start="' . ($data['start'] ? 'true' : 'false') . '"' . $styles . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-inner">';
     }
 

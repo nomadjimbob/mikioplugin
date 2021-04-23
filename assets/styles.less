@@ -812,6 +812,10 @@
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
       }
+  
+      &.mikiop-image-cover {
+        object-fit: cover;
+      }
     }
 
     .mikiop-placeholder {
@@ -825,6 +829,12 @@
     position: relative;
     margin-bottom: 2em;
     height: 40em;
+
+    &.mikiop-image-cover {
+      .mikiop-carousel-inner img {
+        object-fit: cover;
+      }
+    }
 
     .mikiop-carousel-inner {
       position: relative;

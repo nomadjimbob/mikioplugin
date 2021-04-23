@@ -15,6 +15,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
     public $hasEndTag           = true;
     public $options             = array(
         'image'         => array('type'     => 'media',      'default'   => ''),
+        'image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
         'overlay'       => array('type'     => 'boolean',   'default'   => 'false'),
         'title'         => array('type'     => 'text',      'default'   => ''),
         'subtitle'      => array('type'     => 'text',      'default'   => ''),
@@ -25,6 +26,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         'placeholder-color'      => array('type'     => 'text',      'default'   => ''),
         'placeholder-text-color'      => array('type'     => 'text',      'default'   => ''),
         'footer-image'      => array('type'     => 'media',      'default'   => ''),
+        'footer-image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
         'footer-placeholder-text'      => array('type'     => 'text',      'default'   => ''),
         'footer-placeholder-color'      => array('type'     => 'text',      'default'   => ''),
         'footer-placeholder-text-color'      => array('type'     => 'text',      'default'   => ''),
@@ -50,7 +52,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         if($data['placeholder-text'] != '') {
             $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['placeholder-text'], 'color' => $data['placeholder-color'], 'text-color' => $data['placeholder-text-color'])));
         } elseif($data['image'] != '') {
-            $renderer->doc .= '<img src="' . $data['image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image">';
+            $renderer->doc .= '<img src="' . $data['image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . '">';
         }
         if($data['horizontal']) $renderer->doc .= '</div><div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-body">';
         
@@ -73,7 +75,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core {
         if($data['footer-placeholder-text'] != '') {
             $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['footer-placeholder-text'], 'color' => $data['footer-placeholder-color'], 'text-color' => $data['footer-placeholder-text-color'])));
         } elseif($data['footer-image'] != '') {
-            $renderer->doc .= '<img src="' . $data['footer-image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image">';
+            $renderer->doc .= '<img src="' . $data['footer-image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['footer-image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') .'">';
         }
         
         if($data['horizontal']) $renderer->doc .= '</div>';
