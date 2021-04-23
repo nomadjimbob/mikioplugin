@@ -23,6 +23,14 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-04-23_**
+
+  - Fixed Card element overflow issues. Cards will now be their own height when inside a row element. To force cards to all be the same height, wrap each card in a col element
+  - Adding a card-footer element inside a card-body element will now work. This fixes inside card elements 
+  - Cards and Carousel images are now contained inside the element instead of covering the element
+  - Added `cover` attributes to Card and Carousel for images to cover element instead of being contained
+  - Height attribute bugfix for placeholders
+
 - **_2021-04-19_**
 
   - Fixed images not always being contained within elements such as card headers [#9](https://github.com/nomadjimbob/mikioplugin/issues/9)
