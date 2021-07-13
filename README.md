@@ -23,6 +23,10 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-07-13_**
+
+  - Element class shortcuts (eg text-center) working again
+
 - **_2021-04-23_**
 
   - Fixed Card element overflow issues. Cards will now be their own height when inside a row element. To force cards to all be the same height, wrap each card in a col element
