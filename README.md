@@ -26,6 +26,8 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 - **_2021-07-13_**
 
   - Element class shortcuts (eg text-center) working again
+  - LESS engine updated to match the Mikio theme
+  - LESS fallback to CSS
 
 - **_2021-04-23_**
 
