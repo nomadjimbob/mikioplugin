@@ -1,142 +1,90 @@
 <?php
 /**
- * MikioPlugin CSS/LESS Engine
+ * Mikio CSS/LESS Engine
  *
- * @link    http://dokuwiki.org/plugin:mikioplugin
+ * @link  http://dokuwiki.org/template:mikio
  * @author  James Collins <james.collins@outlook.com.au>
  * @license GPLv2 (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 
+require(dirname(__FILE__) . '/inc/polyfill-ctype.php');
+
 if(!function_exists('getallheaders')) {
-	function getallheaders() {
-		$headers = [];
-		foreach($_SERVER as $name => $value) {
-			if(substr($name, 0, 5) == 'HTTP_') {
-				$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-			}
-		}
-		return $headers;
-	}
-}
-
-if(!function_exists('ctype_alnum')) {
-    function ctype_alnum($var) {
-        return preg_match('/^[a-zA-Z0-9]+$/', $var);
+  function getallheaders() {
+    $headers = [];
+    foreach($_SERVER as $name => $value) {
+      if(substr($name, 0, 5) == 'HTTP_') {
+        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+      }
     }
-}
-
-if(!function_exists('ctype_alpha')) {
-    function ctype_alpha($var) {
-        return preg_match('/^[a-zA-Z]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_cntrl')) {
-    function ctype_cntrl($var) {
-        return preg_match('/^[\x00-\x1F\x7F]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_digit')) {
-    function ctype_digit($var) {
-        return preg_match('/^[0-9]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_graph')) {
-    function ctype_graph($var) {
-        return preg_match('/^[\x20-\x7E\x80-\xFF]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_lower')) {
-    function ctype_lower($var) {
-        return preg_match('/^[a-z]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_print')) {
-    function ctype_print($var) {
-        return preg_match('/^[\x20-\x7E\x80-\xFF]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_punct')) {
-    function ctype_punct($var) {
-        return preg_match('/^[^\w\s]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_space')) {
-    function ctype_space($var) {
-        return preg_match('/^[\r\t\n]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_upper')) {
-    function ctype_upper($var) {
-        return preg_match('/^[A-Z]+$/', $var);
-    }
-}
-
-if(!function_exists('ctype_xdigit')) {
-    function ctype_upper($var) {
-        return preg_match('/^[0-9A-Fa-f]+$/', $var);
-    }
+    return $headers;
+  }
 }
 
 try {
-    if(!function_exists('ctype_digit')) {
-        if(isset($_GET['css'])) {
-            $baseDir = dirname(__FILE__) . '/';
-            $cssFile = realpath($baseDir . $_GET['css']);
-            if(strtolower(substr($cssFile, -5)) == '.less') {
-                $cssFile = substr($cssFile, 0, -5) . '.css';
-                if(file_exists($cssFile)) {
-                    echo file_get_contents($cssFile);
-                    exit;
-                }
-            }
+  $lesscLib = '../../../vendor/marcusschwarz/lesserphp/lessc.inc.php';
+  if(!file_exists($lesscLib))
+    $lesscLib = $_SERVER['DOCUMENT_ROOT'] . '/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+  if(!file_exists($lesscLib))
+    $lesscLib = '../../../../../app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+  if(!file_exists($lesscLib))
+    $lesscLib = $_SERVER['DOCUMENT_ROOT'] . '/app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+
+  if(file_exists($lesscLib)) {
+    @require_once($lesscLib);
+
+    if(isset($_GET['css'])) {
+      $failed = false;
+      $cssFileList = explode(',', $_GET['css']);
+      $baseDir = dirname(__FILE__) . '/';
+      $css = '';
+      
+      foreach($cssFileList as $cssFileItem) {
+        $cssFile = realpath($baseDir . $cssFileItem);
+
+        if(strpos($cssFile, $baseDir) === 0 && file_exists($cssFile)) {
+          $css .= file_get_contents($cssFile);
+        } else {
+          $failed = true;
         }
+      }
 
-        throw new Exception('ctype extension not installed');
-    }
+      if(!$failed) {
+        $rawVars = Array();
 
-    $lesscLib = '../../../vendor/marcusschwarz/lesserphp/lessc.inc.php';
-    if(!file_exists($lesscLib))
-        $lesscLib = '../../../../../app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+        header('Content-Type: text/css; charset=utf-8');
 
-    if(file_exists($lesscLib)) {
-        @require_once($lesscLib);
-
-        if(isset($_GET['css'])) {
-          $css = '';
-          $baseDir = dirname(__FILE__) . '/';
-          $cssFileList = explode(',', $_GET['css']);
-          foreach($cssFileList as $cssFileItem) {
-            $cssFile = realpath($baseDir . $cssFileItem);
-
-            if(strpos($cssFile, $baseDir) === 0 && file_exists($cssFile)) {
-              $css .= file_get_contents($cssFile);
+        $less = new lessc();
+        $less->setPreserveComments(false);
+        
+        $vars = Array();
+        if(isset($rawVars['replacements'])) {
+          foreach($rawVars['replacements'] as $key=>$val) {
+            if(substr($key, 0, 2) == '__' && substr($key, -2) == '__') {
+              $vars['ini_' . substr($key, 2, -2)] = $val;
             }
           }
-          
-          header('Content-Type: text/css; charset=utf-8');
-
-          $less = new lessc();
-          $less->setPreserveComments(false);
-          
-          $css = $less->compile($css);
-          echo $css;          
-        } else {
-          header('HTTP/1.1 404 Not Found'); 
-          echo "The requested file could not be found";              
         }
+
+        if(count($vars) > 0) {
+          $less->setVariables($vars);
+        }
+        
+        $css = $less->compile($css);
+        echo $css;
+      } else {
+        header('HTTP/1.1 404 Not Found'); 
+        echo "The requested file could not be found";
+      }
     } else {
-        throw new Exception('Lessc library not found');
+      header('HTTP/1.1 404 Not Found'); 
+      echo "The requested file could not be found";        
     }
+  } else {
+    throw new Exception('MikioPlugin could not find the LESSC engine in DokuWiki');
+  }
 }
-catch(Exception $e) {    
-    header('HTTP/1.1 500 Internal Server Error');
-    echo $e;
+catch(Exception $e) {
+  header('Content-Type: text/css; charset=utf-8');
+  include(dirname(__FILE__) . '/assets/mikioplugin.css');
 }
