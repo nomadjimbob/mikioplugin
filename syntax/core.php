@@ -130,8 +130,6 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         if($options == null) $options = $this->options;
 
-        file_put_contents('output.txt', print_r($data, true), FILE_APPEND);
-
         // Match DokuWiki passed options to syntax options
         foreach ($data as $optionKey => $optionValue) {
             foreach ($options as $syntaxKey => $syntaxValue) {
@@ -275,12 +273,27 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
         }
 
-        // Add in type shortcut if element uses types
-        if(array_key_exists('type', $options) && !array_key_exists('type', $optionsCleaned)) {
-          foreach ($data as $optionKey => $optionValue) {
-            if($optionKey != '' && $optionValue == 1 && !array_key_exists($optionKey, $optionsCleaned)) {
-              $optionsCleaned['type'] = $optionKey;
-              break;
+
+        foreach ($data as $optionKey => $optionValue) {
+          if (!array_key_exists($optionKey, $optionsCleaned)) {
+            foreach ($options as $syntaxKey => $syntaxValue) {
+              if (array_key_exists('type', $options[$syntaxKey])) {
+                if (array_key_exists('data', $options[$syntaxKey]) && is_array($options[$syntaxKey][data])) {
+                  file_put_contents('output44.txt', $optionKey." - ", FILE_APPEND);
+                  foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
+                    file_put_contents('output44.txt', $choiceValue.", ", FILE_APPEND);
+                    if(is_array($choiceValue)) {                         
+                      if(in_array($optionKey, $choiceValue)) {
+                        $optionsCleaned[$syntaxKey] = $choiceKey;
+                      }
+                    } else {
+                      if(strcasecmp($choiceValue, $optionKey) == 0) {
+                        $optionsCleaned[$syntaxKey] = $choiceValue;
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -304,7 +317,6 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
         }
         
-        file_put_contents('output.txt', print_r($optionsCleaned, true), FILE_APPEND);
         return $optionsCleaned;
     }
 
@@ -678,7 +690,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
             if(strcasecmp($type, 'type') == 0) {
                 $this->options['type'] =            array('type'     => 'text',
-                                                          // 'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
+                                                          'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
                                                           'default'  => '',
                                                           'class'    => true);
             }
