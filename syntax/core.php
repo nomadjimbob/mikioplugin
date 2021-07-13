@@ -279,9 +279,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             foreach ($options as $syntaxKey => $syntaxValue) {
               if (array_key_exists('type', $options[$syntaxKey])) {
                 if (array_key_exists('data', $options[$syntaxKey]) && is_array($options[$syntaxKey][data])) {
-                  file_put_contents('output44.txt', $optionKey." - ", FILE_APPEND);
                   foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
-                    file_put_contents('output44.txt', $choiceValue.", ", FILE_APPEND);
                     if(is_array($choiceValue)) {                         
                       if(in_array($optionKey, $choiceValue)) {
                         $optionsCleaned[$syntaxKey] = $choiceKey;
