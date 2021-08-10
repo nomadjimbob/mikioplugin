@@ -687,10 +687,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
 
             if(strcasecmp($type, 'type') == 0) {
-                $this->options['type'] =            array('type'     => 'text',
-                                                          'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'),
-                                                          'default'  => '',
-                                                          'class'    => true);
+              $this->options['type'] =              array('type'     => 'text',
+                                                        'data'     => array('primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark'),
+                                                        'default'  => '',
+                                                        'class'    => true);
             }
 
             if(strcasecmp($type, 'text-align') == 0) {
