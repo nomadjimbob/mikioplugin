@@ -21,26 +21,32 @@ if(!function_exists('getallheaders')) {
   }
 }
 
+if(!function_exists('platformSlashes')) {
+	function platformSlashes($path) {
+		return str_replace('/', DIRECTORY_SEPARATOR, $path);
+	}
+}
+
 try {
-  $lesscLib = '../../../vendor/marcusschwarz/lesserphp/lessc.inc.php';
+  $lesscLib = platformSlashes('../../../vendor/marcusschwarz/lesserphp/lessc.inc.php');
   if(!file_exists($lesscLib))
-    $lesscLib = $_SERVER['DOCUMENT_ROOT'] . '/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+    $lesscLib = platformSlashes($_SERVER['DOCUMENT_ROOT'] . '/vendor/marcusschwarz/lesserphp/lessc.inc.php');
   if(!file_exists($lesscLib))
-    $lesscLib = '../../../../../app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+    $lesscLib = platformSlashes('../../../../../app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php');
   if(!file_exists($lesscLib))
-    $lesscLib = $_SERVER['DOCUMENT_ROOT'] . '/app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php';
+    $lesscLib = platformSlashes($_SERVER['DOCUMENT_ROOT'] . '/app/dokuwiki/vendor/marcusschwarz/lesserphp/lessc.inc.php');
 
   if(file_exists($lesscLib)) {
     @require_once($lesscLib);
 
     if(isset($_GET['css'])) {
       $failed = false;
-      $cssFileList = explode(',', $_GET['css']);
-      $baseDir = dirname(__FILE__) . '/';
+      $cssFileList = platformSlashes(explode(',', $_GET['css']));
+      $baseDir = platformSlashes(dirname(__FILE__) . '/');
       $css = '';
       
       foreach($cssFileList as $cssFileItem) {
-        $cssFile = realpath($baseDir . $cssFileItem);
+        $cssFile = platformSlashes(realpath($baseDir . $cssFileItem));
 
         if(strpos($cssFile, $baseDir) === 0 && file_exists($cssFile)) {
           $css .= file_get_contents($cssFile);
