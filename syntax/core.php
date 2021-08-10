@@ -278,7 +278,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
           if (!array_key_exists($optionKey, $optionsCleaned)) {
             foreach ($options as $syntaxKey => $syntaxValue) {
               if (array_key_exists('type', $options[$syntaxKey])) {
-                if (array_key_exists('data', $options[$syntaxKey]) && is_array($options[$syntaxKey][data])) {
+                if (array_key_exists('data', $options[$syntaxKey]) && is_array($options[$syntaxKey]['data'])) {
                   foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
                     if(is_array($choiceValue)) {                         
                       if(in_array($optionKey, $choiceValue)) {
