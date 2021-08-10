@@ -26,6 +26,7 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 - **_2021-08-10_**
 
   - Button outline styling fix [#12](https://github.com/nomadjimbob/mikioplugin/issues/12)
+  - Added small margin to left and right of buttons
 
 - **_2021-07-13_**
 
