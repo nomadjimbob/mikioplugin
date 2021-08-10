@@ -23,6 +23,10 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-08-10_**
+
+  - Button outline styling fix [#12](https://github.com/nomadjimbob/mikioplugin/issues/12)
+
 - **_2021-07-13_**
 
   - Element class shortcuts (eg text-center) working again
