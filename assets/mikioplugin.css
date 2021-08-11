@@ -599,6 +599,8 @@
   transition: all 0.15s ease-in-out;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
 }
 .mikiop-tooltip-banner {
   position: absolute;
@@ -1185,6 +1187,8 @@
   transition: all 0.15s ease-in-out;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
   color: #212529;
 }
 #dokuwiki__content .mikiop-button:hover {
@@ -2724,6 +2728,8 @@
   transition: all 0.15s ease-in-out;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
   margin-right: 0.5em;
 }
 #dokuwiki__content .mikiop-tab-group.mikiop-pills .mikiop-tab-item a.mikiop-active {
