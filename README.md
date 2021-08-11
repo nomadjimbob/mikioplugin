@@ -23,6 +23,13 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-08-11_**
+
+  - Replace Windows directory separator in CSS paths
+  - Fixed path check in LESS engine on Windows
+  - Recompiled CSS
+  - Fixed PHP warnings
+
 - **_2021-08-10_**
 
   - Button outline styling fix [#12](https://github.com/nomadjimbob/mikioplugin/issues/12)
