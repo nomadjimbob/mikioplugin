@@ -21,7 +21,11 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
             'data'     => array('slide', 'fade'),
             'default'  => ''
         ),
-        'indicators'    => array('type'     => 'boolean',   'default'   => 'true'),
+        'indicators'    => array(
+            'type'     => 'choice',
+            'data'     => array('true', 'false', 'circle'),
+            'default'  => 'true'
+        ),
         'controls'      => array('type'     => 'boolean',   'default'   => 'true'),
         'start'         => array('type'     => 'boolean',   'default'   => 'false'),
         'cover'         => array('type'     => 'boolean',   'default'   => 'false'),
@@ -57,8 +61,8 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
             $renderer->doc .= '<a href="#" class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-control ' . $this->classPrefix . 'carousel-control-next" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 8 8"' . $svg_styles . '><path d="M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z"/></svg></a>';
         }
 
-        if ($data['indicators'] === TRUE) {
-            $renderer->doc .= '<ul class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-indicators"></ul>';
+        if (strcasecmp($data['indicators'], 'false') != 0) {
+            $renderer->doc .= '<ul class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-indicators' . (strcasecmp($data['indicators'], 'circle') == 0 ? ' ' . $this->classPrefix . 'carousel-indicators-circle' : '') . '"></ul>';
         }
 
         $renderer->doc .= '</div>';
