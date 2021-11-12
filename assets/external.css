@@ -1,0 +1,24 @@
+/*
+    Stylesheet used by the external carousel.php viewer
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#dokuwiki__content .mikiop-carousel {
+    height: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
