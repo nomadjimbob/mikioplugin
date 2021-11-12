@@ -565,7 +565,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     */
     public function syntaxRender(Doku_Renderer $renderer, $className, $text, $data = null, $lexer = MIKIO_LEXER_AUTO)
     {
-        $className = 'syntax_plugin_mikioplugin_' . $className;
+        $className = 'syntax_plugin_mikioplugin_' . str_replace('-', '', $className);
 
         if (class_exists($className)) {
             $class = new $className;
