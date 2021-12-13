@@ -23,6 +23,9 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-12-13_**
+  - Fix Struct Plugin Aggregation [#13](https://github.com/nomadjimbob/mikioplugin/issues/13). Thanks eFreshman
+
 - **_2021-11-13_**
   - Carousel control colors can now be customized
   - Carousel now supports circle indicators
