@@ -23,6 +23,12 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-11-13_**
+  - Carousel control colors can now be customized
+  - Carousel now supports circle indicators
+  - Dynamically build and fullscreen carousels now supported
+  - SyntaxRender method now correctly converts tagName to methodNames
+
 - **_2021-08-11_**
 
   - Replace Windows directory separator in CSS paths

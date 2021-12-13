@@ -34,6 +34,8 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
         'control-outline-width' => array('type'     => 'multisize',     'default'   => ''),
         'dynamic' => array('type' => 'text', 'default' => ''),
         'dynamic-prefix' => array('type' => 'text', 'default' => ''),
+        'dynamic-start' => array('type' => 'number', 'default' => '-1'),
+        'dynamic-count' => array('type' => 'number', 'default' => '-1'),
     );
 
     public function __construct()
@@ -62,19 +64,26 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
 
             $pages = array();
             search($pages, $conf['datadir'] . '/' . $path, 'search_allpages', array('depth' => 1, 'skipacl' => true));
-            foreach ($pages as $page) {
-                $item_data = array();
+            for ($i = 0; $i < count($pages); $i++) {
+                $page = $pages[$i];
+                if ($data['dynamic-start'] == -1 || $data['dynamic-start'] <= ($i + 1)) {
+                    if ($data['dynamic-start'] != -1 && $data['dynamic-count'] != -1 && $data['dynamic-start'] + $data['dynamic-count'] >= $i) {
+                        break;
+                    }
 
-                $page_id = $namespace . ':' . $page['id'];
-                preg_match('/{{([^>|}]+(\.jpg|\.gif|\.png))\|?.*}}/', rawWiki($page_id), $image_matches);
-                if (count($image_matches) > 1) {
-                    $item_data['image'] = $image_matches[1];
+                    $item_data = array();
+
+                    $page_id = $namespace . ':' . $page['id'];
+                    preg_match('/{{([^>|}]+(\.jpg|\.gif|\.png))\|?.*}}/', rawWiki($page_id), $image_matches);
+                    if (count($image_matches) > 1) {
+                        $item_data['image'] = $image_matches[1];
+                    }
+
+                    $item_data['title'] = (strlen($data['dynamic-prefix']) > 0 ? $data['dynamic-prefix'] . ' ' : '') . p_get_first_heading($page_id);
+                    $item_data['url'] = $page_id;
+
+                    $this->syntaxRender($renderer, 'carouselitem', '', $item_data, MIKIO_LEXER_SPECIAL);
                 }
-
-                $item_data['title'] = (strlen($data['dynamic-prefix']) > 0 ? $data['dynamic-prefix'] . ' ' : '') . p_get_first_heading($page_id);
-                $item_data['url'] = $page_id;
-
-                $this->syntaxRender($renderer, 'carouselitem', '', $item_data, MIKIO_LEXER_SPECIAL);
             }
         }
     }
