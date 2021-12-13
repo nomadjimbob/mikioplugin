@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mikio Syntax Plugin: HR
  *
@@ -7,24 +8,26 @@
  * @author      James Collins <james.collins@outlook.com.au>
  */
 if (!defined('DOKU_INC')) die();
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-require_once(dirname(__FILE__).'/core.php');
- 
-class syntax_plugin_mikioplugin_hr extends syntax_plugin_mikioplugin_core {
+if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
+require_once(dirname(__FILE__) . '/core.php');
+
+class syntax_plugin_mikioplugin_hr extends syntax_plugin_mikioplugin_core
+{
     public $tag                 = 'hr';
     public $hasEndTag           = false;
-    
 
-    public function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('----', $mode, 'plugin_mikioplugin_'.$this->getPluginComponent());
+
+    public function connectTo($mode)
+    {
+        $this->Lexer->addSpecialPattern('----[\r\n]', $mode, 'plugin_mikioplugin_' . $this->getPluginComponent());
         parent::connectTo($mode);
     }
 
 
-    public function render_lexer_special(Doku_Renderer $renderer, $data) {
+    public function render_lexer_special(Doku_Renderer $renderer, $data)
+    {
         $classes = $this->buildClass($data);
-        
+
         $renderer->doc .= '<hr class="' . $this->elemClass . ' ' . $this->classPrefix . 'hr">';
     }
 }
-?>
