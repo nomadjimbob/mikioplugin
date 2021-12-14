@@ -23,6 +23,9 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-12-14_**
+  - Fix Carousel not containing image by default [#14](https://github.com/nomadjimbob/mikioplugin/issues/14). Thanks eFreshman
+
 - **_2021-12-13_**
   - Fix Struct Plugin Aggregation [#13](https://github.com/nomadjimbob/mikioplugin/issues/13). Thanks eFreshman
 
