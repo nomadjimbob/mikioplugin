@@ -14,6 +14,13 @@ jQuery().ready(function () {
 
     jQuery('.mikiop-accordian-title').on('click', function (event) {
         event.preventDefault();
+        let accordianBody = jQuery(this).siblings('.mikiop-accordian-body');
+        if (!accordianBody.is(':visible')) {
+            let accordian = jQuery(this).closest('.mikiop-accordian');
+            if (accordian.hasClass('mikiop-autoclose')) {
+                accordian.find('.mikiop-accordian-body:visible').slideUp();
+            }
+        }
 
         jQuery(this).siblings('.mikiop-accordian-body').slideToggle();
     });
@@ -74,7 +81,7 @@ jQuery().ready(function () {
     });
 
     function carouselPrev(parent) {
-        
+
         var slides = parent.find('.mikiop-carousel-item');
 
         for (var i = 0; i < slides.length; i++) {
@@ -127,12 +134,12 @@ jQuery().ready(function () {
         var delay = 0;
 
         for (var i = 0; i < slides.length; i++) {
-            
+
 
             if (jQuery(slides[i]).hasClass('mikiop-active')) {
                 var target = null;
                 var next = 0;
-                
+
 
                 if (i == slides.length - 1) {
                     next = 0;
@@ -171,12 +178,12 @@ jQuery().ready(function () {
             }
         }
 
-        return(delay);
+        return (delay);
     };
 
     jQuery('.mikiop-carousel-indicator').on('click', function (event) {
         event.preventDefault();
-        
+
         var parent = jQuery(this).closest('.mikiop-carousel-indicators');
         if (parent) {
             var group = jQuery(this).closest('.mikiop-carousel');
@@ -233,7 +240,7 @@ jQuery().ready(function () {
                         jQuery(group).find('.mikiop-carousel-indicator:nth-child(' + (item + 1) + ')').addClass('mikiop-active');
                         jQuery(group).find('.mikiop-carousel-item:nth-child(' + (active + 1) + ')').removeClass('mikiop-active');
                         jQuery(group).find('.mikiop-carousel-indicator:nth-child(' + (active + 1) + ')').removeClass('mikiop-active');
-                    }                        
+                    }
                 }
             }
         }
@@ -284,7 +291,7 @@ jQuery().ready(function () {
         jQuery(this).find('.mikiop-quiz-status-text').html(status);
 
         if (jQuery(this).children('.mikiop-quiz-item').length == 1) {
-            jQuery(this).find('.mikiop-quiz-button-next').attr('disabled', true);    
+            jQuery(this).find('.mikiop-quiz-button-next').attr('disabled', true);
         }
 
         jQuery(this).children('.mikiop-quiz-item').not(':first-child').hide();
@@ -312,7 +319,7 @@ jQuery().ready(function () {
                 status = status.replace('$1', i + 1);
                 status = status.replace('$2', parent.children('.mikiop-quiz-item').length);
                 parent.find('.mikiop-quiz-status-text').html(status);
-        
+
                 break;
             }
         }
@@ -343,7 +350,7 @@ jQuery().ready(function () {
             }
         }
     });
-    
+
     jQuery('.mikiop-quiz-button-submit').on('click', function (event) {
         var parent = jQuery(this).closest('.mikiop-quiz');
         var questions = parent.children('.mikiop-quiz-item');
@@ -374,7 +381,7 @@ jQuery().ready(function () {
                     result += 'Incorrect';
                 }
             }
-            
+
             result += '</p>';
 
             jQuery(questions[i]).hide();
@@ -454,17 +461,17 @@ jQuery().ready(function () {
     // Tooltip
     jQuery('.mikiop-tooltip').hover(function (event) {
         jQuery('<div class="mikiop-tooltip-banner">' + jQuery(this).attr('data-tooltip') + '</div>').appendTo('body');
-        }, function () {
-            jQuery('.mikiop-tooltip-banner').remove();
+    }, function () {
+        jQuery('.mikiop-tooltip-banner').remove();
     });
-   
+
     jQuery('.mikiop-tooltip').on('mousemove', function (event) {
         var moveLeft = 20;
         var moveDown = 10;
         jQuery('.mikiop-tooltip-banner').css('top', event.pageY + moveDown).css('left', event.pageX + moveLeft);
     });
-   
-   
+
+
 
     jQuery('.mikiop-collapse').hide();
 });
