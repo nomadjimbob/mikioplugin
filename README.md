@@ -23,6 +23,9 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2021-12-15_**
+  - Added `autoclose` attribute to Accordions to close any other open accordion items other than the one clicked by the user. Requested by eFreshman
+
 - **_2021-12-14_**
   - Fix Carousel not containing image by default [#14](https://github.com/nomadjimbob/mikioplugin/issues/14). Thanks eFreshman
 
