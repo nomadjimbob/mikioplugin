@@ -23,6 +23,8 @@ class syntax_plugin_mikioplugin_accordionitem extends syntax_plugin_mikioplugin_
         $this->addCommonOptions('type text-align');
     }
     
+    public function getAllowedTypes() { return array('container', 'formatting', 'substition', 'disabled', 'paragraphs'); }
+
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('show'));
 
