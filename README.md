@@ -23,7 +23,7 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
-- **_2021-01-18_**
+- **_2022-01-18_**
   - Fixed accordian not rendering tables inside itself [#15](https://github.com/nomadjimbob/mikioplugin/issues/15). Thanks Melphios
 
 - **_2021-12-15_**
