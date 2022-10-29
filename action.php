@@ -64,7 +64,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
     if ($stylesList !== FALSE) {
       foreach ($stylesList as $value) {
         $filename = strtolower($value);
-        if (substr($filename, -5) == '.less' || substr($filename, -5) == '.css') {
+        if (substr($filename, -5) == '.less' || substr($filename, -4) == '.css') {
           $stylesheets[] = '/' . $filename;
         }
       }
