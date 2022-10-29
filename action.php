@@ -124,11 +124,13 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
     $lessSorted = array_merge($lessSorted, $less);
     $lessPath = implode(',', $lessSorted);
 
-    array_unshift($event->data['link'], array(
-      'type' => 'text/css',
-      'rel'  => 'stylesheet',
-      'href' => $baseDir . 'css.php?css=' . str_replace($baseDir, '', $lessPath)
-    ));
+    if(strlen($lessPath) > 0) {
+      array_unshift($event->data['link'], array(
+        'type' => 'text/css',
+        'rel'  => 'stylesheet',
+        'href' => $baseDir . 'css.php?css=' . str_replace($baseDir, '', $lessPath)
+      ));
+    }
 
     // js
     foreach ($scripts as $script) {
