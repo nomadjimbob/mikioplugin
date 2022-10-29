@@ -94,10 +94,10 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
     }
 
     if($tpl_supported === false) {
-      array_unshift($stylesheets, str_replace('\\', '/', 'lib/plugins' . dirname(dirname(__FILE__)) . '/assets/variables.css'));
+      array_unshift($stylesheets, 'assets/variables.css');
     }
 
-    array_unshift($stylesheets, str_replace('\\', '/', 'lib/plugins' . dirname(dirname(__FILE__)) . '/assets/plugin.css'));
+    array_unshift($stylesheets, 'assets/plugin.css');
 
     // css
     foreach ($stylesheets as $style) {
@@ -108,7 +108,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
         array_unshift($event->data['link'], array(
           'type' => 'text/css',
           'rel'  => 'stylesheet',
-          'href' => $style
+          'href' => $baseDir . $style
         ));
       }
     }
