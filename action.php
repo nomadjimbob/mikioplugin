@@ -72,6 +72,34 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
 
     $stylesheets = array_unique($stylesheets);
 
+    array_unshift($stylesheets, '/assets/variables.css');
+    if($conf['template'] === 'mikio' && file_exists(tpl_incdir() . 'template.info.txt')) {
+      $tpl_supported = false;
+      $tpl_info = [];
+      $tpl_data = file_get_contents(tpl_incdir() . 'template.info.txt');
+      foreach(preg_split("/(\r\n|\n|\r)/", $tpl_data) as $line){
+        if(preg_match("/([a-z]*)\s+(.*)/", $line, $matches)) {
+          $tpl_info[$matches[1]] = $matches[2];
+        }
+      }
+      
+      if(array_key_exists('date', $tpl_info)) {
+        $date = array_map('intval', explode('-', $tpl_info['date']));
+        if(count($date) === 3) {
+          // Date of mikio template is > 2022-10-12
+          if($date[0] > 2022 || ($date[0] == 2022 && ($date[1] > 10 || ($date[1] == 10 && $date[2] > 12)))) {
+            $tpl_supported = true;
+          }
+        }
+      }
+
+      if($tpl_supported === true && ($key = array_search('/assets/variables.css', $stylesheets)) !== false) {
+        unset($stylesheets[$key]);
+      }
+    }
+
+    array_unshift($stylesheets, '/assets/plugin.css');
+
     // css
     foreach ($stylesheets as $style) {
       if (strtolower(substr($style, -5)) == '.less') {
@@ -84,9 +112,6 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
         ));
       }
     }
-
-    // less
-    array_unshift($less, '/assets/variables.less', '/assets/styles.less');
 
     $lessSorted = [];
     foreach ($less as $key => $value) {
