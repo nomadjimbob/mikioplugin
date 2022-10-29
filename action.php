@@ -72,9 +72,8 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
 
     $stylesheets = array_unique($stylesheets);
 
-    array_unshift($stylesheets, '/assets/variables.css');
+    $tpl_supported = false;
     if($conf['template'] === 'mikio' && file_exists(tpl_incdir() . 'template.info.txt')) {
-      $tpl_supported = false;
       $tpl_info = [];
       $tpl_data = file_get_contents(tpl_incdir() . 'template.info.txt');
       foreach(preg_split("/(\r\n|\n|\r)/", $tpl_data) as $line){
@@ -91,20 +90,21 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
             $tpl_supported = true;
           }
         }
-      }
-
-      if($tpl_supported === true && ($key = array_search('/assets/variables.css', $stylesheets)) !== false) {
-        unset($stylesheets[$key]);
-      }
+      }      
     }
 
-    array_unshift($stylesheets, '/assets/plugin.css');
+    if($tpl_supported === false) {
+      array_unshift($stylesheets, str_replace('\\', '/', 'lib/plugins' . dirname(dirname(__FILE__)) . '/assets/variables.css'));
+    }
+
+    array_unshift($stylesheets, str_replace('\\', '/', 'lib/plugins' . dirname(dirname(__FILE__)) . '/assets/plugin.css'));
 
     // css
     foreach ($stylesheets as $style) {
       if (strtolower(substr($style, -5)) == '.less') {
         $less[] = $style;
       } else {
+        echo '$$'.$style;
         array_unshift($event->data['link'], array(
           'type' => 'text/css',
           'rel'  => 'stylesheet',
