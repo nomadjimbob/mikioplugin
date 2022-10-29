@@ -65,7 +65,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
       foreach ($stylesList as $value) {
         $filename = strtolower($value);
         if (substr($filename, -5) == '.less' || substr($filename, -4) == '.css') {
-          $stylesheets[] = '/' . $filename;
+          $stylesheets[] = DOKU_BASE . $filename;
         }
       }
     }
@@ -94,21 +94,20 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
     }
 
     if($tpl_supported === false) {
-      array_unshift($stylesheets, 'assets/variables.css');
+      array_unshift($stylesheets, $baseDir . 'assets/variables.css');
     }
 
-    array_unshift($stylesheets, 'assets/plugin.css');
+    array_unshift($stylesheets, $baseDir . 'assets/plugin.css');
 
     // css
     foreach ($stylesheets as $style) {
       if (strtolower(substr($style, -5)) == '.less') {
         $less[] = $style;
       } else {
-        echo '$$'.$style;
         array_unshift($event->data['link'], array(
           'type' => 'text/css',
           'rel'  => 'stylesheet',
-          'href' => $baseDir . $style
+          'href' => $style
         ));
       }
     }
