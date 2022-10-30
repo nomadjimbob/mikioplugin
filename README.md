@@ -1,14 +1,18 @@
 <img src="https://raw.githubusercontent.com/nomadjimbob/nomadjimbob/master/wiki/mikioplugin/images/mikio_plugin_header.png">
 
 [![License: GPL-2](https://img.shields.io/github/license/nomadjimbob/mikioplugin?color=blue)](LICENSE)
-[![Github all releases](https://img.shields.io/github/downloads/nomadjimbob/mikioplugin/total.svg)](https://github.com/nomadjimbob/mikioplugin/releases/)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/james.collins%40outlook.com.au)
-[![Donate to this project using Ko-Fi](https://img.shields.io/badge/kofi-donate-yellow.svg)](https://www.ko-fi.com/nomadjimbob)
 
 Mikio Plugin adds a heap of layout and Bootstrap 4 elements that can be used on your [DokuWiki](http://dokuwiki.org/) pages.
 
-This plugin can be used by itself, however is designed to complement the [Mikio DokuWiki theme](http://dokuwiki.org/template:mikio).
+This plugin can be used by itself, however is designed to complement the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio).
 
+## Updating Styles
+
+You can update the colors used by the elements by editing the `/assets/variables.css` file. From version 2022-10-31 onwards, the theme supports darkmode within browsers.
+
+If you have the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio) 2022-10-31 onwards installed, the `/assetrs/variables.css` will be ignored as the template adds the variables itself. These can be edited using 
+**Template Style Settings** in your sites **Administration** page.
 ## Setting Up
 
 Download the [latest release](https://github.com/nomadjimbob/mikioplugin/releases/latest) and place it in the\
@@ -25,7 +29,7 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 - **_2022-10-31_**
   - Fixed 'link' type for Buttons
-  - Updated CSS to use CSS Variables to support switchable themes (darkmode)
+  - Updated CSS to use CSS Variables (supporting switchable themes and style editor within Mikio template). Thanks chrbinder.
   - variables.css no longer included if the mikio template is installed, active and version 2022-10-31 or greator
 
 - **_2022-01-18_**
