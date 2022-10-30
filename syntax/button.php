@@ -30,6 +30,7 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
     public function __construct() {
         $this->addCommonOptions('type shadow width align text-align tooltip');
         $this->options['type']['default'] = 'primary';
+        $this->options['type']['data'][] = 'link';
     }
 
     public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }

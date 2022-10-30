@@ -84,7 +84,7 @@ try {
       }
     } else {
       header('HTTP/1.1 404 Not Found'); 
-      echo "The requested file could not be found";        
+      echo "The requested file could not be found";
     }
   } else {
     throw new Exception('MikioPlugin could not find the LESSC engine in DokuWiki');
@@ -92,5 +92,9 @@ try {
 }
 catch(Exception $e) {
   header('Content-Type: text/css; charset=utf-8');
-  include(dirname(__FILE__) . '/assets/mikioplugin.css');
+  echo ".error_in_mikio_plugin_with_less_file {
+  /**
+  " . $e . "
+  **/
+  }";
 }

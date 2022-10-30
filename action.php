@@ -64,13 +64,40 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
     if ($stylesList !== FALSE) {
       foreach ($stylesList as $value) {
         $filename = strtolower($value);
-        if (substr($filename, -5) == '.less' || substr($filename, -5) == '.css') {
-          $stylesheets[] = '/' . $filename;
+        if (substr($filename, -5) == '.less' || substr($filename, -4) == '.css') {
+          $stylesheets[] = DOKU_BASE . $filename;
         }
       }
     }
 
     $stylesheets = array_unique($stylesheets);
+
+    $tpl_supported = false;
+    if($conf['template'] === 'mikio' && file_exists(tpl_incdir() . 'template.info.txt')) {
+      $tpl_info = [];
+      $tpl_data = file_get_contents(tpl_incdir() . 'template.info.txt');
+      foreach(preg_split("/(\r\n|\n|\r)/", $tpl_data) as $line){
+        if(preg_match("/([a-z]*)\s+(.*)/", $line, $matches)) {
+          $tpl_info[$matches[1]] = $matches[2];
+        }
+      }
+      
+      if(array_key_exists('date', $tpl_info)) {
+        $date = array_map('intval', explode('-', $tpl_info['date']));
+        if(count($date) === 3) {
+          // Date of mikio template is > 2022-10-12
+          if($date[0] > 2022 || ($date[0] == 2022 && ($date[1] > 10 || ($date[1] == 10 && $date[2] > 12)))) {
+            $tpl_supported = true;
+          }
+        }
+      }      
+    }
+
+    if($tpl_supported !== false) {
+      array_unshift($stylesheets, $baseDir . 'assets/variables.css');
+    }
+
+    array_unshift($stylesheets, $baseDir . 'assets/styles.less');
 
     // css
     foreach ($stylesheets as $style) {
@@ -85,25 +112,15 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
       }
     }
 
-    // less
-    array_unshift($less, '/assets/variables.less', '/assets/styles.less');
+    $lessPath = implode(',', $less);
 
-    $lessSorted = [];
-    foreach ($less as $key => $value) {
-      if (substr(strtolower($value), -14) == 'variables.less') {
-        $lessSorted[] = $value;
-        unset($less[$key]);
-      }
+    if(strlen($lessPath) > 0) {
+      array_unshift($event->data['link'], array(
+        'type' => 'text/css',
+        'rel'  => 'stylesheet',
+        'href' => $baseDir . 'css.php?css=' . str_replace($baseDir, '', $lessPath)
+      ));
     }
-
-    $lessSorted = array_merge($lessSorted, $less);
-    $lessPath = implode(',', $lessSorted);
-
-    array_unshift($event->data['link'], array(
-      'type' => 'text/css',
-      'rel'  => 'stylesheet',
-      'href' => $baseDir . 'css.php?css=' . str_replace($baseDir, '', $lessPath)
-    ));
 
     // js
     foreach ($scripts as $script) {
