@@ -17,8 +17,8 @@ class syntax_plugin_mikioplugin_placeholder extends syntax_plugin_mikioplugin_co
         'width'         => array('type'     => 'size',  'default'      => ''),
         'height'        => array('type'     => 'size',  'default'      => ''),
         'text'          => array('type'     => 'text',  'default'      => ''),
-        'color'         => array('type'     => 'text',  'default'      => '#868e96'),
-        'text-color'    => array('type'     => 'text',  'default'      => '#dee2e6'),
+        'color'         => array('type'     => 'text',  'default'      => 'var(--placeholder-background-color)'),
+        'text-color'    => array('type'     => 'text',  'default'      => 'currentColor'),
     );
     
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
