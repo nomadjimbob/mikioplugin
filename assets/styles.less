@@ -68,12 +68,46 @@
 }
 
 ._mikiop-btn-type(@type: 'primary') {
-  @color: var(~'--button-@{type}-text-color');
-  @background: var(~'--button-@{type}-background-color');
-  @border: var(~'--button-@{type}-border-color');
-  @hovercolor: var(~'--button-@{type}-text-hover-color');
-  @hoverbackground: var(~'--button-@{type}-background-hover-color');
-  @hoverborder: var(~'--button-@{type}-border-hover-color');
+  @color: var(~'--mikiop-@{type}-text-color');
+  @background: var(~'--mikiop-@{type}-background-color');
+  @border: var(~'--mikiop-@{type}-border-color');
+  @hovercolor: var(~'--mikiop-@{type}-text-hover-color');
+  @hoverbackground: var(~'--mikiop-@{type}-background-hover-color');
+  @hoverborder: var(~'--mikiop-@{type}-border-hover-color');
+
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+
+  &.mikiop-active {
+    color: @hovercolor;
+    background-color: @hoverbackground;
+    border-color: @hoverborder;
+  }
+
+  &:disabled,
+  &.mikiop-disabled {
+    opacity: 0.65;
+  }
+
+  &:hover:not(.mikiop-disabled) {
+    color: @hovercolor;
+    background-color: @hoverbackground;
+    border-color: @hoverborder;
+  }
+
+  &.mikiop-disabled:hover {
+    cursor: default;
+  }
+}
+
+._mikiop-btn-outline-type(@type: 'primary') {
+  @color: var(~'--mikiop-@{type}-background-color');
+  @background: transparent;
+  @border: var(~'--mikiop-@{type}-border-color');
+  @hovercolor: var(~'--mikiop-@{type}-background-hover-color');
+  @hoverbackground: var(--mikiop-background-color);
+  @hoverborder: var(~'--mikiop-@{type}-border-hover-color');
 
   color: @color;
   background-color: @background;
@@ -112,49 +146,49 @@
     ._mikiop-btn-type('primary');
   }
   &.mikiop-type-outline-primary {
-    ._mikiop-btn-type('outline-primary');
+    ._mikiop-btn-outline-type('primary');
   }
   &.mikiop-type-secondary {
     ._mikiop-btn-type('secondary');
   }
   &.mikiop-type-outline-secondary {
-    ._mikiop-btn-type('outline-secondary');
+    ._mikiop-btn-outline-type('secondary');
   }
   &.mikiop-type-success {
     ._mikiop-btn-type('success');
   }
   &.mikiop-type-outline-success {
-    ._mikiop-btn-type('outline-success');
+    ._mikiop-btn-outline-type('success');
   }
   &.mikiop-type-danger {
     ._mikiop-btn-type('danger');
   }
   &.mikiop-type-outline-danger {
-    ._mikiop-btn-type('outline-danger');
+    ._mikiop-btn-outline-type('danger');
   }
   &.mikiop-type-warning {
     ._mikiop-btn-type('warning');
   }
   &.mikiop-type-outline-warning {
-    ._mikiop-btn-type('outline-warning');
+    ._mikiop-btn-outline-type('warning');
   }
   &.mikiop-type-info {
     ._mikiop-btn-type('info');
   }
   &.mikiop-type-outline-info {
-    ._mikiop-btn-type('outline-info');
+    ._mikiop-btn-outline-type('info');
   }
   &.mikiop-type-light {
     ._mikiop-btn-type('light');
   }
   &.mikiop-type-outline-light {
-    ._mikiop-btn-type('outline-light');
+    ._mikiop-btn-outline-type('light');
   }
   &.mikiop-type-dark {
     ._mikiop-btn-type('dark');
   }
   &.mikiop-type-outline-dark {
-    ._mikiop-btn-type('outline-dark');
+    ._mikiop-btn-outline-type('dark');
   }
   &.mikiop-type-link {
     ._mikiop-btn-type('link');
@@ -189,10 +223,10 @@
   }
 }
 
-._mikiop-block-type(@type: 'primary', @sel: 'button') {
-  @color: var(~'--@{sel}-@{type}-text-color');
-  @background: var(~'--@{sel}-@{type}-background-color');
-  @border: var(~'--@{sel}-@{type}-border-color');
+._mikiop-type(@type: 'primary') {
+  @color: var(~'--mikiop-@{type}-text-color');
+  @background: var(~'--mikiop-@{type}-background-color');
+  @border: var(~'--mikiop-@{type}-border-color');
 
   color: @color;
   background-color: @background;
@@ -203,57 +237,57 @@
   }
 }
 
-._mikiop-block-types {
+._mikiop-types {
   &.mikiop-type-primary {
-    ._mikiop-block-type('primary');
+    ._mikiop-type('primary');
   }
   &.mikiop-type-secondary {
-    ._mikiop-block-type('secondary');
+    ._mikiop-type('secondary');
   }
   &.mikiop-type-success {
-    ._mikiop-block-type('success');
+    ._mikiop-type('success');
   }
   &.mikiop-type-danger {
-    ._mikiop-block-type('danger');
+    ._mikiop-type('danger');
   }
   &.mikiop-type-warning {
-    ._mikiop-block-type('warning');
+    ._mikiop-type('warning');
   }
   &.mikiop-type-info {
-    ._mikiop-block-type('info');
+    ._mikiop-type('info');
   }
   &.mikiop-type-light {
-    ._mikiop-block-type('light');
+    ._mikiop-type('light');
   }
   &.mikiop-type-dark {
-    ._mikiop-block-type('dark');
+    ._mikiop-type('dark');
   }
 }
 
 ._mikiop-alert-types {
   &.mikiop-type-primary {
-    ._mikiop-block-type('primary', 'alert');
+    ._mikiop-type('primary-light');
   }
   &.mikiop-type-secondary {
-    ._mikiop-block-type('secondary', 'alert');
+    ._mikiop-type('secondary-light');
   }
   &.mikiop-type-success {
-    ._mikiop-block-type('success', 'alert');
+    ._mikiop-type('success-light');
   }
   &.mikiop-type-danger {
-    ._mikiop-block-type('danger', 'alert');
+    ._mikiop-type('danger-light');
   }
   &.mikiop-type-warning {
-    ._mikiop-block-type('warning', 'alert');
+    ._mikiop-type('warning-light');
   }
   &.mikiop-type-info {
-    ._mikiop-block-type('info', 'alert');
+    ._mikiop-type('info-light');
   }
   &.mikiop-type-light {
-    ._mikiop-block-type('light', 'alert');
+    ._mikiop-type('light-light');
   }
   &.mikiop-type-dark {
-    ._mikiop-block-type('dark', 'alert');
+    ._mikiop-type('dark-light');
   }
 }
 
@@ -362,9 +396,9 @@
   position: absolute;
   z-index: 100000;
   padding: 0.25em 0.5em;
-  background: var(--tooltip-background-color);
-  color: var(--tooltip-text-color);
-  border: 1px solid var(--tooltip-border-color);
+  background: var(--mikiop-tooltip-background-color);
+  color: var(--mikiop-tooltip-text-color);
+  border: 1px solid var(--mikiop-tooltip-border-color);
   border-radius: 0.25em;
   font-size: 80%;
   box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.35);
@@ -376,7 +410,7 @@
   }
 
   .mikiop-accordian {
-    border: 1px solid var(--accordian-border-color);
+    border: 1px solid var(--mikiop-border-color);
     border-radius: 0.25em;
     margin-bottom: 1em;
     overflow: hidden;
@@ -391,8 +425,8 @@
         text-decoration: none;
         display: block;
         padding: 0.75em 1.25em;
-        background-color: var(--accordian-title-background-color);
-        border-bottom: 1px solid var(--accordian-border-color);
+        background-color: var(--mikiop-header-background-color);
+        border-bottom: 1px solid var(--mikiop-border-color);
       }
 
       .mikiop-accordian-body {
@@ -414,7 +448,7 @@
 
     .mikiop-accordian-item:not(:last-child) {
       .mikiop-accordian-body {
-        border-bottom: 1px solid var(--accordian-border-color);
+        border-bottom: 1px solid var(--mikiop-border-color);
       }
     }
 
@@ -424,7 +458,7 @@
       }
 
       .mikiop-accordian-body {
-        border-top: 1px solid var(--accordian-border-color);
+        border-top: 1px solid var(--mikiop-border-color);
       }
     }
   }
@@ -512,7 +546,7 @@
     vertical-align: baseline;
     border-radius: 0.25em;
     transition: all 0.15s ease-in-out;
-    ._mikiop-block-types;
+    ._mikiop-types;
     text-decoration: none;
 
     &.mikiop-badge-pill {
@@ -543,7 +577,7 @@
 
       display: block;
       font-size: 80%;
-      color: var(--blockquote-footer-text-color);
+      color: var(--mikiop-secondary-background-color);
     }
   }
 
@@ -555,7 +589,7 @@
     border: 1px solid transparent;
     margin-bottom: 1em;
 
-    ._mikiop-block-types;
+    ._mikiop-types;
     ._mikiop-shadows;
     ._mikiop-text-align;
     ._mikiop-vertical-align;
@@ -587,8 +621,8 @@
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: var(--reveal-background-color);
-      color: var(--reveal-text-color);
+      background-color: var(--mikiop-secondary-background-color);
+      color: var(--mikiop-secondary-text-color);
       font-weight: 500;
     }
   }
@@ -598,16 +632,16 @@
     transition: all 0.15s ease-in-out;
 
     &:hover {
-      background-color: var(--box-background-color);
+      background-color: var(--mikiop-border-color);
     }
   }
 
   .mikiop-button {
     ._mikiop-button;
-    color: var(--button-secondary-text-color);
+    color: var(--mikiop-secondary-text-color);
 
     &:hover {
-      color: var(--button-secondary-text-hover-color);
+      color: var(--mikiop-secondary-text-hover-color);
       text-decoration: none;
     }
 
@@ -701,9 +735,9 @@
     .display-flex;
     .flex-direction(column);
     word-wrap: break-word;
-    background-color: var(--card-background-color);
+    background-color: var(--mikiop-background-color);
     background-clip: border-box;
-    border: 1px solid var(--card-border-color);
+    border: 1px solid var(--mikiop-border-color);
     border-radius: 0.25em;
     margin-bottom: 2em;
     overflow: hidden;
@@ -712,7 +746,7 @@
     height: 100%;
 
     ._mikiop-shadows;
-    ._mikiop-block-types;
+    ._mikiop-types;
     ._mikiop-text-align;
 
     .mikiop-card-body {
@@ -740,15 +774,15 @@
 
     .mikiop-card-header {
       padding: 0.75em 1.25em;
-      background-color: var(--card-header-background-color);
-      border-bottom: 1px solid var(--card-border-color);
+      background-color: var(--mikiop-header-background-color);
+      border-bottom: 1px solid var(--mikiop-border-color);
     }
 
     .mikiop-card-footer {
       padding: 0.75em 1.25em;
-      background-color: var(--card-footer-background-color);
-      border-top: 1px solid var(--card-border-color);
-      color: var(--card-footer-text-color);
+      background-color: var(--mikiop-footer-background-color);
+      border-top: 1px solid var(--mikiop-border-color);
+      color: var(--mikiop-secondary-background-color);
 
       small {
         font-size: 80%;
@@ -763,7 +797,7 @@
     }
 
     .mikiop-card-subtitle {
-      color: var(--card-subtitle-text-color);
+      color: var(--mikiop-secondary-background-color);
       font-weight: 600;
       margin-top: -1em;
       margin-bottom: 0.5em;
@@ -895,7 +929,7 @@
       }
 
       .mikiop-carousel-caption {
-        background-color: var(--carousel-caption-background-color);
+        background-color: var(--mikiop-carousel-caption-background-color);
         position: absolute;
         bottom: 0;
         left: 0;
@@ -909,7 +943,7 @@
           margin-bottom: 0.5em;
           font-weight: 500;
           line-height: 1.2;
-          color: var(--carousel-text-color);
+          color: var(--mikiop-carousel-text-color);
         }
 
         .mikiop-carousel-caption-title a {
@@ -919,7 +953,7 @@
         }
 
         p {
-          color: var(--carousel-caption-text-color);
+          color: var(--mikiop-carousel-caption-text-color);
           margin-bottom: 0;
         }
       }
@@ -953,8 +987,8 @@
       }
 
       svg {
-        fill: var(--carousel-control-fill-color);
-        stroke: var(--carousel-control-stroke-color);
+        fill: var(--mikiop-carousel-control-fill-color);
+        stroke: var(--mikiop-carousel-control-stroke-color);
         stroke-width: 0.2px;
       }
 
@@ -980,7 +1014,7 @@
         height: 3px;
         margin: 1em 0.25em;
         padding: 0;
-        background-color: var(--carousel-indicator-color);
+        background-color: var(--mikiop-carousel-indicator-color);
         transition: all 0.6s ease;
         opacity: 0.5;
 
@@ -991,7 +1025,7 @@
 
       &.mikiop-carousel-indicators-circle {
         .mikiop-carousel-indicator {
-          border: 1px solid var(--carousel-indicator-color);
+          border: 1px solid var(--mikiop-carousel-indicator-color);
           border-radius: 50%;
           width: 10px;
           height: 10px;
@@ -1101,7 +1135,7 @@
       color: inherit;
       padding: 0.75rem 1.25rem;
       margin: 0;
-      border: 1px solid var(--listgroup-item-border-color);
+      border: 1px solid var(--mikiop-border-color);
       box-sizing: border-box;
 
       ._mikiop-alert-types;
@@ -1127,7 +1161,7 @@
       }
 
       &.mikiop-active {
-        ._mikiop-block-type('primary');
+        ._mikiop-type('primary');
       }
 
       &.mikiop-disabled {
@@ -1144,7 +1178,7 @@
         margin: -0.75rem -1.25rem;
 
         &:hover {
-          background-color: var(--listgroup-item-link-background-hover-color);
+          background-color: var(--mikiop-light-background-hover-color);
         }
       }
 
@@ -1218,7 +1252,7 @@
       .mikiop-pagenation-item {
         display: inline-block;
         padding: 0;
-        border: 1px solid var(--pagenation-border-color);
+        border: 1px solid var(--mikiop-border-color);
         border-radius: 0.25em;
 
         a {
@@ -1226,11 +1260,11 @@
           color: #007bff;
           text-decoration: none;
           display: block;
-          background-color: var(--pagenation-link-background-color);
+          // background-color: var(--pagenation-link-background-color);
 
           &:hover {
             text-decoration: none;
-            background-color: var(--pagenation-link-background-hover-color);
+            background-color: var(--mikiop-background-color);
           }
         }
 
@@ -1247,7 +1281,7 @@
 
         &.mikiop-active {
           a {
-            background-color: var(--pagenation-link-text-color);
+            background-color: var(--mikiop-link-text-color);
             color: var(--pagenation-link-background-color);
           }
         }
@@ -1276,7 +1310,7 @@
     overflow: hidden;
     line-height: 0;
     font-size: 0.75em;
-    background-color: var(--progressbar-background-color);
+    background-color: var(--mikiop-border-color);
     border-radius: 0.25em;
     margin-bottom: 1em;
   }
@@ -1288,7 +1322,7 @@
     text-align: center;
     overflow: hidden;
     white-space: no-wrap;
-    ._mikiop-block-types;
+    ._mikiop-types;
     transition: all 0.6s ease;
 
     &.mikiop-striped {
@@ -1357,11 +1391,11 @@
       padding: 1em 2em;
       border-width: 1px 0 1px 1px;
       border-style: solid;
-      border-color: var(--steps-step-border-color);
+      border-color: var(--mikiop-steps-border-color);
       border-radius: 0.25em;
       margin-left: 0;
-      color: var(--steps-step-text-color);
-      background-color: var(--steps-step-background-color);
+      color: var(--mikiop-steps-step-text-color);
+      background-color: var(--mikiop-steps-step-background-color);
       font-size: 0.9em;
 
       ._mikiop-alert-types;
@@ -1381,7 +1415,7 @@
       }
 
       &.mikiop-complete {
-        background-color: var(--steps-step-background-complete-color);
+        background-color: var(--mikiop-steps-step-background-complete-color);
 
         &:after {
           background-color: inherit;
@@ -1394,8 +1428,8 @@
         z-index: 2;
         border-width: 0 1px 1px 0;
         border-style: solid;
-        border-color: var(--steps-step-border-color);
-        background-color: var(--steps-step-background-color);
+        border-color: var(--mikiop-steps-border-color);
+        background-color: inherit;
         top: 50%;
         right: 0;
         width: 16px;
@@ -1433,8 +1467,8 @@
     margin-bottom: 0;
     list-style: none;
 
-    background-color: var(--tabgroup-background-color);
-    border: 1px solid var(--tabgroup-border-color);
+    background-color: var(--mikiop-header-background-color);
+    border: 1px solid var(--mikiop-border-color);
     border-top-left-radius: 0.25em;
     border-top-right-radius: 0.25em;
     padding-left: 1em;
@@ -1444,7 +1478,7 @@
       margin-left: 0;
 
       a {
-        color: var(--tabgroup-tab-text-color);
+        color: var(--mikiop-link-text-color);
         text-decoration: none;
         border: 1px solid transparent;
         border-top-left-radius: 0.25em;
@@ -1455,14 +1489,14 @@
         transition: all 0.15s ease-in-out;
 
         &:not(.mikiop-active):hover {
-          border-color: var(--tabgroup-tab-border-hover-color) var(--tabgroup-tab-border-hover-color) var(--tabgroup-border-color);
-          color: var(--tabgroup-tab-text-hover-color);
+          border-color: var(--mikiop-tabgroup-tab-border-hover-color) var(--mikiop-tabgroup-tab-border-hover-color) var(--mikiop-border-color);
+          color: var(--mikiop-link-text-hover-color);
         }
 
         &.mikiop-active {
-          border-color: var(--tabgroup-border-color) var(--tabgroup-border-color) var(--tabgroup-tab-background-active-color);
-          background-color: var(--tabgroup-tab-background-active-color);
-          color: var(--tabgroup-tab-text-active-color);
+          border-color: var(--mikiop-border-color) var(--mikiop-border-color) var(--mikiop-tabgroup-tab-background-active-color);
+          background-color: var(--mikiop-tabgroup-tab-background-active-color);
+          color: var(--mikiop-tabgroup-tab-text-active-color);
         }
       }
 
@@ -1498,7 +1532,7 @@
   .mikiop-tab-content {
     border-width: 0 1px 1px 1px;
     border-style: solid;
-    border-color: var(--tabgroup-border-color);
+    border-color: var(--mikiop-border-color);
     border-bottom-left-radius: 0.25em;
     border-bottom-right-radius: 0.25em;
     padding: 0.5em 1em;
@@ -1514,7 +1548,7 @@
   }
 
   .mikiop-quiz {
-    border: 1px solid var(--quiz-border-color);
+    border: 1px solid var(--mikiop-border-color);
     border-radius: 0.25em;
     margin-bottom: 2em;
 
@@ -1529,7 +1563,7 @@
     }
 
     .mikiop-quiz-button-submit {
-      ._mikiop-btn-type('outline-secondary');
+      ._mikiop-btn-outline-type('secondary');
     }
 
     .mikiop-quiz-question {
@@ -1560,9 +1594,9 @@
 
     .mikiop-quiz-status {
       padding: 0.75em 1.25em;
-      background-color: var(--quiz-status-background-color);
+      background-color: var(--mikiop-header-background-color);
       border-top: 1px solid rgba(0, 0, 0, 0.125);
-      color: var(--quiz-status-text-color);
+      color: var(--mikiop-secondary-background-color);
 
       button {
         margin-left: 1em;
@@ -1584,7 +1618,7 @@
     .mikiop-card,
     .mikiop-progress-bar {
       &.mikiop-type-@{type} {
-        ._mikiop-block-type('@{type}');
+        ._mikiop-type('@{type}');
       }
     }
 
@@ -1593,7 +1627,7 @@
     .mikiop-list-group,
     .mikiop-step {
       &.mikiop-type-@{type} {
-        ._mikiop-block-type('@{type}', 'alert');
+        ._mikiop-type('@{type}', 'alert');
       }
     }
 
