@@ -23,6 +23,11 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+- **_2022-10-31_**
+  - Fixed 'link' type for Buttons
+  - Updated CSS to use CSS Variables to support switchable themes (darkmode)
+  - variables.css no longer included if the mikio template is installed, active and version 2022-10-31 or greator
+
 - **_2022-01-18_**
   - Fixed accordian not rendering tables inside itself [#15](https://github.com/nomadjimbob/mikioplugin/issues/15). Thanks Melphios
 
