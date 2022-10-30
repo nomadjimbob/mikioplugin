@@ -17,7 +17,7 @@ class syntax_plugin_mikioplugin_placeholder extends syntax_plugin_mikioplugin_co
         'width'         => array('type'     => 'size',  'default'      => ''),
         'height'        => array('type'     => 'size',  'default'      => ''),
         'text'          => array('type'     => 'text',  'default'      => ''),
-        'color'         => array('type'     => 'text',  'default'      => 'var(--placeholder-background-color)'),
+        'color'         => array('type'     => 'text',  'default'      => 'var(--mikiop-border-color)'),
         'text-color'    => array('type'     => 'text',  'default'      => 'currentColor'),
     );
     
