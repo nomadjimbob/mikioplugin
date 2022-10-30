@@ -93,11 +93,11 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
       }      
     }
 
-    if($tpl_supported === false) {
+    if($tpl_supported !== false) {
       array_unshift($stylesheets, $baseDir . 'assets/variables.css');
     }
 
-    array_unshift($stylesheets, $baseDir . 'assets/plugin.css');
+    array_unshift($stylesheets, $baseDir . 'assets/styles.less');
 
     // css
     foreach ($stylesheets as $style) {
@@ -112,16 +112,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
       }
     }
 
-    $lessSorted = [];
-    foreach ($less as $key => $value) {
-      if (substr(strtolower($value), -14) == 'variables.less') {
-        $lessSorted[] = $value;
-        unset($less[$key]);
-      }
-    }
-
-    $lessSorted = array_merge($lessSorted, $less);
-    $lessPath = implode(',', $lessSorted);
+    $lessPath = implode(',', $less);
 
     if(strlen($lessPath) > 0) {
       array_unshift($event->data['link'], array(
