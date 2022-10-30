@@ -1,0 +1,273 @@
+:root {
+  /* Accordian */
+  --accordian-border-color: #00000020;
+  --accordian-title-background-color: #00000007;
+
+  /* Alert Primary */
+  --alert-primary-text-color: #004085;
+  --alert-primary-background-color: #cce5ff;
+  --alert-primary-border-color: #b8daff;
+
+  /* Alert Secondary */
+  --alert-secondary-text-color: #383d41;
+  --alert-secondary-background-color: #e2e3e5;
+  --alert-secondary-border-color: #d6d8db;
+
+  /* Alert Success */
+  --alert-success-text-color: #155724;
+  --alert-success-background-color: #d4edda;
+  --alert-success-border-color: #c3e6cb;
+
+  /* Alert Danger */
+  --alert-danger-text-color: #721c24;
+  --alert-danger-background-color: #f8d7da;
+  --alert-danger-border-color: #f5c6cb;
+
+  /* Alert Warning */
+  --alert-warning-text-color: #856404;
+  --alert-warning-background-color: #fff3cd;
+  --alert-warning-border-color: #ffeeba;
+
+  /* Alert Info */
+  --alert-info-text-color: #0c5460;
+  --alert-info-background-color: #d1ecf1;
+  --alert-info-border-color: #bee5eb;
+
+  /* Alert Light */
+  --alert-light-text-color: #818182;
+  --alert-light-background-color: #fefefe;
+  --alert-light-border-color: #fdfdfe;
+
+  /* Alert Dark */
+  --alert-dark-text-color: #1b1e21;
+  --alert-dark-background-color: #d6d8d9;
+  --alert-dark-border-color: #c6c8ca;
+
+  /* Blockquote */
+  --blockquote-footer-text-color: #6c757d;
+
+  /* Box */
+  --box-background-color: #0000000c;
+
+  /* Button Default (Primary) */
+  --button-default-text-color: #ffffff;
+  --button-default-text-hover-color: #ffffff;
+  --button-default-background-color: #007bff;
+  --button-default-background-hover-color: #0069d9;
+  --button-default-border-color: #007bff;
+  --button-default-border-hover-color: #0062cc;
+
+  /* Button Secondary */
+  --button-secondary-text-color: #fff;
+  --button-secondary-text-hover-color: #fff;
+  --button-secondary-background-color: #6c757d;
+  --button-secondary-background-hover-color: #5a6268;
+  --button-secondary-border-color: #6c757d;
+  --button-secondary-border-hover-color: #545b62;
+
+  /* Button Success */
+  --button-success-text-color: #fff;
+  --button-success-text-hover-color: #fff;
+  --button-success-background-color: #28a745;
+  --button-success-background-hover-color: #218838;
+  --button-success-border-color: #28a745;
+  --button-success-border-hover-color: #1e7e34;
+
+  /* Button Danger */
+  --button-danger-text-color: #fff;
+  --button-danger-background-color: #dc3545;
+  --button-danger-border-color: #dc3545;
+  --button-danger-text-hover-color: #fff;
+  --button-danger-background-hover-color: #c82333;
+  --button-danger-border-hover-color: #bd2130;
+
+  /* Button Warning */
+  --button-warning-text-color: #fff;
+  --button-warning-background-color: #ffc107;
+  --button-warning-border-color: #ffc107;
+  --button-warning-text-hover-color: #fff;
+  --button-warning-background-hover-color: #e0a800;
+  --button-warning-border-hover-color: #d39e00;
+
+  /* Button Info */
+  --button-info-text-color: #fff;
+  --button-info-background-color: #17a2b8;
+  --button-info-border-color: #17a2b8;
+  --button-info-text-hover-color: #fff;
+  --button-info-background-hover-color: #138496;
+  --button-info-border-hover-color: #117a8b;
+
+  /* Button Light */
+  --button-light-text-color: #212529;
+  --button-light-background-color: #f8f9fa;
+  --button-light-border-color: #f8f9fa;
+  --button-light-hover-text-hover-color: #212529;
+  --button-light-hover-background-hover-color: #e2e6ea;
+  --button-light-hover-border-hover-color: #dae0e5;
+
+  /* Button Dark */
+  --button-dark-text-color: #fff;
+  --button-dark-background-color: #343a40;
+  --button-dark-border-color: #343a40;
+  --button-dark-text-hover-color: #fff;
+  --button-dark-background-hover-color: #23272b;
+  --button-dark-border-hover-color: #1d2124;
+
+  /* Button Link */
+  --button-link-text-color: #007bff;
+  --button-link-background-color: transparent;
+  --button-link-border-color: transparent;
+  --button-link-text-hover-color: #0056b3;
+  --button-link-background-hover-color: transparent;
+  --button-link-border-hover-color: transparent;
+
+  /* Card */
+  --card-background-color: #ffffff20;
+  --card-border-color: #00000020;
+  --card-header-background-color: #00000007;
+  --card-subtitle-text-color: #6c757d;
+  --card-footer-text-color: #6c757d;
+  --card-footer-background-color: #00000007;
+
+  /* Carousel */
+  --carousel-title-text-color: #fff;
+  --carousel-caption-text-color: #fff;
+  --carousel-caption-background-color: #00000080;
+  --carousel-control-fill-color: #fff;
+  --carousel-control-stroke-color: #000;
+  --carousel-indicator-color: #fff;
+  
+  /* Listgroup */
+  --listgroup-item-border-color: #00000020;
+  --listgroup-item-link-background-hover-color: #f8f9fa;
+
+  /* Pagenation */
+  --pagenation-border-color: #dee2e6;
+  --pagenation-link-text-color: #007bff;
+  --pagenation-link-background-color: #fff;
+  --pagenation-link-background-hover-color: #e9ecef;
+
+  /* Placeholder */
+  --placeholder-background-color: #00000020;
+
+  /* Progressbar */
+  --progressbar-background-color: #00000020;
+
+  /* Reveal */
+  --reveal-text-color: #dee2e6;
+  --reveal-background-color: #868e96;
+
+  /* Steps */
+  --steps-step-text-color: #000;
+  --steps-step-border-color: #dee2e6;
+  --steps-step-background-color: #fff;
+  --steps-step-background-complete-color: #f8f8f8;
+
+  /* Tabgroup */
+  --tabgroup-background-color: #00000007;
+  --tabgroup-border-color: #dee2e6;
+  --tabgroup-tab-text-color: #007bff;
+  --tabgroup-tab-text-hover-color: #0056b3;
+  --tabgroup-tab-text-active-color: #495057;
+  --tabgroup-tab-background-active-color: #fff;
+  --tabgroup-tab-border-hover-color: #e9ecef;
+
+  /* Tooltip */
+  --tooltip-text-color: #333;
+  --tooltip-background-color: #fcf3cf;
+  --tooltip-border-color: #9a7d0a;
+
+  /* Quiz */
+  --quiz-border-color: #00000020;
+  --quiz-status-text-color: #6c757d;
+  --quiz-status-background-color: #00000007;
+
+/**
+  Calculations Below
+**/
+  /* Button Primary */
+  --button-primary-text-color: var(--button-default-text-color);
+  --button-primary-text-hover-color: var(--button-default-text-hover-color);
+  --button-primary-background-color: var(--button-default-background-hover-color);
+  --button-primary-background-hover-color: var(--button-default-background-hover-color);
+  --button-primary-border-color: var(--button-default-border-color);
+  --button-primary-border-hover-color: var(--button-default-border-hover-color);
+
+  /* Button Primary Outline */
+  --button-outline-primary-text-color: var(--button-default-background-color);
+  --button-outline-primary-text-hover-color: var(--button-default-background-hover-color);
+  --button-outline-primary-background-color: transparent;
+  --button-outline-primary-background-hover-color: #00000020;
+  --button-outline-primary-border-color: var(--button-default-border-color);
+  --button-outline-primary-border-hover-color: var(--button-default-border-hover-color);
+
+  /* Button Secondary Outline */
+  --button-outline-secondary-text-color: var(--button-secondary-background-color);
+  --button-outline-secondary-text-hover-color: var(--button-secondary-background-hover-color);
+  --button-outline-secondary-background-color: transparent;
+  --button-outline-secondary-background-hover-color: #00000020;
+  --button-outline-secondary-border-color: var(--button-secondary-border-color);
+  --button-outline-secondary-border-hover-color: var(--button-secondary-border-hover-color);
+
+  /* Button Success Outline */
+  --button-outline-success-text-color: var(--button-success-background-color);
+  --button-outline-success-text-hover-color: var(--button-success-background-hover-color);
+  --button-outline-success-background-color: transparent;
+  --button-outline-success-background-hover-color: #00000020;
+  --button-outline-success-border-color: var(--button-success-border-color);
+  --button-outline-success-border-hover-color: var(--button-success-border-hover-color);
+
+  /* Button Danger Outline */
+  --button-outline-danger-text-color: var(--button-danger-background-color);
+  --button-outline-danger-text-hover-color: var(--button-danger-background-hover-color);
+  --button-outline-danger-background-color: transparent;
+  --button-outline-danger-background-hover-color: #00000020;
+  --button-outline-danger-border-color: var(--button-danger-border-color);
+  --button-outline-danger-border-hover-color: var(--button-danger-border-hover-color);
+
+  /* Button Warning Outline */
+  --button-outline-warning-text-color: var(--button-warning-background-color);
+  --button-outline-warning-text-hover-color: var(--button-warning-background-hover-color);
+  --button-outline-warning-background-color: transparent;
+  --button-outline-warning-background-hover-color: #00000020;
+  --button-outline-warning-border-color: var(--button-warning-border-color);
+  --button-outline-warning-border-hover-color: var(--button-warning-border-hover-color);
+
+  /* Button Info Outline */
+  --button-outline-info-text-color: var(--button-info-background-color);
+  --button-outline-info-text-hover-color: var(--button-info-background-hover-color);
+  --button-outline-info-background-color: transparent;
+  --button-outline-info-background-hover-color: #00000020;
+  --button-outline-info-border-color: var(--button-info-border-color);
+  --button-outline-info-border-hover-color: var(--button-info-border-hover-color);
+
+  /* Button Light Outline */
+  --button-outline-light-text-color: var(--button-light-background-color);
+  --button-outline-light-text-hover-color: var(--button-light-background-hover-color);
+  --button-outline-light-background-color: transparent;
+  --button-outline-light-background-hover-color: #00000020;
+  --button-outline-light-border-color: var(--button-light-border-color);
+  --button-outline-light-border-hover-color: var(--button-light-border-hover-color);
+
+  /* Button Dark Outline */
+  --button-outline-dark-text-color: var(--button-dark-background-color);
+  --button-outline-dark-text-hover-color: var(--button-dark-background-hover-color);
+  --button-outline-dark-background-color: transparent;
+  --button-outline-dark-background-hover-color: #00000020;
+  --button-outline-dark-border-color: var(--button-dark-border-color);
+  --button-outline-dark-border-hover-color: var(--button-dark-border-hover-color);
+}
+
+:root[data-theme="theme-dark"] {
+    /* Placeholder */
+    --placeholder-background-color: #ffffff20;
+    
+    /* Progressbar */
+    --progressbar-background-color: #ffffff20;
+  
+    /* Steps */
+    --steps-step-text-color: #fff;
+    --steps-step-border-color: #ffffff20;
+    --steps-step-background-color: #00000020;
+    --steps-step-background-complete-color: #000;
+}

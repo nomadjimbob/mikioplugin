@@ -1,3 +1,24 @@
+/* Utilites */
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
 .user-select(@select: none) {
   -webkit-user-select: @select;
   -moz-user-select: @select;
@@ -47,21 +68,21 @@
 }
 
 ._mikiop-btn-type(@type: 'primary') {
-  @color: '@{type}-btn-text-color';
-  @background: '@{type}-btn-bg-color';
-  @border: '@{type}-btn-border-color';
-  @hovercolor: '@{type}-btn-hover-text-color';
-  @hoverbackground: '@{type}-btn-hover-bg-color';
-  @hoverborder: '@{type}-btn-hover-border-color';
+  @color: var(~'--button-@{type}-text-color');
+  @background: var(~'--button-@{type}-background-color');
+  @border: var(~'--button-@{type}-border-color');
+  @hovercolor: var(~'--button-@{type}-text-hover-color');
+  @hoverbackground: var(~'--button-@{type}-background-hover-color');
+  @hoverborder: var(~'--button-@{type}-border-hover-color');
 
-  color: @@color;
-  background-color: @@background;
-  border-color: @@border;
+  color: @color;
+  background-color: @background;
+  border-color: @border;
 
   &.mikiop-active {
-    color: @@hovercolor;
-    background-color: @@hoverbackground;
-    border-color: @@hoverborder;
+    color: @hovercolor;
+    background-color: @hoverbackground;
+    border-color: @hoverborder;
   }
 
   &:disabled,
@@ -70,9 +91,9 @@
   }
 
   &:hover:not(.mikiop-disabled) {
-    color: @@hovercolor;
-    background-color: @@hoverbackground;
-    border-color: @@hoverborder;
+    color: @hovercolor;
+    background-color: @hoverbackground;
+    border-color: @hoverborder;
   }
 
   &.mikiop-disabled:hover {
@@ -168,17 +189,17 @@
   }
 }
 
-._mikiop-block-type(@type: 'primary', @sel: 'btn') {
-  @color: '@{type}-@{sel}-text-color';
-  @background: '@{type}-@{sel}-bg-color';
-  @border: '@{type}-@{sel}-border-color';
+._mikiop-block-type(@type: 'primary', @sel: 'button') {
+  @color: var(~'--@{sel}-@{type}-text-color');
+  @background: var(~'--@{sel}-@{type}-background-color');
+  @border: var(~'--@{sel}-@{type}-border-color');
 
-  color: @@color;
-  background-color: @@background;
-  border-color: @@border;
+  color: @color;
+  background-color: @background;
+  border-color: @border;
 
   a {
-    color: @@color;
+    color: @color;
   }
 }
 
@@ -341,9 +362,9 @@
   position: absolute;
   z-index: 100000;
   padding: 0.25em 0.5em;
-  background: #fcf3cf;
-  color: #333;
-  border: 1px solid #9a7d0a;
+  background: var(--tooltip-background-color);
+  color: var(--tooltip-text-color);
+  border: 1px solid var(--tooltip-border-color);
   border-radius: 0.25em;
   font-size: 80%;
   box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.35);
@@ -355,7 +376,7 @@
   }
 
   .mikiop-accordian {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid var(--accordian-border-color);
     border-radius: 0.25em;
     margin-bottom: 1em;
     overflow: hidden;
@@ -370,8 +391,8 @@
         text-decoration: none;
         display: block;
         padding: 0.75em 1.25em;
-        background-color: rgba(0, 0, 0, 0.03);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        background-color: var(--accordian-title-background-color);
+        border-bottom: 1px solid var(--accordian-border-color);
       }
 
       .mikiop-accordian-body {
@@ -393,7 +414,7 @@
 
     .mikiop-accordian-item:not(:last-child) {
       .mikiop-accordian-body {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        border-bottom: 1px solid var(--accordian-border-color);
       }
     }
 
@@ -403,7 +424,7 @@
       }
 
       .mikiop-accordian-body {
-        border-top: 1px solid rgba(0, 0, 0, 0.125);
+        border-top: 1px solid var(--accordian-border-color);
       }
     }
   }
@@ -522,7 +543,7 @@
 
       display: block;
       font-size: 80%;
-      color: #6c757d;
+      color: var(--blockquote-footer-text-color);
     }
   }
 
@@ -566,8 +587,8 @@
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: #868e96;
-      color: #dee2e6;
+      background-color: var(--reveal-background-color);
+      color: var(--reveal-text-color);
       font-weight: 500;
     }
   }
@@ -577,16 +598,16 @@
     transition: all 0.15s ease-in-out;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: var(--box-background-color);
     }
   }
 
   .mikiop-button {
     ._mikiop-button;
-    color: #212529;
+    color: var(--button-secondary-text-color);
 
     &:hover {
-      color: #212529;
+      color: var(--button-secondary-text-hover-color);
       text-decoration: none;
     }
 
@@ -680,9 +701,9 @@
     .display-flex;
     .flex-direction(column);
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: var(--card-background-color);
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid var(--card-border-color);
     border-radius: 0.25em;
     margin-bottom: 2em;
     overflow: hidden;
@@ -719,15 +740,15 @@
 
     .mikiop-card-header {
       padding: 0.75em 1.25em;
-      background-color: rgba(0, 0, 0, 0.03);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+      background-color: var(--card-header-background-color);
+      border-bottom: 1px solid var(--card-border-color);
     }
 
     .mikiop-card-footer {
       padding: 0.75em 1.25em;
-      background-color: rgba(0, 0, 0, 0.03);
-      border-top: 1px solid rgba(0, 0, 0, 0.125);
-      color: #6c757d;
+      background-color: var(--card-footer-background-color);
+      border-top: 1px solid var(--card-border-color);
+      color: var(--card-footer-text-color);
 
       small {
         font-size: 80%;
@@ -742,7 +763,7 @@
     }
 
     .mikiop-card-subtitle {
-      color: #6c757d;
+      color: var(--card-subtitle-text-color);
       font-weight: 600;
       margin-top: -1em;
       margin-bottom: 0.5em;
@@ -874,7 +895,7 @@
       }
 
       .mikiop-carousel-caption {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: var(--carousel-caption-background-color);
         position: absolute;
         bottom: 0;
         left: 0;
@@ -888,7 +909,7 @@
           margin-bottom: 0.5em;
           font-weight: 500;
           line-height: 1.2;
-          color: #fff;
+          color: var(--carousel-text-color);
         }
 
         .mikiop-carousel-caption-title a {
@@ -898,7 +919,7 @@
         }
 
         p {
-          color: #fff;
+          color: var(--carousel-caption-text-color);
           margin-bottom: 0;
         }
       }
@@ -932,8 +953,8 @@
       }
 
       svg {
-        fill: #fff;
-        stroke: #000;
+        fill: var(--carousel-control-fill-color);
+        stroke: var(--carousel-control-stroke-color);
         stroke-width: 0.2px;
       }
 
@@ -959,7 +980,7 @@
         height: 3px;
         margin: 1em 0.25em;
         padding: 0;
-        background-color: #fff;
+        background-color: var(--carousel-indicator-color);
         transition: all 0.6s ease;
         opacity: 0.5;
 
@@ -970,7 +991,7 @@
 
       &.mikiop-carousel-indicators-circle {
         .mikiop-carousel-indicator {
-          border: 1px solid #fff;
+          border: 1px solid var(--carousel-indicator-color);
           border-radius: 50%;
           width: 10px;
           height: 10px;
@@ -1080,7 +1101,7 @@
       color: inherit;
       padding: 0.75rem 1.25rem;
       margin: 0;
-      border: 1px solid rgba(0, 0, 0, 0.125);
+      border: 1px solid var(--listgroup-item-border-color);
       box-sizing: border-box;
 
       ._mikiop-alert-types;
@@ -1110,7 +1131,7 @@
       }
 
       &.mikiop-disabled {
-        color: #6c757d;
+        opacity: 0.65;
         pointer-events: none;
       }
 
@@ -1123,7 +1144,7 @@
         margin: -0.75rem -1.25rem;
 
         &:hover {
-          background-color: #f8f9fa;
+          background-color: var(--listgroup-item-link-background-hover-color);
         }
       }
 
@@ -1197,7 +1218,7 @@
       .mikiop-pagenation-item {
         display: inline-block;
         padding: 0;
-        border: 1px solid #dee2e6;
+        border: 1px solid var(--pagenation-border-color);
         border-radius: 0.25em;
 
         a {
@@ -1205,10 +1226,11 @@
           color: #007bff;
           text-decoration: none;
           display: block;
+          background-color: var(--pagenation-link-background-color);
 
           &:hover {
             text-decoration: none;
-            background-color: #e9ecef;
+            background-color: var(--pagenation-link-background-hover-color);
           }
         }
 
@@ -1225,15 +1247,15 @@
 
         &.mikiop-active {
           a {
-            background-color: #007bff;
-            color: #fff;
+            background-color: var(--pagenation-link-text-color);
+            color: var(--pagenation-link-background-color);
           }
         }
 
         &.mikiop-disabled {
           a {
             pointer-events: none;
-            color: #6c757d;
+            opacity: 0.65;
           }
         }
       }
@@ -1254,7 +1276,7 @@
     overflow: hidden;
     line-height: 0;
     font-size: 0.75em;
-    background-color: #e9ecef;
+    background-color: var(--progressbar-background-color);
     border-radius: 0.25em;
     margin-bottom: 1em;
   }
@@ -1335,10 +1357,11 @@
       padding: 1em 2em;
       border-width: 1px 0 1px 1px;
       border-style: solid;
-      border-color: #dee2e6;
+      border-color: var(--steps-step-border-color);
       border-radius: 0.25em;
       margin-left: 0;
-      color: #000;
+      color: var(--steps-step-text-color);
+      background-color: var(--steps-step-background-color);
       font-size: 0.9em;
 
       ._mikiop-alert-types;
@@ -1358,7 +1381,7 @@
       }
 
       &.mikiop-complete {
-        background-color: #f8f8f8;
+        background-color: var(--steps-step-background-complete-color);
 
         &:after {
           background-color: inherit;
@@ -1371,8 +1394,8 @@
         z-index: 2;
         border-width: 0 1px 1px 0;
         border-style: solid;
-        border-color: #dee2e6;
-        background-color: #fff;
+        border-color: var(--steps-step-border-color);
+        background-color: var(--steps-step-background-color);
         top: 50%;
         right: 0;
         width: 16px;
@@ -1410,8 +1433,8 @@
     margin-bottom: 0;
     list-style: none;
 
-    background-color: rgba(0, 0, 0, 0.03);
-    border: 1px solid #dee2e6;
+    background-color: var(--tabgroup-background-color);
+    border: 1px solid var(--tabgroup-border-color);
     border-top-left-radius: 0.25em;
     border-top-right-radius: 0.25em;
     padding-left: 1em;
@@ -1421,7 +1444,7 @@
       margin-left: 0;
 
       a {
-        color: #007bff;
+        color: var(--tabgroup-tab-text-color);
         text-decoration: none;
         border: 1px solid transparent;
         border-top-left-radius: 0.25em;
@@ -1432,20 +1455,20 @@
         transition: all 0.15s ease-in-out;
 
         &:not(.mikiop-active):hover {
-          border-color: #e9ecef #e9ecef #dee2e6;
-          color: #0056b3;
+          border-color: var(--tabgroup-tab-border-hover-color) var(--tabgroup-tab-border-hover-color) var(--tabgroup-border-color);
+          color: var(--tabgroup-tab-text-hover-color);
         }
 
         &.mikiop-active {
-          border-color: #dee2e6 #dee2e6 #fff;
-          background-color: #fff;
-          color: #495057;
+          border-color: var(--tabgroup-border-color) var(--tabgroup-border-color) var(--tabgroup-tab-background-active-color);
+          background-color: var(--tabgroup-tab-background-active-color);
+          color: var(--tabgroup-tab-text-active-color);
         }
       }
 
       &.mikiop-disabled {
         a {
-          color: #6c757d;
+          opacity: 0.65;
         }
 
         pointer-events: none;
@@ -1475,7 +1498,7 @@
   .mikiop-tab-content {
     border-width: 0 1px 1px 1px;
     border-style: solid;
-    border-color: #dee2e6;
+    border-color: var(--tabgroup-border-color);
     border-bottom-left-radius: 0.25em;
     border-bottom-right-radius: 0.25em;
     padding: 0.5em 1em;
@@ -1491,12 +1514,11 @@
   }
 
   .mikiop-quiz {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid var(--quiz-border-color);
     border-radius: 0.25em;
     margin-bottom: 2em;
 
-    .mikiop-quiz-item {
-    }
+    // .mikiop-quiz-item {}
 
     .mikiop-quiz-button-prev {
       ._mikiop-btn-type('secondary');
@@ -1538,9 +1560,9 @@
 
     .mikiop-quiz-status {
       padding: 0.75em 1.25em;
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: var(--quiz-status-background-color);
       border-top: 1px solid rgba(0, 0, 0, 0.125);
-      color: #6c757d;
+      color: var(--quiz-status-text-color);
 
       button {
         margin-left: 1em;
