@@ -3,12 +3,14 @@
 /**
  * Mikio Core Syntax Plugin
  *
- * @link        http://github.com/nomadjimbob/mikioplugin
- * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author      James Collins <james.collins@outlook.com.au>
+ * @link    http://github.com/nomadjimbob/mikioplugin
+ * @license GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author  James Collins <james.collins@outlook.com.au>
  */
-if (!defined('DOKU_INC')) die();
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
+if (!defined('DOKU_INC')) { die();
+}
+if (!defined('DOKU_PLUGIN')) { define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
+}
 
 define('MIKIO_LEXER_AUTO', 0);
 define('MIKIO_LEXER_ENTER', 1);
@@ -89,44 +91,46 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     public function handle($match, $state, $pos, Doku_Handler $handler)
     {
         switch ($state) {
-            case DOKU_LEXER_ENTER:
-            case DOKU_LEXER_SPECIAL:
-                $match_fix = preg_replace('/\s*=\s*/', '=', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
-                $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $match_fix);
+        case DOKU_LEXER_ENTER:
+        case DOKU_LEXER_SPECIAL:
+            $match_fix = preg_replace('/\s*=\s*/', '=', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
+            $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $match_fix);
 
-                $options = array();
-                foreach ($optionlist as $item) {
-                    $i = strpos($item, '=');
-                    if ($i !== false) {
-                        $value = substr($item, $i + 1);
+            $options = array();
+            foreach ($optionlist as $item) {
+                $i = strpos($item, '=');
+                if ($i !== false) {
+                    $value = substr($item, $i + 1);
 
-                        if (substr($value, 0, 1) == '"') $value = substr($value, 1);
-                        if (substr($value, -1) == '"') $value = substr($value, 0, -1);
-
-                        $options[substr($item, 0, $i)] = $value;
-                    } else {
-                        $options[$item] = true;
+                    if (substr($value, 0, 1) == '"') { $value = substr($value, 1);
                     }
-                }
+                    if (substr($value, -1) == '"') { $value = substr($value, 0, -1);
+                    }
 
-                if (count($this->options) > 0) {
-                    $options_clean = $this->cleanOptions($options);
+                    $options[substr($item, 0, $i)] = $value;
                 } else {
-                    $options_clean = $options;
+                    $options[$item] = true;
                 }
+            }
 
-                $this->values = $options_clean;
+            if (count($this->options) > 0) {
+                $options_clean = $this->cleanOptions($options);
+            } else {
+                $options_clean = $options;
+            }
 
-                return array($state, $options_clean);
+            $this->values = $options_clean;
 
-            case DOKU_LEXER_MATCHED:
-                return array($state, $match);
+            return array($state, $options_clean);
 
-            case DOKU_LEXER_UNMATCHED:
-                return array($state, $match);
+        case DOKU_LEXER_MATCHED:
+            return array($state, $match);
 
-            case DOKU_LEXER_EXIT:
-                return array($state, $this->values);
+        case DOKU_LEXER_UNMATCHED:
+            return array($state, $match);
+
+        case DOKU_LEXER_EXIT:
+            return array($state, $this->values);
         }
 
         return array();
@@ -143,7 +147,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     {
         $optionsCleaned = array();
 
-        if ($options == null) $options = $this->options;
+        if ($options == null) { $options = $this->options;
+        }
 
         // Match DokuWiki passed options to syntax options
         foreach ($data as $optionKey => $optionValue) {
@@ -153,20 +158,49 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                         $type = $options[$syntaxKey]['type'];
 
                         switch ($type) {
-                            case 'boolean':
-                                $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_BOOLEAN);
-                                break;
-                            case 'number':
-                                $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_INT);
-                                break;
-                            case 'float':
-                                $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_FLOAT);
-                                break;
-                            case 'text':
-                                $optionsCleaned[$syntaxKey] = $optionValue;
-                                break;
-                            case 'size':
-                                $s = strtolower($optionValue);
+                        case 'boolean':
+                            $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_BOOLEAN);
+                            break;
+                        case 'number':
+                            $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_INT);
+                            break;
+                        case 'float':
+                            $optionsCleaned[$syntaxKey] = filter_var($optionValue, FILTER_VALIDATE_FLOAT);
+                            break;
+                        case 'text':
+                            $optionsCleaned[$syntaxKey] = $optionValue;
+                            break;
+                        case 'size':
+                            $s = strtolower($optionValue);
+                            $i = '';
+                            if (substr($s, -3) == 'rem') {
+                                $i = substr($s, 0, -3);
+                                $s = 'rem';
+                            } elseif (substr($s, -2) == 'em') {
+                                $i = substr($s, 0, -2);
+                                $s = 'em';
+                            } elseif (substr($s, -2) == 'px') {
+                                $i = substr($s, 0, -2);
+                                $s = 'px';
+                            } elseif (substr($s, -1) == '%') {
+                                $i = substr($s, 0, -1);
+                                $s = '%';
+                            } else {
+                                if ($s != 'auto') {
+                                    $i = filter_var($s, FILTER_VALIDATE_INT);
+                                    if ($i == '') { $i = '1';
+                                    }
+                                    $s = 'rem';
+                                }
+                            }
+
+                            $optionsCleaned[$syntaxKey] = $i . $s;
+                            break;
+                        case 'multisize':
+                            $val = '';
+                            $parts = explode(' ', $optionValue);
+                            foreach ($parts as &$part) {
+                                $s = strtolower($part);
                                 $i = '';
                                 if (substr($s, -3) == 'rem') {
                                     $i = substr($s, 0, -3);
@@ -177,104 +211,77 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                                 } elseif (substr($s, -2) == 'px') {
                                     $i = substr($s, 0, -2);
                                     $s = 'px';
+                                } elseif (substr($s, -2) == 'fr') {
+                                    $i = substr($s, 0, -2);
+                                    $s = 'fr';
                                 } elseif (substr($s, -1) == '%') {
                                     $i = substr($s, 0, -1);
                                     $s = '%';
                                 } else {
                                     if ($s != 'auto') {
                                         $i = filter_var($s, FILTER_VALIDATE_INT);
-                                        if ($i == '') $i = '1';
-                                        $s = 'rem';
-                                    }
-                                }
-
-                                $optionsCleaned[$syntaxKey] = $i . $s;
-                                break;
-                            case 'multisize':
-                                $val = '';
-                                $parts = explode(' ', $optionValue);
-                                foreach ($parts as &$part) {
-                                    $s = strtolower($part);
-                                    $i = '';
-                                    if (substr($s, -3) == 'rem') {
-                                        $i = substr($s, 0, -3);
-                                        $s = 'rem';
-                                    } elseif (substr($s, -2) == 'em') {
-                                        $i = substr($s, 0, -2);
-                                        $s = 'em';
-                                    } elseif (substr($s, -2) == 'px') {
-                                        $i = substr($s, 0, -2);
-                                        $s = 'px';
-                                    } elseif (substr($s, -2) == 'fr') {
-                                        $i = substr($s, 0, -2);
-                                        $s = 'fr';
-                                    } elseif (substr($s, -1) == '%') {
-                                        $i = substr($s, 0, -1);
-                                        $s = '%';
-                                    } else {
-                                        if ($s != 'auto') {
-                                            $i = filter_var($s, FILTER_VALIDATE_INT);
-                                            if ($i === '') $i = '1';
-                                            if ($i != 0) {
-                                                $s = 'rem';
-                                            } else {
-                                                $s = '';
-                                            }
+                                        if ($i === '') { $i = '1';
+                                        }
+                                        if ($i != 0) {
+                                            $s = 'rem';
+                                        } else {
+                                            $s = '';
                                         }
                                     }
-
-                                    $part = $i . $s;
                                 }
 
-                                $optionsCleaned[$syntaxKey] = implode(' ', $parts);
-                                break;
-                            case 'color':
-                                if (strlen($optionValue) == 3 || strlen($optionValue) == 6) {
-                                    preg_match('/([[:xdigit:]]{3}){1,2}/', $optionValue, $matches);
-                                    if (count($matches) > 1) {
-                                        $optionsCleaned[$syntaxKey] = '#' . $matches[0];
-                                    } else {
-                                        $optionsCleaned[$syntaxKey] = $optionValue;
-                                    }
+                                $part = $i . $s;
+                            }
+
+                            $optionsCleaned[$syntaxKey] = implode(' ', $parts);
+                            break;
+                        case 'color':
+                            if (strlen($optionValue) == 3 || strlen($optionValue) == 6) {
+                                preg_match('/([[:xdigit:]]{3}){1,2}/', $optionValue, $matches);
+                                if (count($matches) > 1) {
+                                    $optionsCleaned[$syntaxKey] = '#' . $matches[0];
                                 } else {
                                     $optionsCleaned[$syntaxKey] = $optionValue;
                                 }
-                                break;
-                            case 'url':
-                                $optionsCleaned[$syntaxKey] = $this->buildLink($optionValue);
-                                break;
-                            case 'media':
-                                $optionsCleaned[$syntaxKey] = $this->buildMediaLink($optionValue);
-                                break;
-                            case 'choice':
-                                if (array_key_exists('data', $options[$syntaxKey])) {
-                                    foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
-                                        if (strcasecmp($optionValue, $choiceKey) == 0) {
-                                            $optionsCleaned[$syntaxKey] = $choiceKey;
-                                            break;
-                                        }
+                            } else {
+                                $optionsCleaned[$syntaxKey] = $optionValue;
+                            }
+                            break;
+                        case 'url':
+                            $optionsCleaned[$syntaxKey] = $this->buildLink($optionValue);
+                            break;
+                        case 'media':
+                            $optionsCleaned[$syntaxKey] = $this->buildMediaLink($optionValue);
+                            break;
+                        case 'choice':
+                            if (array_key_exists('data', $options[$syntaxKey])) {
+                                foreach ($options[$syntaxKey]['data'] as $choiceKey => $choiceValue) {
+                                    if (strcasecmp($optionValue, $choiceKey) == 0) {
+                                        $optionsCleaned[$syntaxKey] = $choiceKey;
+                                        break;
+                                    }
 
-                                        if (is_array($choiceValue)) {
-                                            foreach ($choiceValue as $choiceItem) {
-                                                if (strcasecmp($optionValue, $choiceItem) == 0) {
-                                                    $optionsCleaned[$syntaxKey] = $choiceKey;
-                                                    break 2;
-                                                }
+                                    if (is_array($choiceValue)) {
+                                        foreach ($choiceValue as $choiceItem) {
+                                            if (strcasecmp($optionValue, $choiceItem) == 0) {
+                                                $optionsCleaned[$syntaxKey] = $choiceKey;
+                                                break 2;
                                             }
-                                        } else {
-                                            if (strcasecmp($optionValue, $choiceValue) == 0) {
-                                                $optionsCleaned[$syntaxKey] = $choiceValue;
-                                                break;
-                                            }
+                                        }
+                                    } else {
+                                        if (strcasecmp($optionValue, $choiceValue) == 0) {
+                                            $optionsCleaned[$syntaxKey] = $choiceValue;
+                                            break;
                                         }
                                     }
                                 }
-                                break;
-                            case 'set':
-                                if (array_key_exists('option', $options[$syntaxKey]) && array_key_exists('data', $options[$syntaxKey])) {
-                                    $optionsCleaned[$options[$syntaxKey]['option']] = $options[$syntaxKey]['data'];
-                                }
-                                break;
+                            }
+                            break;
+                        case 'set':
+                            if (array_key_exists('option', $options[$syntaxKey]) && array_key_exists('data', $options[$syntaxKey])) {
+                                $optionsCleaned[$options[$syntaxKey]['option']] = $options[$syntaxKey]['data'];
+                            }
+                            break;
                         }
                     }
 
@@ -311,15 +318,15 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             if (!array_key_exists($optionKey, $optionsCleaned)) {
                 if (array_key_exists('default', $options[$optionKey])) {
                     switch ($options[$optionKey]['type']) {
-                        case 'boolean':
-                            $optionsCleaned[$optionKey] = filter_var($options[$optionKey]['default'], FILTER_VALIDATE_BOOLEAN);
-                            break;
-                        case 'number':
-                            $optionsCleaned[$optionKey] = filter_var($options[$optionKey]['default'], FILTER_VALIDATE_INT);
-                            break;
-                        default:
-                            $optionsCleaned[$optionKey] = $options[$optionKey]['default'];
-                            break;
+                    case 'boolean':
+                        $optionsCleaned[$optionKey] = filter_var($options[$optionKey]['default'], FILTER_VALIDATE_BOOLEAN);
+                        break;
+                    case 'number':
+                        $optionsCleaned[$optionKey] = filter_var($options[$optionKey]['default'], FILTER_VALIDATE_INT);
+                        break;
+                    default:
+                        $optionsCleaned[$optionKey] = $options[$optionKey]['default'];
+                        break;
                     }
                 }
             }
@@ -353,25 +360,25 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             list($state, $match) = $data;
 
             switch ($state) {
-                case DOKU_LEXER_ENTER:
-                    $this->render_lexer_enter($renderer, $match);
-                    return true;
+            case DOKU_LEXER_ENTER:
+                $this->render_lexer_enter($renderer, $match);
+                return true;
 
-                case DOKU_LEXER_UNMATCHED:
-                    $this->render_lexer_unmatched($renderer, $match);
-                    return true;
+            case DOKU_LEXER_UNMATCHED:
+                $this->render_lexer_unmatched($renderer, $match);
+                return true;
 
-                case DOKU_LEXER_MATCHED:
-                    $this->render_lexer_match($renderer, $match);
-                    return true;
+            case DOKU_LEXER_MATCHED:
+                $this->render_lexer_match($renderer, $match);
+                return true;
 
-                case DOKU_LEXER_EXIT:
-                    $this->render_lexer_exit($renderer, $match);
-                    return true;
+            case DOKU_LEXER_EXIT:
+                $this->render_lexer_exit($renderer, $match);
+                return true;
 
-                case DOKU_LEXER_SPECIAL:
-                    $this->render_lexer_special($renderer, $match);
-                    return true;
+            case DOKU_LEXER_SPECIAL:
+                $this->render_lexer_special($renderer, $match);
+                return true;
             }
 
             return true;
@@ -394,36 +401,40 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         $s = array();
 
         if (is_array($options)) {
-            if ($classes == null) $classes = array();
-            if ($optionsTemplate == null) $optionsTemplate = $this->options;
+            if ($classes == null) { $classes = array();
+            }
+            if ($optionsTemplate == null) { $optionsTemplate = $this->options;
+            }
 
             foreach ($optionsTemplate as $key => $value) {
-                if (array_key_exists('class', $value) && $value['class'] == TRUE) {
+                if (array_key_exists('class', $value) && $value['class'] == true) {
                     array_push($classes, $key);
                 }
             }
 
             foreach ($classes as $class) {
-                if (array_key_exists($class, $options) && $options[$class] !== FALSE && $options[$class] != '') {
+                if (array_key_exists($class, $options) && $options[$class] !== false && $options[$class] != '') {
                     $prefix = $this->classPrefix;
 
                     if (array_key_exists($class, $optionsTemplate) && array_key_exists('prefix', $optionsTemplate[$class])) {
                         $prefix .= $optionsTemplate[$class]['prefix'];
                     }
 
-                    if (array_key_exists($class, $optionsTemplate) && array_key_exists('classNoSuffix', $optionsTemplate[$class]) && $optionsTemplate[$class]['classNoSuffix'] == TRUE) {
+                    if (array_key_exists($class, $optionsTemplate) && array_key_exists('classNoSuffix', $optionsTemplate[$class]) && $optionsTemplate[$class]['classNoSuffix'] == true) {
                         $s[] = $prefix . $class;
                     } else {
-                        $s[] = $prefix . $class . ($options[$class] !== TRUE ? '-' . $options[$class] : '');
+                        $s[] = $prefix . $class . ($options[$class] !== true ? '-' . $options[$class] : '');
                     }
                 }
             }
         }
 
         $s = implode(' ', $s);
-        if ($s != '') $s = ' ' . $s;
+        if ($s != '') { $s = ' ' . $s;
+        }
 
-        if ($inclAttr) $s = ' classes="' . $s . '"';
+        if ($inclAttr) { $s = ' classes="' . $s . '"';
+        }
 
         return $s;
     }
@@ -532,11 +543,12 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     public function buildMediaLink($url)
     {
         $i = strpos($url, '?');
-        if ($i !== FALSE) $url = substr($url, 0, $i);
+        if ($i !== false) { $url = substr($url, 0, $i);
+        }
 
         $url = preg_replace('/[^\da-zA-Z:_.-]+/', '', $url);
 
-        return (tpl_getMediaFile(array($url), FALSE));
+        return (tpl_getMediaFile(array($url), false));
     }
 
 
@@ -549,7 +561,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     public function buildLink($url)
     {
         $i = strpos($url, '://');
-        if ($i !== FALSE || substr($url, 0, 1) == '#') return $url;
+        if ($i !== false || substr($url, 0, 1) == '#') { return $url;
+        }
 
         return wl($url);
     }
@@ -570,7 +583,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         if (class_exists($className)) {
             $class = new $className;
 
-            if (!is_array($data)) $data = array();
+            if (!is_array($data)) { $data = array();
+            }
 
 
             if (count($class->options) > 0) {
@@ -578,25 +592,31 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
 
             switch ($lexer) {
-                case MIKIO_LEXER_AUTO:
-                    if ($class->hasEndTag) {
-                        if (method_exists($class, 'render_lexer_enter')) $class->render_lexer_enter($renderer, $data);
-                        $renderer->doc .= $text;
-                        if (method_exists($class, 'render_lexer_exit')) $class->render_lexer_exit($renderer, $data);
-                    } else {
-                        if (method_exists($class, 'render_lexer_special')) $class->render_lexer_special($renderer, $data);
+            case MIKIO_LEXER_AUTO:
+                if ($class->hasEndTag) {
+                    if (method_exists($class, 'render_lexer_enter')) { $class->render_lexer_enter($renderer, $data);
                     }
+                    $renderer->doc .= $text;
+                    if (method_exists($class, 'render_lexer_exit')) { $class->render_lexer_exit($renderer, $data);
+                    }
+                } else {
+                    if (method_exists($class, 'render_lexer_special')) { $class->render_lexer_special($renderer, $data);
+                    }
+                }
 
-                    break;
-                case MIKIO_LEXER_ENTER:
-                    if (method_exists($class, 'render_lexer_enter')) $class->render_lexer_enter($renderer, $data);
-                    break;
-                case MIKIO_LEXER_EXIT:
-                    if (method_exists($class, 'render_lexer_exit')) $class->render_lexer_exit($renderer, $data);
-                    break;
-                case MIKIO_LEXER_SPECIAL:
-                    if (method_exists($class, 'render_lexer_special')) $class->render_lexer_special($renderer, $data);
-                    break;
+                break;
+            case MIKIO_LEXER_ENTER:
+                if (method_exists($class, 'render_lexer_enter')) { $class->render_lexer_enter($renderer, $data);
+                }
+                break;
+            case MIKIO_LEXER_EXIT:
+                if (method_exists($class, 'render_lexer_exit')) { $class->render_lexer_exit($renderer, $data);
+                }
+                break;
+            case MIKIO_LEXER_SPECIAL:
+                if (method_exists($class, 'render_lexer_special')) { $class->render_lexer_special($renderer, $data);
+                }
+                break;
             }
         }
     }
@@ -614,7 +634,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             // echo '^^'.$className.'^^';
 
 
-            if (method_exists($class, 'mikioCall')) return $class->mikioCall($data);
+            if (method_exists($class, 'mikioCall')) { return $class->mikioCall($data);
+            }
         }
 
         // }
@@ -804,8 +825,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                         if ($j !== false) {
                             $value = substr($option, $j + 1);
 
-                            if (substr($value, 0, 1) == '"') $value = substr($value, 1);
-                            if (substr($value, -1) == '"') $value = substr($value, 0, -1);
+                            if (substr($value, 0, 1) == '"') { $value = substr($value, 1);
+                            }
+                            if (substr($value, -1) == '"') { $value = substr($value, 0, -1);
+                            }
 
                             $item['options'][substr($option, 0, $j)] = $value;
                         } else {
