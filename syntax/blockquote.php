@@ -2,15 +2,18 @@
 /**
  * Mikio Syntax Plugin: Blockquote
  *
- * @link        http://github.com/nomadjimbob/mikioplugin
- * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author      James Collins <james.collins@outlook.com.au>
+ * @link    http://github.com/nomadjimbob/mikioplugin
+ * @license GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author  James Collins <james.collins@outlook.com.au>
  */
-if (!defined('DOKU_INC')) die();
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-require_once(dirname(__FILE__).'/core.php');
+if (!defined('DOKU_INC')) { die();
+}
+if (!defined('DOKU_PLUGIN')) { define('DOKU_PLUGIN', DOKU_INC.'lib/plugins/');
+}
+require_once dirname(__FILE__).'/core.php';
  
-class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_core {
+class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_core
+{
     public $tag                 = 'blockquote';
     public $hasEndTag           = true;
     public $options             = array(
@@ -18,21 +21,30 @@ class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_cor
         'cite'                  => array('type' => 'text',      'default'   => ''),
     );
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->addCommonOptions('text-align');
     }
 
-    public function getAllowedTypes() { return array('formatting', 'substition', 'disabled', 'container'); }
-    public function getPType() { return 'normal'; }    
+    public function getAllowedTypes()
+    {
+        return array('formatting', 'substition', 'disabled', 'container', 'protected'); 
+    }
+    public function getPType()
+    {
+        return 'normal'; 
+    }    
     
-    public function render_lexer_enter(Doku_Renderer $renderer, $data) {
+    public function render_lexer_enter(Doku_Renderer $renderer, $data)
+    {
         $classes = $this->buildClass($data);
 
         $renderer->doc .= '<blockquote class="' . $this->elemClass . ' ' . $this->classPrefix . 'blockquote' . $classes . '"><p>';
     }
 
 
-    public function render_lexer_exit(Doku_Renderer $renderer, $data) {
+    public function render_lexer_exit(Doku_Renderer $renderer, $data)
+    {
         $renderer->doc .= '</p>';
 
         if($data['footer'] != '') {
@@ -40,7 +52,7 @@ class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_cor
 
             if($data['cite'] != '') {
                 $i = strripos($footer, $data['cite']);
-                if($i !== FALSE) {
+                if($i !== false) {
                     $cite = substr($footer, $i, strlen($data['cite']));
                     $footer = substr($footer, 0, $i) . '<cite class="' . $this->elemClass . ' ' . $this->classPrefix . 'cite" title="' . $cite . '">' . substr($footer, $i, strlen($cite)) . '</cite>' . substr($footer, $i + strlen($cite));
                 }

@@ -28,6 +28,10 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+-   **_2023-05-20_**
+
+    -   AccordionItem, Alert, Blockquote, Card and CardBody now support containing 'protected' type which fixes some elements not rendering correctly (ie <&lt>code<&gt>)
+
 -   **_2023-05-19_**
 
     -   Updated to include a polyfill for array_key_first if PHP < 7.3
