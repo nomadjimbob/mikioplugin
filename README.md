@@ -28,6 +28,11 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+-   **_2023-06-06_**
+
+    -   Added Nav item to create dropdown navigation items. [#18](https://github.com/nomadjimbob/mikioplugin/issues/18). Thanks armandostyl
+    -   Added support for elements in sidebars
+
 -   **_2023-05-20_**
 
     -   AccordionItem, Alert, Blockquote, Card and CardBody now support containing 'protected' type which fixes some elements not rendering correctly (ie <&lt>code<&gt>)

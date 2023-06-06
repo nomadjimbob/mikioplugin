@@ -404,7 +404,7 @@
   box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.35);
 }
 
-#dokuwiki__content {
+#dokuwiki__site {
   .mikiop-links-match a {
     color: inherit;
   }
@@ -1241,6 +1241,71 @@
     }
   }
 
+  .mikiop-nav {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+
+    .mikiop-nav-title {
+      display: inline-block;
+      position: relative;
+      padding-right: 1.5em;
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 5px;
+        top: 40%;
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: translateY(-50%) rotate(45deg);
+        -webkit-transform: translateY(-50%) rotate(45deg);
+      }
+    }
+
+    .mikiop-nav-icon {
+      display: inline-block;
+      margin-right: 0.25em;
+    }
+
+    ul {
+      display: none;
+      position: absolute;
+      z-index: 1000;
+      border-width: var(--mikiop-nav-dropdown-border-width);
+      border-style: var(--mikiop-nav-dropdown-border-style);
+      border-color: var(--mikiop-nav-dropdown-border-color);
+      background-color: var(--mikiop-nav-dropdown-background-color);
+      margin: 0;
+      padding: 1rem;
+      list-style-type: none;
+      box-shadow: var(--mikiop-nav-dropdown-shadow);
+      min-width: 12em;
+
+      li {
+        padding: 0.25em 0.5em;
+
+        &:hover {
+          background-color: var(--mikiop-nav-dropdown-hover-color);
+        }
+
+        a, a:visited, a:hover {
+          text-decoration: none;
+          color: initial;
+          margin: 0;
+        }
+      }
+  }
+
+    &.mikiop-nav-open {
+      ul {
+        display: block;
+      }
+    }
+  }
+
   .mikiop-pagenation {
     text-align: center;
 
@@ -1656,5 +1721,11 @@
       .display-flex;
       .flex-direction(column);
     }
+  }
+}
+
+#dokuwiki__site .mikio-sidebar-content .mikiop-nav ul li {
+  a, a:visited, a:hover {
+    color: var(--sidebar-link-color);
   }
 }

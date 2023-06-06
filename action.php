@@ -72,6 +72,8 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
             }
         }
 
+        $stylesheets[] = $baseDir . 'assets/variables.css';
+
         $stylesheets = array_unique($stylesheets);
 
         $tpl_supported = false;

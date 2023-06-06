@@ -471,7 +471,16 @@ jQuery().ready(function () {
         jQuery('.mikiop-tooltip-banner').css('top', event.pageY + moveDown).css('left', event.pageX + moveLeft);
     });
 
-
+    // Nav
+    jQuery('.mikiop-nav').on('click', function (event) {
+        jQuery(this).toggleClass('mikiop-nav-open');
+    });
+    jQuery(document).on('click', function (event) {
+        if (!jQuery(event.target).closest('.mikiop-nav').length) {
+            // Hide the dropdown if clicked outside
+            jQuery('.mikiop-nav').removeClass('mikiop-nav-open');
+        }
+    });
 
     jQuery('.mikiop-collapse').hide();
 });

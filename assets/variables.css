@@ -114,6 +114,14 @@
   --mikiop-tooltip-text-color: #333;
   --mikiop-tooltip-background-color: #fcf3cf;
   --mikiop-tooltip-border-color: #9a7d0a;
+
+  /* Nav */
+  --mikiop-nav-dropdown-border-width: 1px;
+  --mikiop-nav-dropdown-border-style: solid;
+  --mikiop-nav-dropdown-border-color: #ced4da;
+  --mikiop-nav-dropdown-background-color: #fff;
+  --mikiop-nav-dropdown-hover-color: #e5e5e5;
+  --mikiop-nav-dropdown-shadow: 0 4px 10px rgba(0,0,0,0.3);;
 }
 
 :root[data-theme="theme-dark"] {
