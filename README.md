@@ -28,6 +28,10 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+-   **_2023-06-16_**
+
+    -   Fixed spacing issues with listgroup items with mixed styles. [#20](https://github.com/nomadjimbob/mikioplugin/issues/20). Thanks armandostyl
+
 -   **_2023-06-06_**
 
     -   Added Nav item to create dropdown navigation items. [#18](https://github.com/nomadjimbob/mikioplugin/issues/18). Thanks armandostyl
