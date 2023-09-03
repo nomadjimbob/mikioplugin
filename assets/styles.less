@@ -1706,14 +1706,15 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   #dokuwiki__content {
     .mikiop-row {
       .flex-wrap(wrap);
     }
 
     .mikiop-col {
-      .flex(0 0 100%);
+      .flex(0 0 100%) !important;
+      max-width: 100% !important;
       padding: 0;
     }
 
