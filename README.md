@@ -28,6 +28,11 @@ Sometimes GitHub releases change the name of the mikioplugin directory, so make 
 
 ## Releases
 
+-   **_2023-09-03_**
+
+    -   Fixed card height issues on smaller viewports.
+    -   Fixed columns not stacking on small viewports when using sizing. [#21](https://github.com/nomadjimbob/mikioplugin/issues/21). Thanks armandostyl
+
 -   **_2023-06-16_**
 
     -   Fixed spacing issues with listgroup items with mixed styles. [#20](https://github.com/nomadjimbob/mikioplugin/issues/20). Thanks armandostyl
