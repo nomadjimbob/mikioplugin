@@ -14,6 +14,7 @@ class syntax_plugin_mikioplugin_small extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'small';
     public $hasEndTag           = true;
 
+    public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $renderer->doc .= '<small class="' . $this->elemClass . ' ' . $this->classPrefix . 'small">';
