@@ -38,21 +38,28 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
     function __construct()
     {
+    }
+
+    public function isDisabled()
+    {
         global $mikio_disabled_tags;
 
         if (isset($mikio_disabled_tags) === true) {
-            if(array_key_exists($this->tag, $mikio_disabled_tags) === true && $mikio_disabled_tags[$this->tag] === false) {
-                $this->tag = '';
+            if(array_key_exists($this->tag, $mikio_disabled_tags) === true && $mikio_disabled_tags[$this->tag] === true) {
+                return true;
             }
 
             // check requirements
             if($this->requires_tag !== '') {
-                if(array_key_exists($this->tag, $this->requires_tag) === true && $mikio_disabled_tags[$this->requires_tag] === false) {
-                    $this->tag = '';
+                if(array_key_exists($this->requires_tag, $mikio_disabled_tags) === true && $mikio_disabled_tags[$this->requires_tag] === true) {
+                    return true;
                 }
             }
         }
+
+        return false;
     }
+
     public function getType()
     {
         return 'formatting';
@@ -74,6 +81,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
     public function connectTo($mode)
     {
+        if($this->isDisabled() == true) {
+            return;
+        }
+
         if ($this->pattern_entry == '' && $this->tag != '') {
             if ($this->hasEndTag) {
                 $this->pattern_entry = '<(?i:' . $this->tagPrefix . $this->tag . ')(?=[ >]).*?>(?=.*?</(?i:' . $this->tagPrefix . $this->tag . ')>)';
@@ -107,47 +118,49 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
     public function handle($match, $state, $pos, Doku_Handler $handler)
     {
-        switch ($state) {
-        case DOKU_LEXER_ENTER:
-        case DOKU_LEXER_SPECIAL:
-            $match_fix = preg_replace('/\s*=\s*/', '=', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
-            $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $match_fix);
+        if($this->isDisabled() != true) {
+            switch ($state) {
+            case DOKU_LEXER_ENTER:
+            case DOKU_LEXER_SPECIAL:
+                $match_fix = preg_replace('/\s*=\s*/', '=', trim(substr($match, strlen($this->tagPrefix . $this->tag) + 1, -1)));
+                $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $match_fix);
 
-            $options = array();
-            foreach ($optionlist as $item) {
-                $i = strpos($item, '=');
-                if ($i !== false) {
-                    $value = substr($item, $i + 1);
+                $options = array();
+                foreach ($optionlist as $item) {
+                    $i = strpos($item, '=');
+                    if ($i !== false) {
+                        $value = substr($item, $i + 1);
 
-                    if (substr($value, 0, 1) == '"') { $value = substr($value, 1);
+                        if (substr($value, 0, 1) == '"') { $value = substr($value, 1);
+                        }
+                        if (substr($value, -1) == '"') { $value = substr($value, 0, -1);
+                        }
+
+                        $options[substr($item, 0, $i)] = $value;
+                    } else {
+                        $options[$item] = true;
                     }
-                    if (substr($value, -1) == '"') { $value = substr($value, 0, -1);
-                    }
-
-                    $options[substr($item, 0, $i)] = $value;
-                } else {
-                    $options[$item] = true;
                 }
+
+                if (count($this->options) > 0) {
+                    $options_clean = $this->cleanOptions($options);
+                } else {
+                    $options_clean = $options;
+                }
+
+                $this->values = $options_clean;
+
+                return array($state, $options_clean);
+
+            case DOKU_LEXER_MATCHED:
+                return array($state, $match);
+
+            case DOKU_LEXER_UNMATCHED:
+                return array($state, $match);
+
+            case DOKU_LEXER_EXIT:
+                return array($state, $this->values);
             }
-
-            if (count($this->options) > 0) {
-                $options_clean = $this->cleanOptions($options);
-            } else {
-                $options_clean = $options;
-            }
-
-            $this->values = $options_clean;
-
-            return array($state, $options_clean);
-
-        case DOKU_LEXER_MATCHED:
-            return array($state, $match);
-
-        case DOKU_LEXER_UNMATCHED:
-            return array($state, $match);
-
-        case DOKU_LEXER_EXIT:
-            return array($state, $this->values);
         }
 
         return array();
@@ -373,7 +386,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     /* Renderer */
     public function render($mode, Doku_Renderer $renderer, $data)
     {
-        if ($mode == 'xhtml') {
+        if ($mode == 'xhtml' && $this->isDisabled() != true) {
             list($state, $match) = $data;
 
             switch ($state) {
