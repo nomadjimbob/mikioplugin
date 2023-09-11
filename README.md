@@ -26,7 +26,18 @@ directory of your DokuWiki installation.
 
 Sometimes GitHub releases change the name of the mikioplugin directory, so make sure that the directory is `mikioplugin` else you may see errors in DokuWiki.
 
+## Disabling Tags
+
+If a Mikio Plugin tag is conflicting with another plugins tag, or you want to simply disable a tag, you can do this in the `disabled-tags.php` file.
+
+Simply change the tag you want to disable to `true` instead of `false`. Pages that have already been generated while the tag was enabled will need to be regenerated.
+
 ## Releases
+
+-   **_2023-09-11_**
+
+    -   Fixed small tag not being inline [#22](https://github.com/nomadjimbob/mikioplugin/issues/22). Thanks Rayaqu
+    -   Added support to disable tags.
 
 -   **_2023-09-03_**
 
