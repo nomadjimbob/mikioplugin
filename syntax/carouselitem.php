@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_carouselitem extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'carousel-item';
+    public $requires_tag        = 'carousel';
     public $hasEndTag           = false;
     public $options             = array(
         'active'                    => array('type' => 'boolean',   'default'   => 'false'),

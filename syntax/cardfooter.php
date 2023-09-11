@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_cardfooter extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card-footer';
+    public $requires_tag        = 'card';
     public $hasEndTag           = true;
     public $options             = array(
         'small'         => array('type' => 'boolean',   'default'   => 'false')

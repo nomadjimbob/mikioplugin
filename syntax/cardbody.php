@@ -15,6 +15,7 @@ require_once dirname(__FILE__).'/core.php';
 class syntax_plugin_mikioplugin_cardbody extends syntax_plugin_mikioplugin_core
 {
     public $tag                 = 'card-body';
+    public $requires_tag        = 'card';
     public $hasEndTag           = true;
     
     public function __construct()

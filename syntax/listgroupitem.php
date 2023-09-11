@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_listgroupitem extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'listgroup-item';
+    public $requires_tag        = 'listgroup';
     public $hasEndTag           = true;
     public $options             = array(
         'active'            => array('type' => 'boolean',   'default'   => 'false'),

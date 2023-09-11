@@ -16,6 +16,7 @@ require_once dirname(__FILE__).'/core.php';
 class syntax_plugin_mikioplugin_accordionitem extends syntax_plugin_mikioplugin_core
 {
     public $tag                 = 'accordion-item';
+    public $requires_tag        = 'accordion';
     public $hasEndTag           = true;
     public $options             = array(
         'title'         => array('type'     => 'text',      'default'   => ''),

@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_cardgroup extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'card-group';
+    public $requires_tag        = 'card';
     public $hasEndTag           = true;
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {

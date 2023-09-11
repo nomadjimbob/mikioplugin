@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_buttongroup extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'button-group';
+    public $requires_tag        = 'button';
     public $hasEndTag           = true;
     public $options             = array(
         'size'          => array('type'     => 'choice',

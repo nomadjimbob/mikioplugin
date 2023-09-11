@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_steps extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'steps';
+    public $requires_tag        = 'step';
     public $hasEndTag           = true;
     
     public function __construct() {

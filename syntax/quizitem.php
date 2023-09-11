@@ -13,6 +13,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'quiz-item';
+    public $requires_tag        = 'quiz';
     public $hasEndTag           = false;
     public $options             = array(
         'type'          => array('type'     => 'choice',

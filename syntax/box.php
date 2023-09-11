@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/core.php');
  
 class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'box';
+    public $requires_tag        = 'grid';
     public $hasEndTag           = true;
     public $options             = array(
         'attr'          => array('type'     => 'text'),
