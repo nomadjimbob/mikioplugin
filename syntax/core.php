@@ -12,6 +12,8 @@ if (!defined('DOKU_INC')) { die();
 if (!defined('DOKU_PLUGIN')) { define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 }
 
+require_once(dirname(__FILE__).'/../disabled-tags.php');
+
 define('MIKIO_LEXER_AUTO', 0);
 define('MIKIO_LEXER_ENTER', 1);
 define('MIKIO_LEXER_EXIT', 2);
@@ -23,6 +25,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     public $pattern             = '';
     public $pattern_exit        = '';
     public $tag                 = '';
+    public $requires_tag        = '';
     public $hasEndTag           = true;
     public $options             = array();
 
@@ -35,6 +38,20 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
     function __construct()
     {
+        global $mikio_disabled_tags;
+
+        if (isset($mikio_disabled_tags) === true) {
+            if(array_key_exists($this->tag, $mikio_disabled_tags) === true && $mikio_disabled_tags[$this->tag] === false) {
+                $this->tag = '';
+            }
+
+            // check requirements
+            if($this->requires_tag !== '') {
+                if(array_key_exists($this->tag, $this->requires_tag) === true && $mikio_disabled_tags[$this->requires_tag] === false) {
+                    $this->tag = '';
+                }
+            }
+        }
     }
     public function getType()
     {
