@@ -15,10 +15,19 @@ class syntax_plugin_mikioplugin_cardtitle extends syntax_plugin_mikioplugin_core
     public $requires_tag        = 'card';
     public $hasEndTag           = true;
     
+    public function __construct() {
+        $this->addCommonOptions('text-align text-color');
+    }
+
     public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-title">';
+        $classes = $this->buildClass($data);
+        $styles = $this->buildStyle(array(
+            'color'             => $data['text-color'],
+        ), true);
+
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-title' . $classes . '"' . $styles . '>';
     }
 
 

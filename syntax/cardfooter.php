@@ -18,10 +18,19 @@ class syntax_plugin_mikioplugin_cardfooter extends syntax_plugin_mikioplugin_cor
         'small'         => array('type' => 'boolean',   'default'   => 'false')
     );
     
+    public function __construct() {
+        $this->addCommonOptions('text-align text-color');
+    }
+
     public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-footer">';
+        $classes = $this->buildClass($data);
+        $styles = $this->buildStyle(array(
+            'color'             => $data['text-color'],
+        ), true);
+
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-footer ' . $classes . '"' . $styles . '>';
         if($data['small'] != FALSE) $renderer->doc .= '<small>';
     }
 

@@ -20,7 +20,7 @@ class syntax_plugin_mikioplugin_cardbody extends syntax_plugin_mikioplugin_core
     
     public function __construct()
     {
-        $this->addCommonOptions('text-color vertical-align');
+        $this->addCommonOptions('text-align text-color vertical-align');
     }
 
     public function getAllowedTypes()

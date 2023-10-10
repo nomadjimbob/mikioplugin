@@ -17,26 +17,42 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
     public $tag                 = 'card';
     public $hasEndTag           = true;
     public $options             = array(
-        'image'         => array('type'     => 'media',      'default'   => ''),
-        'image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
-        'image-height' => array('type' => 'size', 'default' => ''),
-        'overlay'       => array('type'     => 'boolean',   'default'   => 'false'),
-        'title'         => array('type'     => 'text',      'default'   => ''),
-        'subtitle'      => array('type'     => 'text',      'default'   => ''),
-        'no-body'        => array('type'     => 'boolean',   'default'   => 'false'),
-        'header'      => array('type'     => 'text',      'default'   => ''),
-        'footer'      => array('type'     => 'text',      'default'   => ''),
-        'placeholder-text'      => array('type'     => 'text',      'default'   => ''),
-        'placeholder-color'      => array('type'     => 'text',      'default'   => ''),
-        'placeholder-text-color'      => array('type'     => 'text',      'default'   => ''),
-        'placeholder-height' => array('type' => 'size', 'default' => ''),
-        'footer-image'      => array('type'     => 'media',      'default'   => ''),
-        'footer-image-cover' => array('type'     => 'boolean',      'default'   => 'false'),
-        'footer-placeholder-text'      => array('type'     => 'text',      'default'   => ''),
-        'footer-placeholder-color'      => array('type'     => 'text',      'default'   => ''),
-        'footer-placeholder-text-color'      => array('type'     => 'text',      'default'   => ''),
-        'horizontal'            => array('type'     => 'boolean',   'default'   => 'false'),
-        'footer-small'        => array('type'     => 'boolean',   'default'   => 'false'),
+        'image'                         => array('type' => 'media',     'default'   => ''),
+        'image-cover'                   => array('type' => 'boolean',   'default'   => 'false'),
+        'image-height'                  => array('type' => 'size',      'default'   => ''),
+        'overlay'                       => array('type' => 'boolean',   'default'   => 'false'),
+        'title'                         => array('type' => 'text',      'default'   => ''),
+        'title-text-align'              => array('type' => 'choice',    'data'      => array(
+            'left' => array('text-left'), 'center' => array('text-center'), 'right' => array('text-right')
+        )),
+        'title-text-color'              => array('type' => 'text',      'default'   => ''),
+        'subtitle'                      => array('type' => 'text',      'default'   => ''),
+        'subtitle-text-align'           => array('type' => 'choice',    'data'      => array(
+            'left' => array('text-left'), 'center' => array('text-center'), 'right' => array('text-right')
+        )),
+        'subtitle-text-color'           => array('type' => 'text',      'default'   => ''),
+        'no-body'                       => array('type' => 'boolean',   'default'   => 'false'),
+        'header'                        => array('type' => 'text',      'default'   => ''),
+        'header-text-align'             => array('type' => 'choice',    'data'      => array(
+            'left' => array('text-left'), 'center' => array('text-center'), 'right' => array('text-right')
+        )),
+        'header-text-color'             => array('type' => 'text',      'default'   => ''),
+        'footer'                        => array('type' => 'text',      'default'   => ''),
+        'footer-text-align'             => array('type' => 'choice',    'data'      => array(
+            'left' => array('text-left'), 'center' => array('text-center'), 'right' => array('text-right')
+        )),
+        'footer-text-color'             => array('type' => 'text',      'default'   => ''),
+        'placeholder-text'              => array('type' => 'text',      'default'   => ''),
+        'placeholder-color'             => array('type' => 'text',      'default'   => ''),
+        'placeholder-text-color'        => array('type' => 'text',      'default'   => ''),
+        'placeholder-height'            => array('type' => 'size',      'default'   => ''),
+        'footer-image'                  => array('type' => 'media',     'default'   => ''),
+        'footer-image-cover'            => array('type' => 'boolean',   'default'   => 'false'),
+        'footer-placeholder-text'       => array('type' => 'text',      'default'   => ''),
+        'footer-placeholder-color'      => array('type' => 'text',      'default'   => ''),
+        'footer-placeholder-text-color' => array('type' => 'text',      'default'   => ''),
+        'horizontal'                    => array('type' => 'boolean',   'default'   => 'false'),
+        'footer-small'                  => array('type' => 'boolean',   'default'   => 'false'),
     );
     
 
@@ -75,15 +91,19 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
         if($data['horizontal']) { $renderer->doc .= '</div><div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-body">';
         }
         
-        if($data['header'] != '') { $this->syntaxRender($renderer, 'cardheader', $data['header']);
+        if($data['header'] != '') {
+            $this->syntaxRender($renderer, 'cardheader', $data['header'], $this->arrayRemoveEmpties(array('text-align' => $data['header-text-align'], 'text-color' => $data['header-text-color'])));
         }
 
         if($data['no-body'] == false) { $this->syntaxRender($renderer, 'cardbody', '', $this->arrayRemoveEmpties(array('vertical-align' => $data['vertical-align'], 'text-color' => $data['text-color'])), MIKIO_LEXER_ENTER);
         }
         
-        if($data['title'] != '') { $this->syntaxRender($renderer, 'cardtitle', $data['title']);
+        if($data['title'] != '') {
+            $this->syntaxRender($renderer, 'cardtitle', $data['title'], $this->arrayRemoveEmpties(array('text-align' => $data['title-text-align'], 'text-color' => $data['title-text-color'])));
         }
-        if($data['subtitle'] != '') { $this->syntaxRender($renderer, 'cardsubtitle', $data['subtitle']);
+
+        if($data['subtitle'] != '') {
+            $this->syntaxRender($renderer, 'cardsubtitle', $data['subtitle'], $this->arrayRemoveEmpties(array('text-align' => $data['subtitle-text-align'], 'text-color' => $data['subtitle-text-color'])));
         }
     }
 
@@ -94,7 +114,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
         }
 
         if($data['footer'] != '') {
-            $this->syntaxRender($renderer, 'cardfooter', $data['footer'], $this->arrayRemoveEmpties(array('small' => $data['footer-small'])));
+            $this->syntaxRender($renderer, 'cardfooter', $data['footer'], $this->arrayRemoveEmpties(array('small' => $data['footer-small'], 'text-align' => $data['footer-text-align'], 'text-color' => $data['footer-text-color'])));
         }
 
         if($data['footer-placeholder-text'] != '') {
