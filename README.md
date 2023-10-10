@@ -34,6 +34,11 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-10-10_**
+
+    -   Fixed custom styles not being implemented correctly and added direct type support. Thanks Dylan
+    -   Heading element now supports `color` and `text-decoration` options. Requested by Dylan.
+
 -   **_2023-09-11_**
 
     -   Fixed small tag not being inline [#22](https://github.com/nomadjimbob/mikioplugin/issues/22). Thanks Rayaqu
