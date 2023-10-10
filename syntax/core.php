@@ -320,9 +320,14 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             }
         }
 
+        $customStyles = [];
 
         foreach ($data as $optionKey => $optionValue) {
             if (!array_key_exists($optionKey, $optionsCleaned)) {
+                if($optionValue === true && $this->customStyleExists($optionKey)) {
+                    array_push($customStyles, $optionKey);
+                }
+
                 foreach ($options as $syntaxKey => $syntaxValue) {
                     if (array_key_exists('type', $options[$syntaxKey])) {
                         if (array_key_exists('data', $options[$syntaxKey]) && is_array($options[$syntaxKey]['data'])) {
@@ -341,6 +346,12 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
                     }
                 }
             }
+        }
+
+        if(array_key_exists('type', $options) === true
+            && array_key_exists('type', $optionsCleaned) === false
+            && count($customStyles) > 0) {
+                $optionsCleaned['type'] = $customStyles[0];
         }
 
         // Add in syntax options that are missing
@@ -874,5 +885,25 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         }
 
         return $items;
+    }
+
+    /*
+    * Check if a custom style exists in styles.less
+    *
+    * @param $name          The style name to search foe
+    * @return               true if the style name exists
+    */
+    protected function customStyleExists($name)
+    {
+        $stylePath = __DIR__.'/../styles/styles.less';
+
+        if(file_exists($stylePath)) {
+            $styleData = file_get_contents($stylePath);
+            $searchString = '._mikiop-custom-type('.$name.');';
+
+            return (strpos($styleData, $searchString) !== false);
+        }
+
+        return false;
     }
 }
