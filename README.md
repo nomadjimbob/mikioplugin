@@ -34,6 +34,10 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-10-16_**
+
+    -   Added support to justify individual components of the card. Requested by Dylan.
+
 -   **_2023-10-10_**
 
     -   Fixed custom styles not being implemented correctly and added direct type support. Thanks Dylan
