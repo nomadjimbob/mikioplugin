@@ -22,7 +22,7 @@ class syntax_plugin_mikioplugin_text extends syntax_plugin_mikioplugin_core {
         'style'                 => array('type'    => 'text',     'default' => ''),
         'background-color'      => array('type'    => 'color',    'default' => ''),
         'line-height'           => array('type'    => 'float',    'default' => ''),
-        'text-decoration'       => array('type'    => 'text',     'default' => '1'),
+        'text-decoration'       => array('type'    => 'text',     'default' => ''),
         'block'                 => array('type'    => 'boolean',    'default' => 'false'),
     );
 
