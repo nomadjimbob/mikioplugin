@@ -1,3 +1,4 @@
 .DS_Store
 manager.dat
-styles/styles.less
+styles/*.less
+styles/*.css
