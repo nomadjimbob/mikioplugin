@@ -495,6 +495,41 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         $s = '';
 
         if (is_array($list) && count($list) > 0) {
+            // expand text-decoration
+            if(array_key_exists('text-decoration', $list)) {
+                // Define the possible values for each property
+                $decorations = array('underline', 'overline', 'line-through');
+                $styles = array('solid', 'double', 'dotted', 'dashed', 'wavy');
+                // Split the shorthand string into parts
+                $parts = explode(' ', $list['text-decoration']);
+                    
+                // Initialize the variables to hold the property values
+                $decoration = '';
+                $style = '';
+                $color = '';
+                $thickness = '';
+                
+                // Process each part of the shorthand string
+                foreach ($parts as $part) {
+                    if (in_array($part, $decorations)) {
+                        $decoration = $part;
+                    } elseif (in_array($part, $styles)) {
+                        $style = $part;
+                    } elseif (preg_match('/^\d+(px|em|rem|%)$/', $part)) {
+                        $thickness = $part;
+                    } elseif (preg_match('/^#[0-9a-fA-F]{6}$|^[a-zA-Z]+$/', $part)) {
+                        $color = $part;
+                    }
+                }
+
+                // Build the completed style string
+                unset($list['text-decoration']);
+                if ($decoration) $list['text-decoration'] = trim($decoration);
+                if ($style) $list['text-decoration-style'] = trim($style);
+                if ($color) $list['text-decoration-color'] = trim($color);
+                if ($thickness) $list['text-decoration-thickness'] = trim($thickness);
+            }
+
             foreach ($list as $key => $value) {
                 if ($value != '') {
                     $s .= $key . ':' . $value . ';';
