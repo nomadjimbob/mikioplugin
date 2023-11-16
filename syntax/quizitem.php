@@ -17,12 +17,12 @@ class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core 
     public $hasEndTag           = false;
     public $options             = array(
         'type'          => array('type'     => 'choice',
-                                 'data'     => array('choice'),
-                                 'default'  => ''),
+                                 'data'     => array('choice', 'multiple'),
+                                 'default'  => 'choice'),
         'question'      => array('type'     => 'text',          'default'   => ''),
         'options'       => array('type'     => 'text',          'default'   => ''),
-        'submit-text'   => array('type'     => 'text',          'default'   => 'Submit'),
         'answer'        => array('type'     => 'text',          'default'   => ''),
+        'scores'        => array('type'     => 'text',          'default'   => ''),
         'text'          => array('type'     => 'text',          'default'   => ''),
     );
     
@@ -31,7 +31,7 @@ class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core 
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
 
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-item' . $classes . '" data-question="' . $data['question'] . '" data-answer="' . $data['answer'] . '">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-item' . $classes . '" data-question="' . $data['question'] . '" ' . ($data['answer'] != '' ? 'data-answer="' . $data['answer'] . '"' : '') . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-question">' . $data['question'] . '</div>';
         if($data['text'] != '') $renderer->doc .= '<p>' . $data['text'] . '</p>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-options">';
@@ -41,8 +41,18 @@ class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core 
                 $name = rand(10000, 99999);
 
                 $options = explode('|', $data['options']);
-                foreach($options as $option) {
-                    $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="radio" name="' . $name . '" value="' . $option . '" />' . $option . '</label></div>';
+                $scores = explode('|', $data['scores']);
+                foreach($options as $key => $option) {
+                    $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="radio" name="' . $name . '" value="' . $option . '" ' . (isset($scores[$key]) && $scores[$key] != "" ? 'data-score="' . $scores[$key] . '" ' : '') . '/>' . $option . '</label></div>';
+                }
+                break;
+            case 'multiple':
+                $name = rand(10000, 99999);
+
+                $options = explode('|', $data['options']);
+                $scores = explode('|', $data['scores']);
+                foreach($options as $key => $option) {
+                    $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="checkbox" name="' . $name . '-' . $key . '" value="' . $option . '" ' . (isset($scores[$key]) && $scores[$key] != "" ? 'data-score="' . $scores[$key] . '" ' : '') . '/>' . $option . '</label></div>';
                 }
                 break;
         }

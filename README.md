@@ -34,6 +34,10 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-11-17_**
+
+    -   Added scoring and multiple options to the `quiz` elements. Requested by Dylan.
+
 -   **_2023-10-16_**
 
     -   Added support to justify individual components of the card. Requested by Dylan.

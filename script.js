@@ -281,21 +281,30 @@ jQuery().ready(function () {
     });
 
     // Quiz
-    jQuery('.mikiop-quiz').each(function () {
-        jQuery(this).find('.mikiop-quiz-button-prev').attr('disabled', true);
-        jQuery(this).find('.mikiop-quiz-result').hide();
+    var quizReset = function(quizRef) {
+        quizRef.find('.mikiop-quiz-button-prev').attr('disabled', true);
+        quizRef.find('.mikiop-quiz-result').hide();
+        quizRef.find('.mikiop-quiz-button-submit').show().attr('disabled', false);
+        quizRef.find('.mikiop-quiz-button-reset').hide();
 
-        var status = jQuery(this).attr('data-status');
+        var status = quizRef.attr('data-status');
         status = status.replace('$1', '1');
-        status = status.replace('$2', jQuery(this).children('.mikiop-quiz-item').length);
-        jQuery(this).find('.mikiop-quiz-status-text').html(status);
+        status = status.replace('$2', quizRef.children('.mikiop-quiz-item').length);
+        quizRef.find('.mikiop-quiz-status-text').html(status);
 
-        if (jQuery(this).children('.mikiop-quiz-item').length == 1) {
-            jQuery(this).find('.mikiop-quiz-button-next').attr('disabled', true);
+        if (quizRef.children('.mikiop-quiz-item').length == 1) {
+            quizRef.find('.mikiop-quiz-button-next').attr('disabled', true);
+        } else {
+            quizRef.find('.mikiop-quiz-button-next').attr('disabled', false);
         }
 
-        jQuery(this).children('.mikiop-quiz-item').not(':first-child').hide();
-
+        quizRef.children('.mikiop-quiz-item').find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
+        quizRef.children('.mikiop-quiz-item').not(':first-child').hide();
+        quizRef.children('.mikiop-quiz-item:first-child').show();
+    };
+    
+    jQuery('.mikiop-quiz').each(function () {
+        quizReset(jQuery(this));
     });
 
     jQuery('.mikiop-quiz-button-prev').on('click', function (event) {
@@ -355,30 +364,111 @@ jQuery().ready(function () {
         var parent = jQuery(this).closest('.mikiop-quiz');
         var questions = parent.children('.mikiop-quiz-item');
         var correct = 0;
+        var totalScore = 0;
         var result = '<div class="mikiop-quiz-question">Result</div>';
+
+        var usingScoring = false;
+        var usingCorrect = false;
+        var questionCount = 0;
 
         parent.find('.mikiop-quiz-button-prev').attr('disabled', true);
         parent.find('.mikiop-quiz-button-next').attr('disabled', true);
         parent.find('.mikiop-quiz-button-submit').attr('disabled', true);
         parent.find('.mikiop-quiz-status-text').html('');
 
+        var resetButton = parent.find('.mikiop-quiz-button-reset');
+        if(resetButton.length > 0) {
+            parent.find('.mikiop-quiz-button-submit').hide();
+            resetButton.show();
+        }
+
+
         for (var i = 0; i < questions.length; i++) {
+            var showNewLine = true;
             var question = jQuery(questions[i]).attr('data-question');
+            var regex = /^((\w+ ?)*[):])/;
+
+            if (regex.test(question)) {
+                question = question.match(regex)[1];
+                showNewLine = false;
+            }
+
+            result += '<p><strong>' + question + '</strong>' + (showNewLine ? '<br>' : ' ');
+            
+            var checked = jQuery(questions[i]).find("input:checked");
             var answer = jQuery(questions[i]).attr('data-answer');
+            var value = checked.val();
 
-            result += '<p><strong>' + question + '</strong><br>';
+            if(answer != undefined) {
+                usingCorrect = true;
+                questionCount++;
+            }
 
-            var value = jQuery(questions[i]).find("input:radio:checked").val();
             if (typeof value == 'undefined') {
                 result += 'Not answered';
             } else {
-                result += value + ' - ';
+                var totalItemScore = 0;
+                var selectedItems = [];
+                var itemIsScored = false;
 
-                if (answer.localeCompare(value) == 0) {
-                    correct++;
-                    result += 'Correct';
+                checked.each(function() {
+                    var item = jQuery(this);
+
+                    var score = item.attr('data-score');
+                
+                    if(score != undefined && score.length > 0) {
+                        usingScoring = true;
+                        itemIsScored = true;
+                        totalItemScore += parseInt(score, 10);
+                    } else if(answer != undefined) {
+                        usingCorrect = true;
+                        selectedItems.push(item.val());
+                    }
+                });
+
+                if(itemIsScored) {
+                    var scorePlaceholder = parent.attr('data-result-score');
+                    result += scorePlaceholder.replace('$1', totalItemScore);
+                    totalScore += totalItemScore;
                 } else {
-                    result += 'Incorrect';
+                    var correctText = parent.attr('data-correct');
+                    var incorrectText = parent.attr('data-incorrect');
+                    
+                    result += selectedItems.join(", ") + ' - ';
+    
+                    if(answer.indexOf('|') !== -1) {
+                        var answerArray = answer.split('|');
+                        console.log(answerArray);
+                        console.log(selectedItems);
+                        if(answerArray.length == selectedItems.length) {
+                            var totalMatch = true;
+                            answerArray.forEach(function(answerItem) {
+                                var matching = selectedItems.some(function(selectedItem) {
+                                    return answerItem.localeCompare(selectedItem) === 0;
+                                });
+
+                                if(!matching) {
+                                    totalMatch = false;
+                                }
+                            });
+
+                            if(totalMatch) {
+                                correct++;
+                                result += correctText;
+                            } else {
+                                result += incorrectText;
+                            }
+                        } else {
+                            result += incorrectText;
+                        }
+                    } else {
+                        if (selectedItems.length > 0 && answer.localeCompare(selectedItems[0]) == 0) {
+                            correct++;
+                            result += correctText;
+                        } else {
+                            result += incorrectText;
+                        }
+                    }
                 }
             }
 
@@ -387,12 +477,23 @@ jQuery().ready(function () {
             jQuery(questions[i]).hide();
         }
 
-        var status = parent.attr('data-result');
-        status = status.replace('$1', correct);
-        status = status.replace('$2', questions.length);
-        result += '<p>' + status + '</p>';
+        var status = [];
+        
+        if(usingScoring) {
+            status.push(parent.attr('data-result-score-total').replace('$1', totalScore));
+        }
+        
+        if(usingCorrect) {
+            status.push(parent.attr('data-result-correct').replace('$1', correct).replace('$2', questionCount));
+        }
+
+        result += '<p>' + status.join('<br>') + '</p>';
 
         parent.find('.mikiop-quiz-result').html(result).show();
+    });
+
+    jQuery('.mikiop-quiz-button-reset').on('click', function (event) {
+        quizReset(jQuery(this).closest('.mikiop-quiz'));
     });
 
     // Pagenation
