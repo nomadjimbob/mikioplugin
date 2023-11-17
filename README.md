@@ -34,6 +34,10 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-11-18_**
+
+    -   Better handling when a `quizitem` does not contain a `scores` or `answer` attribute.
+
 -   **_2023-11-17_**
 
     -   Added scoring and multiple options to the `quiz` elements. Requested by Dylan.

@@ -435,11 +435,11 @@ jQuery().ready(function () {
                     var incorrectText = parent.attr('data-incorrect');
                     
                     result += selectedItems.join(", ") + ' - ';
-    
-                    if(answer.indexOf('|') !== -1) {
+
+                    if(answer == undefined) {
+                        result += "No answer set for question";
+                    } else if(answer.indexOf('|') !== -1) {
                         var answerArray = answer.split('|');
-                        console.log(answerArray);
-                        console.log(selectedItems);
                         if(answerArray.length == selectedItems.length) {
                             var totalMatch = true;
                             answerArray.forEach(function(answerItem) {
