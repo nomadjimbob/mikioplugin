@@ -15,6 +15,7 @@ class syntax_plugin_mikioplugin_quiz extends syntax_plugin_mikioplugin_core {
     public $hasEndTag           = true;
     public $options             = array(
         'resettable'   => array('type'     => 'boolean',          'default'   => 'false'),
+        'full'   => array('type'     => 'boolean',          'default'   => 'false'),
         'reset-text'   => array('type'     => 'text',          'default'   => 'Retry'),
         'submit-text'   => array('type'     => 'text',          'default'   => 'Submit'),
         'prev-text'   => array('type'     => 'text',          'default'   => 'Prev'),
@@ -30,20 +31,24 @@ class syntax_plugin_mikioplugin_quiz extends syntax_plugin_mikioplugin_core {
 
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz ' . $classes . '" data-status="' . $data['status-text'] . '" data-result-correct="' . $data['result-correct-text'] . '" data-result-score="' . $data['result-score-text'] . '" data-result-score-total="' . $data['result-score-total-text'] . '" data-correct="' . $data['correct-text'] . '" data-incorrect="' . $data['incorrect-text'] . '">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz ' . $classes . '" data-status="' . $data['status-text'] . '" data-result-correct="' . $data['result-correct-text'] . '" data-result-score="' . $data['result-score-text'] . '" data-result-score-total="' . $data['result-score-total-text'] . '" data-correct="' . $data['correct-text'] . '" data-incorrect="' . $data['incorrect-text'] . '"' . ($data['full'] == true ? ' data-full="true"' : '') . '>';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-result"></div>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-status">';
-        $renderer->doc .= '<span class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-status-text"></span>';
-        $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-prev">&laquo; ' . $data['prev-text'] . '</button>';
+        if($data['full'] == false) {
+            $renderer->doc .= '<span class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-status-text"></span>';
+            $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-prev">&laquo; ' . $data['prev-text'] . '</button>';
+        }
         $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-submit">' . $data['submit-text'] . '</button>';
         if($data['resettable'] == true) {
             $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-reset">' . $data['reset-text'] . '</button>';
         }
-        $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-next">' . $data['next-text'] . ' &raquo;</button>';
+        if($data['full'] == false) {
+            $renderer->doc .= '<button class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $this->classPrefix . 'quiz-button-next">' . $data['next-text'] . ' &raquo;</button>';
+        }
         $renderer->doc .= '</div>';
         $renderer->doc .= '</div>'; 
     }

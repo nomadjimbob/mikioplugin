@@ -299,8 +299,14 @@ jQuery().ready(function () {
         }
 
         quizRef.children('.mikiop-quiz-item').find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
-        quizRef.children('.mikiop-quiz-item').not(':first-child').hide();
-        quizRef.children('.mikiop-quiz-item:first-child').show();
+        
+        var full = quizRef.attr('data-full');
+        if(!full) {
+            quizRef.children('.mikiop-quiz-item').not(':first-child').hide();
+            quizRef.children('.mikiop-quiz-item:first-child').show();
+        } else {
+            quizRef.children('.mikiop-quiz-item').show();
+        }
     };
     
     jQuery('.mikiop-quiz').each(function () {
@@ -435,7 +441,7 @@ jQuery().ready(function () {
                     var incorrectText = parent.attr('data-incorrect');
                     
                     result += selectedItems.join(", ") + ' - ';
-
+    
                     if(answer == undefined) {
                         result += "No answer set for question";
                     } else if(answer.indexOf('|') !== -1) {
