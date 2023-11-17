@@ -941,4 +941,30 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         return false;
     }
+
+    /*
+    * Convert a string to include HTML code based on markdown
+    *
+    * @param $text          The text to style
+    * @return               The styled text
+    */
+    public function applyMarkdownEffects($text)
+    {
+        // Emphasis * Strong
+        $regex = '/(?<!\*)\*\*\*([^*]+)\*\*\*(?!\*)/';
+        $replacement = '<em><strong>$1</strong></em>';
+        $text = preg_replace($regex, $replacement, $text);
+
+        // Strong
+        $regex = '/(?<!\*)\*\*([^*]+)\*\*(?!\*)/';
+        $replacement = '<strong>$1</strong>';
+        $text = preg_replace($regex, $replacement, $text);
+
+        // Emphasis
+        $regex = '/(?<!\*)\*([^*]+)\*(?!\*)/';
+        $replacement = '<em>$1</em>';
+        $text = preg_replace($regex, $replacement, $text);
+
+        return $text;
+    }
 }
