@@ -39,6 +39,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
     -   Fix quiz results not shown correctly when markdown formatting applied.
     -   Quiz placeholders can now be markdown formatted.
     -   Quiz result elements now have classes that can be manually styled through css.
+    -   Fix button backgrounds being overridden by the DokuWiki theme when styled.
 
 -   **_2023-11-18_**
 
