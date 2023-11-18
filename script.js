@@ -391,7 +391,7 @@ jQuery().ready(function () {
 
         for (var i = 0; i < questions.length; i++) {
             var showNewLine = true;
-            var question = jQuery(questions[i]).attr('data-question');
+            var question = stripHtml(jQuery(questions[i]).attr('data-question'));
             var regex = /^((\w+ ?)*[):])/;
 
             if (regex.test(question)) {
@@ -589,10 +589,11 @@ jQuery().ready(function () {
         }
     });
 
+    var stripHtml = function(htmlString) {
+        var tempDiv = document.createElement("div");
+        tempDiv.innerHTML = htmlString;
+        return tempDiv.textContent || tempDiv.innerText || "";
+    };
+
     jQuery('.mikiop-collapse').hide();
 });
-
-
-// jQuery(function(){
-//     jQuery('[data-toggle="tooltip"]').tooltip();
-// });
