@@ -34,6 +34,12 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-11-19_**
+
+    -   Fix quiz results not shown correctly when markdown formatting applied.
+    -   Quiz placeholders can now be markdown formatted.
+    -   Quiz result elements now have classes that can be manually styled through css.
+
 -   **_2023-11-18_**
 
     -   Better handling when a `quizitem` does not contain a `scores` or `answer` attribute.

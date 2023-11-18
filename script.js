@@ -399,7 +399,7 @@ jQuery().ready(function () {
                 showNewLine = false;
             }
 
-            result += '<p><strong>' + question + '</strong>' + (showNewLine ? '<br>' : ' ');
+            result += '<p class="mikiop-quiz-result-question"><strong>' + question + '</strong>' + (showNewLine ? '<br>' : ' ');
             
             var checked = jQuery(questions[i]).find("input:checked");
             var answer = jQuery(questions[i]).attr('data-answer');
@@ -493,7 +493,7 @@ jQuery().ready(function () {
             status.push(parent.attr('data-result-correct').replace('$1', correct).replace('$2', questionCount));
         }
 
-        result += '<p>' + status.join('<br>') + '</p>';
+        result += '<p class="mikiop-quiz-result-total">' + status.join('<br>') + '</p>';
 
         parent.find('.mikiop-quiz-result').html(result).show();
     });

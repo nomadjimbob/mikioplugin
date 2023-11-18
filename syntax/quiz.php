@@ -36,7 +36,7 @@ class syntax_plugin_mikioplugin_quiz extends syntax_plugin_mikioplugin_core {
 
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz ' . $classes . '" data-status="' . $data['status-text'] . '" data-result-correct="' . $data['result-correct-text'] . '" data-result-score="' . $data['result-score-text'] . '" data-result-score-total="' . $data['result-score-total-text'] . '" data-correct="' . $data['correct-text'] . '" data-incorrect="' . $data['incorrect-text'] . '"' . ($data['full'] == true ? ' data-full="true"' : '') . '>';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz ' . $classes . '" data-status="' . $this->applyMarkdownEffects($data['status-text']) . '" data-result-correct="' . $this->applyMarkdownEffects($data['result-correct-text']) . '" data-result-score="' . $this->applyMarkdownEffects($data['result-score-text']) . '" data-result-score-total="' . $this->applyMarkdownEffects($data['result-score-total-text']) . '" data-correct="' . $this->applyMarkdownEffects($data['correct-text']) . '" data-incorrect="' . $this->applyMarkdownEffects($data['incorrect-text']) . '"' . ($data['full'] == true ? ' data-full="true"' : '') . '>';
     }
 
 
