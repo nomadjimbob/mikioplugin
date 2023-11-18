@@ -11,7 +11,7 @@ This plugin can be used by itself, however is designed to complement the [Mikio 
 
 You can update the colors used by the elements by editing the `/assets/variables.css` file. From version 2022-10-31 onwards, the theme supports darkmode within browsers.
 
-If you have the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio) 2022-10-31 onwards installed, the `/assetrs/variables.css` will be ignored as the template adds the variables itself. These can be edited using
+If you have the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio) 2022-10-31 onwards installed, the `/assets/variables.css` will be ignored as the template adds the variables itself. These can be edited using
 **Template Style Settings** in your sites **Administration** page.
 
 ## Setting Up
