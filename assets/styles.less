@@ -1622,20 +1622,6 @@
     border-radius: 0.25em;
     margin-bottom: 2em;
 
-    // .mikiop-quiz-item {}
-
-    .mikiop-quiz-button-prev {
-      ._mikiop-btn-type('secondary');
-    }
-
-    .mikiop-quiz-button-next {
-      ._mikiop-btn-type('secondary');
-    }
-
-    .mikiop-quiz-button-submit, .mikiop-quiz-button-reset {
-      ._mikiop-btn-outline-type('secondary');
-    }
-
     .mikiop-quiz-question {
       font-weight: 500;
       font-size: 1.25em;
@@ -1682,6 +1668,9 @@
     .mikiop-button {
       &.mikiop-type-@{type} {
         ._mikiop-btn-type('@{type}');
+      }
+      &.mikiop-type-outline-@{type} {
+        ._mikiop-btn-outline-type('@{type}');
       }
     }
 

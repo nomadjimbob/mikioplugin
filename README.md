@@ -39,6 +39,8 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
     -   Better handling when a `quizitem` does not contain a `scores` or `answer` attribute.
     -   Added `full` attribute to `quiz` to show the entire quiz.
     -   Quiz questions, text and options support basic markdown to bold and italic points.
+    -   Quiz now supports [style](https://github.com/nomadjimbob/mikioplugin/wiki/Common-Attributes#styles) attribute for buttons.
+    -   Custom styles now automatically builds the `outline-` style.
 
 -   **_2023-11-17_**
 
