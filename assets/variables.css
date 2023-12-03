@@ -122,6 +122,18 @@
   --mikiop-nav-dropdown-background-color: #fff;
   --mikiop-nav-dropdown-hover-color: #e5e5e5;
   --mikiop-nav-dropdown-shadow: 0 4px 10px rgba(0,0,0,0.3);;
+
+  /* Pagination */
+  --mikiop-pagination-text-color: #007bff;
+  --mikiop-pagination-background-color: transparent;
+  --mikiop-pagination-text-hover-color: #007bff;
+  --mikiop-pagination-background-hover-color: #cce5ff;
+  --mikiop-pagination-border-color: #00000040;
+  --mikiop-pagination-text-active-color: #007bff;
+  --mikiop-pagination-background-active-color: #cce5ff;
+  --mikiop-pagination-background-disabled-opacity: 0.65;
+  --mikiop-pagination-text-disabled-color: #666;
+  --mikiop-pagination-background-disabled-color: transparent;
 }
 
 :root[data-theme="theme-dark"] {
@@ -140,4 +152,16 @@
   --mikiop-tabgroup-tab-text-active-color: #ffffffd0;
   --mikiop-tabgroup-tab-background-active-color: #00000020;
   --mikiop-tabgroup-tab-border-hover-color: #ffffff20;
+
+  /* Pagination */
+  --mikiop-pagination-text-color: #007bff;
+  --mikiop-pagination-background-color: transparent;
+  --mikiop-pagination-text-hover-color: #007bff;
+  --mikiop-pagination-background-hover-color: #cce5ff;
+  --mikiop-pagination-border-color: #ffffff40;
+  --mikiop-pagination-text-active-color: #007bff;
+  --mikiop-pagination-background-active-color: #cce5ff;
+  --mikiop-pagination-background-disabled-opacity: 1;
+  --mikiop-pagination-text-disabled-color: #666;
+  --mikiop-pagination-background-disabled-color: transparent;
 }

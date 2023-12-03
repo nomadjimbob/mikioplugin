@@ -1312,30 +1312,30 @@
     }
   }
 
-  .mikiop-pagenation {
+  .mikiop-pagination, .mikiop-pagenation {
     text-align: center;
 
-    .mikiop-pagenation-inner {
+    .mikiop-pagination-inner, .mikiop-pagenation-inner {
       display: inline-block;
       list-style: none;
       padding-left: 0;
 
-      .mikiop-pagenation-item {
+      .mikiop-pagination-item, .mikiop-pagenation-item {
         display: inline-block;
         padding: 0;
-        border: 1px solid var(--mikiop-border-color);
+        border: 1px solid var(--mikiop-pagination-border-color);
         border-radius: 0.25em;
 
         a {
           padding: 0.5em 0.75em;
-          color: #007bff;
+          color: var(--mikiop-pagination-text-color);
           text-decoration: none;
           display: block;
-          // background-color: var(--pagenation-link-background-color);
 
           &:hover {
             text-decoration: none;
-            background-color: var(--mikiop-background-color);
+            color: var(--mikiop-pagination-text-hover-color);
+            background-color: var(--mikiop-pagination-background-hover-color);
           }
         }
 
@@ -1350,17 +1350,29 @@
           border-top-left-radius: 0;
         }
 
+        &:first-child a {
+          border-bottom-left-radius: 0.25em;
+          border-top-left-radius: 0.25em;
+        }
+
+        &:last-child a {
+          border-bottom-right-radius: 0.25em;
+          border-top-right-radius: 0.25em;
+        }
+
         &.mikiop-active {
           a {
-            background-color: var(--mikiop-link-text-color);
-            color: var(--pagenation-link-background-color);
+            color: var(--mikiop-pagination-text-active-color);
+            background-color: var(--mikiop-pagination-background-active-color);
           }
         }
 
         &.mikiop-disabled {
           a {
             pointer-events: none;
-            opacity: 0.65;
+            opacity: var(--mikiop-pagination-background-disabled-opacity);
+            background-color: var(--mikiop-pagination-background-disabled-color);
+            color: var(--mikiop-pagination-text-disabled-color);
           }
         }
       }

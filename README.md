@@ -34,6 +34,13 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-12-04_**
+
+    -   Renamed pagenation to pagination while keep backwards compadibility.
+    -   Fixed pagination when using nice urls [#26](https://github.com/nomadjimbob/mikioplugin/issues/26). Thanks armandostyl
+    -   Updated pagination to use its own variables inside variables.css.
+    -   Fixed up some border radius issues and dark mode themeing on pagination element.
+
 -   **_2023-11-19_**
 
     -   Fix quiz results not shown correctly when markdown formatting applied.

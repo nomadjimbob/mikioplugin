@@ -36,6 +36,7 @@
     'listgroup-item'    => false,
     'nav'               => false,
     'pagenation'        => false,
+    'pagination'        => false,
     'placeholder'       => false,
     'progressbar'       => false,
     'quiz'              => false,

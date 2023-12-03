@@ -1,6 +1,30 @@
 
 
 jQuery().ready(function () {
+    var stripHtml = function(htmlString) {
+        var tempDiv = document.createElement("div");
+        tempDiv.innerHTML = htmlString;
+        return tempDiv.textContent || tempDiv.innerText || "";
+    };
+
+    var urlMatches = function(url) {
+        const windowURL = new URL(window.location);
+        const urlObject = new URL(url.startsWith('http') ? url : window.origin + url);
+        let match = true;
+
+        if(windowURL.origin !== urlObject.origin) {
+            return false;
+        }
+
+        urlObject.searchParams.forEach((val, key) => {
+            if(!windowURL.searchParams.has(key) || windowURL.searchParams.get(key) !== val) {
+                match = false;
+            }
+        });
+
+        return match;
+    };
+
     jQuery('.mikiop-button').on('click', function (event) {
         if (jQuery(this).hasClass('mikiop-disabled')) {
             event.preventDefault();
@@ -502,8 +526,8 @@ jQuery().ready(function () {
         quizReset(jQuery(this).closest('.mikiop-quiz'));
     });
 
-    // Pagenation
-    var pages = jQuery('.mikiop-pagenation').find('li');
+    // Pagination
+    var pages = jQuery('.mikiop-pagination').find('li:not(.mikiop-pagination-prev,.mikiop-pagination-next)');
     if (pages.length > 0) {
         var active = -1;
         var found = -1;
@@ -513,7 +537,7 @@ jQuery().ready(function () {
             location += '?id=start';
         }
 
-        for (i = 1; i < pages.length - 1; i++) {
+        for (i = 0; i < pages.length; i++) {
             if (jQuery(pages[i]).hasClass('mikiop-active')) {
                 if (active != -1) {
                     jQuery(pages[i]).removeClass('mikiop-active')
@@ -523,9 +547,7 @@ jQuery().ready(function () {
             }
 
             var link = jQuery(pages[i]).find('a').attr('href');
-            link = link.replace('id=:', 'id=');
-
-            if (location.localeCompare(link) == 0) {
+            if(urlMatches(link)) {
                 found = i;
             }
         }
@@ -537,23 +559,23 @@ jQuery().ready(function () {
 
         if (active != -1) {
             if (active == 1) {
-                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
+                jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').addClass('mikiop-disabled');
             } else {
-                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').find('a').attr('href', jQuery(pages[active - 1]).find('a').attr('href'));
+                jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').find('a').attr('href', jQuery(pages[active - 1]).find('a').attr('href'));
             }
 
-            if (active == pages.length - 2) {
-                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+            if (active == pages.length - 1) {
+                jQuery('.mikiop-pagination').find('.mikiop-pagination-next').addClass('mikiop-disabled');
             } else {
-                jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').find('a').attr('href', jQuery(pages[active + 1]).find('a').attr('href'));
+                jQuery('.mikiop-pagination').find('.mikiop-pagination-next').find('a').attr('href', jQuery(pages[active + 1]).find('a').attr('href'));
             }
         } else {
-            jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
-            jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+            jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').addClass('mikiop-disabled');
+            jQuery('.mikiop-pagination').find('.mikiop-pagination-next').addClass('mikiop-disabled');
         }
     } else {
-        jQuery('.mikiop-pagenation').find('.mikiop-pagenation-prev').addClass('mikiop-disabled');
-        jQuery('.mikiop-pagenation').find('.mikiop-pagenation-next').addClass('mikiop-disabled');
+        jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').addClass('mikiop-disabled');
+        jQuery('.mikiop-pagination').find('.mikiop-pagination-next').addClass('mikiop-disabled');
     }
 
     // Reveal
@@ -588,12 +610,6 @@ jQuery().ready(function () {
             jQuery('.mikiop-nav').removeClass('mikiop-nav-open');
         }
     });
-
-    var stripHtml = function(htmlString) {
-        var tempDiv = document.createElement("div");
-        tempDiv.innerHTML = htmlString;
-        return tempDiv.textContent || tempDiv.innerText || "";
-    };
 
     jQuery('.mikiop-collapse').hide();
 });
