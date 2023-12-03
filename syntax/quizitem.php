@@ -54,8 +54,30 @@ class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core 
 
                 $options = explode('|', $data['options']);
                 $scores = explode('|', $data['scores']);
+                $inGroup = false;
+                $groupKey = 0;
+
                 foreach($options as $key => $option) {
-                    $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="checkbox" name="' . $name . '-' . $key . '" value="' . $option . '" ' . (isset($scores[$key]) && $scores[$key] != "" ? 'data-score="' . $scores[$key] . '" ' : '') . '/>' . $this->applyMarkdownEffects($option) . '</label></div>';
+                    $endGroup = false;
+
+                    if($inGroup === false && substr($option, 0, 1) === '[') {
+                        $inGroup = true;
+                        $option = substr($option, 1);
+                    } else if($inGroup === true && substr($option, -1) === ']') {
+                        $endGroup = true;
+                        $option = substr($option, 0, -1);
+                    }
+
+                    if($inGroup === true) {
+                        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="radio" name="' . $name . '-group-' . $groupKey . '" value="' . $option . '" ' . (isset($scores[$key]) && $scores[$key] != "" ? 'data-score="' . $scores[$key] . '" ' : '') . '/>' . $this->applyMarkdownEffects($option) . '</label></div>';
+                    } else {
+                        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-option"><label><input type="checkbox" name="' . $name . '-' . $key . '" value="' . $option . '" ' . (isset($scores[$key]) && $scores[$key] != "" ? 'data-score="' . $scores[$key] . '" ' : '') . '/>' . $this->applyMarkdownEffects($option) . '</label></div>';
+                    }
+
+                    if($endGroup === true) {
+                        $inGroup = false;
+                        $groupKey++;
+                    }
                 }
                 break;
         }
