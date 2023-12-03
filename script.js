@@ -460,7 +460,7 @@ jQuery().ready(function () {
                         });
 
                         if (!anySelected) {
-                            result += 'A option was not answered';
+                            result += 'An option was not answered';
                             radioPass = false;
                             break;
                         }
