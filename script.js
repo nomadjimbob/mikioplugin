@@ -437,66 +437,98 @@ jQuery().ready(function () {
             if (typeof value == 'undefined') {
                 result += 'Not answered';
             } else {
-                var totalItemScore = 0;
-                var selectedItems = [];
-                var itemIsScored = false;
+                // check that input radio groups with the same name have at least 1 answer
+                let radioPass = true;
+                let radioGroups = {};
+                const radios = jQuery(questions[i]).find('input[type="radio"]');
 
-                checked.each(function() {
-                    var item = jQuery(this);
+                radios.each(function () {
+                    const groupName = jQuery(this).attr('name');
 
-                    var score = item.attr('data-score');
-                
-                    if(score != undefined && score.length > 0) {
-                        usingScoring = true;
-                        itemIsScored = true;
-                        totalItemScore += parseInt(score, 10);
-                    } else if(answer != undefined) {
-                        usingCorrect = true;
-                        selectedItems.push(item.val());
+                    if (!radioGroups[groupName]) {
+                        radioGroups[groupName] = [];
                     }
+
+                    radioGroups[groupName].push(jQuery(this));
                 });
 
-                if(itemIsScored) {
-                    var scorePlaceholder = parent.attr('data-result-score');
-                    result += scorePlaceholder.replace('$1', totalItemScore);
-                    totalScore += totalItemScore;
-                } else {
-                    var correctText = parent.attr('data-correct');
-                    var incorrectText = parent.attr('data-incorrect');
+                for (const key in radioGroups) {
+                    if (radioGroups.hasOwnProperty(key)) {
+                        const group = radioGroups[key];
+                        const anySelected = group.some(function (radio) {
+                            return radio.prop('checked');
+                        });
+
+                        if (!anySelected) {
+                            result += 'A option was not answered';
+                            radioPass = false;
+                            break;
+                        }
+                    }
+                }
+
+                if(radioPass) {
+                    var totalItemScore = 0;
+                    var selectedItems = [];
+                    var itemIsScored = false;
+
+                    checked.each(function() {
+                        var item = jQuery(this);
+
+                        var score = item.attr('data-score');
                     
-                    result += selectedItems.join(", ") + ' - ';
-    
-                    if(answer == undefined) {
-                        result += "No answer set for question";
-                    } else if(answer.indexOf('|') !== -1) {
-                        var answerArray = answer.split('|');
-                        if(answerArray.length == selectedItems.length) {
-                            var totalMatch = true;
-                            answerArray.forEach(function(answerItem) {
-                                var matching = selectedItems.some(function(selectedItem) {
-                                    return answerItem.localeCompare(selectedItem) === 0;
+                        if(score != undefined && score.length > 0) {
+                            usingScoring = true;
+                            itemIsScored = true;
+                            totalItemScore += parseInt(score, 10);
+                        } else if(answer != undefined) {
+                            usingCorrect = true;
+                            selectedItems.push(item.val());
+                        }
+                    });
+
+                    if(itemIsScored) {
+                        var scorePlaceholder = parent.attr('data-result-score');
+                        result += scorePlaceholder.replace('$1', totalItemScore);
+                        totalScore += totalItemScore;
+                    } else {
+                        var correctText = parent.attr('data-correct');
+                        var incorrectText = parent.attr('data-incorrect');
+                        
+                        result += selectedItems.join(", ") + ' - ';
+        
+                        if(answer == undefined) {
+                            result += "No answer set for question";
+                        } else if(answer.indexOf('|') !== -1) {
+                            var answerArray = answer.split('|');
+                            if(answerArray.length == selectedItems.length) {
+                                var totalMatch = true;
+                                answerArray.forEach(function(answerItem) {
+                                    var matching = selectedItems.some(function(selectedItem) {
+                                        return answerItem.localeCompare(selectedItem) === 0;
+                                    });
+
+                                    if(!matching) {
+                                        totalMatch = false;
+                                    }
                                 });
 
-                                if(!matching) {
-                                    totalMatch = false;
+                                if(totalMatch) {
+                                    correct++;
+                                    result += correctText;
+                                } else {
+                                    result += incorrectText;
                                 }
-                            });
-
-                            if(totalMatch) {
+                            } else {
+                                result += incorrectText;
+                            }
+                        } else {
+                            if (selectedItems.length > 0 && answer.localeCompare(selectedItems[0]) == 0) {
                                 correct++;
                                 result += correctText;
                             } else {
                                 result += incorrectText;
                             }
-                        } else {
-                            result += incorrectText;
-                        }
-                    } else {
-                        if (selectedItems.length > 0 && answer.localeCompare(selectedItems[0]) == 0) {
-                            correct++;
-                            result += correctText;
-                        } else {
-                            result += incorrectText;
                         }
                     }
                 }
