@@ -12,7 +12,7 @@ if (!defined('DOKU_INC')) { die();
 if (!defined('DOKU_PLUGIN')) { define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 }
 
-require_once(dirname(__FILE__).'/../disabled-tags.php');
+require_once dirname(__FILE__).'/../disabled-tags.php';
 
 define('MIKIO_LEXER_AUTO', 0);
 define('MIKIO_LEXER_ENTER', 1);
@@ -87,9 +87,9 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         if ($this->pattern_entry == '' && $this->tag != '') {
             if ($this->hasEndTag) {
-                $this->pattern_entry = '<(?i:' . $this->tagPrefix . $this->tag . ')(?=[ >]).*?>(?=.*?</(?i:' . $this->tagPrefix . $this->tag . ')>)';
+                $this->pattern_entry = '<(?i:' . $this->tagPrefix . $this->tag . ')(?=[ >])(?:".*?"|.*?)*?>(?=.*?</(?i:' . $this->tagPrefix . $this->tag . ')>)';
             } else {
-                $this->pattern_entry = '<(?i:' . $this->tagPrefix . $this->tag . ').*?>';
+                $this->pattern_entry = '<(?i:' . $this->tagPrefix . $this->tag . ')(?:".*?"|.*?)*?>';
             }
         }
 
@@ -350,7 +350,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         if(array_key_exists('type', $options) === true
             && array_key_exists('type', $optionsCleaned) === false
-            && count($customStyles) > 0) {
+            && count($customStyles) > 0
+        ) {
                 $optionsCleaned['type'] = $customStyles[0];
         }
 
@@ -524,10 +525,14 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
                 // Build the completed style string
                 unset($list['text-decoration']);
-                if ($decoration) $list['text-decoration'] = trim($decoration);
-                if ($style) $list['text-decoration-style'] = trim($style);
-                if ($color) $list['text-decoration-color'] = trim($color);
-                if ($thickness) $list['text-decoration-thickness'] = trim($thickness);
+                if ($decoration) { $list['text-decoration'] = trim($decoration);
+                }
+                if ($style) { $list['text-decoration-style'] = trim($style);
+                }
+                if ($color) { $list['text-decoration-color'] = trim($color);
+                }
+                if ($thickness) { $list['text-decoration-thickness'] = trim($thickness);
+                }
             }
 
             foreach ($list as $key => $value) {
