@@ -12,7 +12,7 @@ jQuery().ready(function () {
         const urlObject = new URL(url.startsWith('http') ? url : window.origin + url);
         let match = true;
 
-        if(windowURL.origin !== urlObject.origin) {
+        if(windowURL.origin !== urlObject.origin || windowURL.pathname !== urlObject.pathname) {
             return false;
         }
 
@@ -565,9 +565,9 @@ jQuery().ready(function () {
         var found = -1;
         var location = window.location.pathname + window.location.search;
 
-        if (window.location.search == '') {
-            location += '?id=start';
-        }
+        // if (window.location.search == '') {
+        //     location += '?id=start';
+        // }
 
         for (i = 0; i < pages.length; i++) {
             if (jQuery(pages[i]).hasClass('mikiop-active')) {
@@ -590,7 +590,7 @@ jQuery().ready(function () {
         }
 
         if (active != -1) {
-            if (active == 1) {
+            if (active == 0) {
                 jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').addClass('mikiop-disabled');
             } else {
                 jQuery('.mikiop-pagination').find('.mikiop-pagination-prev').find('a').attr('href', jQuery(pages[active - 1]).find('a').attr('href'));
