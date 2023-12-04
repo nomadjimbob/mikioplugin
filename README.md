@@ -36,10 +36,12 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 -   **_2023-12-04_**
 
+    -   Multiple paginations on a single page is now supported.
+    -   Pagination will try it best in resolving malformed URLs with missing content.
     -   Fixed parsing to ignore <> symbols in element options which used to break the element.
     -   Added ability to create group radio items in a multiple quiz item by surrounding options in []. Requested by Dylan.
     -   Renamed pagenation to pagination while keep backwards compadibility.
-    -   Fixed pagination when using nice urls [#26](https://github.com/nomadjimbob/mikioplugin/issues/26). Thanks armandostyl.
+    -   Fixed pagination when using nice urls, rewrites and slashes [#26](https://github.com/nomadjimbob/mikioplugin/issues/26). Thanks armandostyl.
     -   Updated pagination to use its own variables inside variables.css.
     -   Fixed up some border radius issues and dark mode themeing on pagination element.
 
