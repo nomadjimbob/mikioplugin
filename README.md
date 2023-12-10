@@ -34,6 +34,10 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2023-12-10_**
+
+    -   Fix a LESS compiliation error introduced in [#26](https://github.com/nomadjimbob/mikioplugin/issues/26). Thanks WetenSchaap.
+
 -   **_2023-12-04_**
 
     -   Multiple paginations on a single page is now supported.
