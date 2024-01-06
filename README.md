@@ -34,6 +34,10 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2024-01-06_**
+
+    -   Fix missing default options of height and width in nav element [#29](https://github.com/nomadjimbob/mikioplugin/issues/29). Thanks armandostyl.
+
 -   **_2023-12-10_**
 
     -   Fix a LESS compiliation error introduced in [#26](https://github.com/nomadjimbob/mikioplugin/issues/26). Thanks WetenSchaap.
