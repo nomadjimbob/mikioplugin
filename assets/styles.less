@@ -393,6 +393,10 @@
   &.mikiop-vertical-align-bottom {
     .justify-content(flex-end);
   }
+
+  &.mikiop-vertical-align-justify {
+    .justify-content(space-between);
+  }
 }
 
 ._mikiop-nowrap {
@@ -1075,7 +1079,8 @@
     .flex(1 0 0);
     .display-flex;
     .flex-direction(column);
-    .justify-content(space-between);
+    // .justify-content(space-between);
+    ._mikiop-vertical-align;
     margin: 0;
     box-sizing: border-box;
     border-style: solid;
