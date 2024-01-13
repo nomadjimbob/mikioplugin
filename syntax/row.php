@@ -35,7 +35,7 @@ class syntax_plugin_mikioplugin_row extends syntax_plugin_mikioplugin_core {
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '</div>'; 
+        $renderer->doc .= '</div>';
     }
 }
 ?>
