@@ -34,6 +34,11 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2024-01-14_**
+
+    -   `<col>` now supports the `vertical-align` option, defaulting to top [#30](https://github.com/nomadjimbob/mikioplugin/issues/30). Thanks EmmaKnijn.
+    -   `<right-sidebar>` element added for making right handed sidebars within the page.
+
 -   **_2024-01-06_**
 
     -   Fix missing default options of height and width in nav element [#29](https://github.com/nomadjimbob/mikioplugin/issues/29). Thanks armandostyl.
