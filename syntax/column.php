@@ -27,6 +27,11 @@ class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
         $this->addCommonOptions('vertical-align');
     }
 
+    public function getAllowedTypes()
+    {
+        return array('container', 'formatting', 'substition', 'protected', 'disabled', 'paragraphs');
+    }
+
     public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
