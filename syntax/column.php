@@ -9,23 +9,28 @@
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(dirname(__FILE__).'/core.php');
- 
+
 class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'col';
     public $requires_tag        = 'row';
     public $options             = array(
-        'size'          =>  array('type'    => 'choice',
-                                  'data'    => array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'),
-                                  'default' => ''),
-        'border-color'  => array('type'     => 'color', 'default'   => ''),
-        'border-width'  => array('type'     => 'multisize',  'default'   => ''),
-        'padding'       => array('type'     => 'multisize',  'default'   => ''),
-        'margin'       => array('type'     => 'multisize',  'default'   => ''),
+        'size'          => array('type'     => 'choice',
+                                 'data'     => array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'),
+                                 'default'  => ''),
+        'border-color'  => array('type'     => 'color',     'default'   => ''),
+        'border-width'  => array('type'     => 'multisize', 'default'   => ''),
+        'padding'       => array('type'     => 'multisize', 'default'   => ''),
+        'margin'        => array('type'     => 'multisize', 'default'   => ''),
     );
     
+    public function __construct() {
+        $this->addCommonOptions('vertical-align');
+    }
+
     public function getPType() { return 'normal'; }
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
+        $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array(
             'border-color'  => $data['border-color'],
             'border-width'  => $data['border-width'],
@@ -33,7 +38,7 @@ class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
             'margin'        => $data['margin'],
         ), TRUE);
 
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'col ' . ($data['size'] != '' ? $this->classPrefix . 'col-' . $data['size'] : '') . '"' . $styles . '>';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'col ' . ($data['size'] != '' ? $this->classPrefix . 'col-' . $data['size'] : '') . $classes . '"' . $styles . '>';
     }
 
 
