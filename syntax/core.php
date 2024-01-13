@@ -859,7 +859,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             if (strcasecmp($type, 'vertical-align') == 0) {
                 $this->options['vertical-align'] =  array(
                     'type'    => 'choice',
-                    'data'    => array('top' => array('align-top'), 'middle' => array('align-middle'), 'bottom' => array('align-bottom')),
+                    'data'    => array('top' => array('align-top'), 'middle' => array('align-middle'), 'bottom' => array('align-bottom'), 'justify' => array('align-justify')),
                     'default' => '',
                     'class'   => true
                 );
