@@ -1,13 +1,14 @@
 <?php
 
 /**
- * lessphp v0.6.0
+ * lessphp v0.7.0
  * http://leafo.net/lessphp
  *
  * LESS CSS compiler, adapted from http://lesscss.org
  *
  * Copyright 2013, Leaf Corcoran <leafot@gmail.com>
  * Copyright 2016, Marcus Schwarz <github@maswaba.de>
+ * Copyright 2024, James Collins <james@stemmechanics.com.au>
  * Licensed under MIT or GPLv3, see LICENSE
  */
 
@@ -39,7 +40,7 @@
  * handling things like indentation.
  */
 class lessc {
-	static public $VERSION = "v0.6.0";
+	static public $VERSION = "v0.7.0";
 
 	static public $TRUE = array("keyword", "true");
 	static public $FALSE = array("keyword", "false");
@@ -3736,7 +3737,7 @@ class lessc_parser {
 		if ($eatWhitespace === null) $eatWhitespace = $this->eatWhiteDefault;
 
 		$r = '/'.$regex.($eatWhitespace && !$this->writeComments ? '\s*' : '').'/Ais';
-		if (preg_match($r, $this->buffer, $out, null, $this->count)) {
+		if (preg_match($r, $this->buffer, $out, 0, $this->count)) {
 			$this->count += strlen($out[0]);
 			if ($eatWhitespace && $this->writeComments) $this->whitespace();
 			return true;
@@ -3748,7 +3749,7 @@ class lessc_parser {
 	protected function whitespace() {
 		if ($this->writeComments) {
 			$gotWhite = false;
-			while (preg_match(self::$whitePattern, $this->buffer, $m, null, $this->count)) {
+			while (preg_match(self::$whitePattern, $this->buffer, $m, 0, $this->count)) {
 				if (isset($m[1]) && empty($this->seenComments[$this->count])) {
 					$this->append(array("comment", $m[1]));
 					$this->seenComments[$this->count] = true;
@@ -3767,7 +3768,7 @@ class lessc_parser {
 	protected function peek($regex, &$out = null, $from=null) {
 		if (is_null($from)) $from = $this->count;
 		$r = '/'.$regex.'/Ais';
-		$result = preg_match($r, $this->buffer, $out, null, $from);
+		$result = preg_match($r, $this->buffer, $out, 0, $from);
 
 		return $result;
 	}
