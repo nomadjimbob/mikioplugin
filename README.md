@@ -34,6 +34,11 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+-   **_2024-02-09_**   
+
+    -   Added support for DokuWiki Kaos
+    -   Updated to support PHP 8.2
+
 -   **_2024-01-14_**
 
     -   `<col>` now supports the `vertical-align` option, defaulting to top [#30](https://github.com/nomadjimbob/mikioplugin/issues/30). Thanks EmmaKnijn.
