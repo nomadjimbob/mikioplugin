@@ -58,7 +58,7 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
 
     public function __construct()
     {
-        $this->addCommonOptions('type shadow width height text-align vertical-align text-color');
+        $this->addCommonOptions('type shadow width height text-align vertical-align text-color align');
     }
     
     public function getAllowedTypes()
