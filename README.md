@@ -34,7 +34,12 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
--   **_2024-02-09_**   
+-   **_2024-05-30_**
+
+    -   Added `align-` support to cards [#35](https://github.com/nomadjimbob/mikioplugin/issues/35). Requested by garanovich.
+    -   `<right-sidebar>` element added for making right handed sidebars within the page.
+
+- **_2024-02-09_**   
 
     -   Added support for DokuWiki Kaos
     -   Updated to support PHP 8.2
