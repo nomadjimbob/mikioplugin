@@ -1,5 +1,5 @@
 :root {
-  --mikiop-background-color: #00000007;
+  --mikiop-background-color: #ffffff;
   --mikiop-border-color: #00000020;
   --mikiop-header-background-color: #00000007;
   --mikiop-footer-background-color: #00000007;
@@ -98,7 +98,18 @@
   --mikiop-carousel-control-fill-color: #fff;
   --mikiop-carousel-control-stroke-color: #000;
   --mikiop-carousel-indicator-color: #fff;
-  
+
+  /* Card */
+  --mikiop-card-background-color: #ffffff;
+  --mikiop-card-border-color: #00000060;
+  --mikiop-card-text-color: #000000;
+  --mikiop-card-heading-background-color: red;
+  /*--mikiop-carousel-caption-text-color: #fff;*/
+  /*--mikiop-carousel-caption-background-color: #00000080;*/
+  /*--mikiop-carousel-control-fill-color: #fff;*/
+  /*--mikiop-carousel-control-stroke-color: #000;*/
+  /*--mikiop-carousel-indicator-color: #fff;*/
+
   /* Steps */
   --mikiop-steps-step-text-color: inherit;
   --mikiop-steps-border-color: #00000040;
