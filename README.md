@@ -34,8 +34,9 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
--   **_2024-05-30_**
+-   **_2024-06-05_**
 
+    -   Fixed images being stretched in cards [#32](https://github.com/nomadjimbob/mikioplugin/issues/32). Thanks Elanndelh.
     -   Added `align-` support to cards [#35](https://github.com/nomadjimbob/mikioplugin/issues/35). Requested by garanovich.
     -   `<right-sidebar>` element added for making right handed sidebars within the page.
 
