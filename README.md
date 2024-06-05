@@ -36,6 +36,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 -   **_2024-06-05_**
 
+    -   Added `<tags>` element to support rendering the page tags anywhere if using the Mikio theme [Mikio-#70](https://github.com/nomadjimbob/mikio/issues/70). Requested by garanovich.
     -   Fixed images being stretched in cards [#32](https://github.com/nomadjimbob/mikioplugin/issues/32). Thanks Elanndelh.
     -   Added `align-` support to cards [#35](https://github.com/nomadjimbob/mikioplugin/issues/35). Requested by garanovich.
     -   `<right-sidebar>` element added for making right handed sidebars within the page.
