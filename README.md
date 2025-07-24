@@ -34,7 +34,12 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
--   **_2024-06-05_**
+- **_2025-07-24_**  
+    -   Fixed security vulnerability, parsing less error discloses the physical path . Reported by B Mercer.
+    -   Fixed invalid white-space property in stylesheet.
+    -   Various PHP optimizations and code cleanup.
+
+- **_2024-06-05_**
 
     -   Added `<tags>` element to support rendering the page tags anywhere if using the Mikio theme [Mikio-#70](https://github.com/nomadjimbob/mikio/issues/70). Requested by garanovich.
     -   Fixed images being stretched in cards [#32](https://github.com/nomadjimbob/mikioplugin/issues/32). Thanks Elanndelh.
