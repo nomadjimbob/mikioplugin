@@ -30,8 +30,9 @@ if (isset($_GET['id'])) {
         if (count($attributes) > 0) {
             $tagName = $attributes[1][0];
             $tagAttribs = array();
+            $count = count($attributes[1]);
 
-            for ($i = 1; $i < count($attributes[1]); $i++) {
+            for ($i = 1; $i < $count; $i++) {
                 $value = $attributes[3][$i];
                 if (strlen($value) == 0) {
                     $value = true;

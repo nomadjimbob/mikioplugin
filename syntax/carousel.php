@@ -56,15 +56,18 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
             global $conf;
 
             $namespace = $data['dynamic'];
-            if (substr($namespace, -1) == ':') {
+            if (substr($namespace, -1) === ':') {
                 $namespace = substr($namespace, 0, -1);
             }
 
             $path = str_replace(':', '/', $namespace);
 
             $pages = array();
+            $count = count($pages);
+
             search($pages, $conf['datadir'] . '/' . $path, 'search_allpages', array('depth' => 1, 'skipacl' => true));
-            for ($i = 0; $i < count($pages); $i++) {
+
+            for ($i = 0; $i < $count; $i++) {
                 $page = $pages[$i];
                 if ($data['dynamic-start'] == -1 || $data['dynamic-start'] <= ($i + 1)) {
                     if ($data['dynamic-start'] != -1 && $data['dynamic-count'] != -1 && $data['dynamic-start'] + $data['dynamic-count'] >= $i) {

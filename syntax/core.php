@@ -325,7 +325,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
         foreach ($data as $optionKey => $optionValue) {
             if (!array_key_exists($optionKey, $optionsCleaned)) {
                 if($optionValue === true && $this->customStyleExists($optionKey)) {
-                    array_push($customStyles, $optionKey);
+                    $customStyles[] = $optionKey;
                 }
 
                 foreach ($options as $syntaxKey => $syntaxValue) {
@@ -450,7 +450,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
             foreach ($optionsTemplate as $key => $value) {
                 if (array_key_exists('class', $value) && $value['class'] == true) {
-                    array_push($classes, $key);
+                    $classes[] = $key;
                 }
             }
 
@@ -896,7 +896,8 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
         if (preg_match_all($search, $content, $match)) {
             if (count($match) >= 2) {
-                for ($i = 0; $i < count($match[1]); $i++) {
+                $count = count($match[1]);
+                for ($i = 0; $i < $count; $i++) {
                     $item = array('options' => array(), 'content' => $this->render_text($match[2][$i]));
 
                     $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', trim($match[1][$i]));
