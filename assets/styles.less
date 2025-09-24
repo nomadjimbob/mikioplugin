@@ -774,9 +774,8 @@
     background-clip: border-box;
     border: 1px solid var(--mikiop-border-color);
     border-radius: 0.25em;
-    margin-bottom: 2em;
     overflow: hidden;
-    margin: 0.75em;
+    margin: 0.75em 0.75em 2em;
     .flex(1);
     height: 100%;
 
@@ -1078,12 +1077,12 @@
 
   .mikiop-col {
     .flex(1 0 0);
-    .display-flex;
+    //.display-flex;
     .flex-direction(column);
     // .justify-content(space-between);
     ._mikiop-vertical-align;
     margin: 0;
-    box-sizing: border-box;
+    //box-sizing: border-box;
     border-style: solid;
     border-width: 0;
 
@@ -1144,7 +1143,8 @@
     }
 
     .mikiop-card {
-      margin-bottom: 0;
+      margin: 0.75em;
+      height: auto;
     }
 
     &.mikiop-col-full {
