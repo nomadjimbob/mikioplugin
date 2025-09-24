@@ -7,6 +7,10 @@ Mikio Plugin adds a heap of layout and Bootstrap 4 elements that can be used on 
 
 This plugin can be used by itself, however is designed to complement the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio).
 
+## Flexbox Fix
+
+A flexbox fix was applied to the card body element. This may affect existing layouts that relied on the previous (incorrect) formatting. For example, buttons that were unintentionally displayed as `block` elements will now render with their correct inline behavior.
+
 ## Updating Styles
 
 You can update the colors used by the elements by editing the `/assets/variables.css` file. From version 2022-10-31 onwards, the theme supports darkmode within browsers.
@@ -37,6 +41,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 - **_NEXT_**  
     -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
     -   Fixed rendering bug inside columns in certain instances due to flexbox [#41](https://github.com/nomadjimbob/mikioplugin/issues/41). Thanks reissmann.
+    -   Fixed rendering bug inside card body in certain instances due to flexbox [#40](https://github.com/nomadjimbob/mikioplugin/issues/40). Thanks mueniko.
     -   Other Navs now close when a second one is opened [#39](https://github.com/nomadjimbob/mikioplugin/issues/39). Thanks aloade.
     -   Fixed undefined array key errors under PHP 8.1 [#37](https://github.com/nomadjimbob/mikioplugin/issues/37). Thanks MartijnSanders.
 
