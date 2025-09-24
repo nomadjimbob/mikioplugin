@@ -32,13 +32,13 @@ class syntax_plugin_mikioplugin_text extends syntax_plugin_mikioplugin_core {
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
 
         $styles = $this->buildStyle(array(
-            'color'             => $data['color'],
-            'font-size'         => $data['size'],
-            'font-weight'       => $data['weight'],
-            'font-style'        => $data['style'],
-            'background-color'  => $data['background-color'],
-            'line-height'       => $data['line-height'],
-            'text-decoration'   => $data['text-decoration'],
+            'color'             => $data['color'] ?? '',
+            'font-size'         => $data['size'] ?? '',
+            'font-weight'       => $data['weight'] ?? '',
+            'font-style'        => $data['style'] ?? '',
+            'background-color'  => $data['background-color'] ?? '',
+            'line-height'       => $data['line-height'] ?? '',
+            'text-decoration'   => $data['text-decoration'] ?? '',
             'display'           => ($data['block'] ? 'block' : 'inline-block'),
         ), TRUE);
         

@@ -24,10 +24,10 @@ class syntax_plugin_mikioplugin_row extends syntax_plugin_mikioplugin_core {
 
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = $this->buildStyle(array(
-            'border-color'  => $data['border-color'],
-            'border-width'  => $data['border-width'],
-            'padding'       => $data['padding'],
-            'margin'        => $data['margin'],
+            'border-color'  => $data['border-color'] ?? '',
+            'border-width'  => $data['border-width'] ?? '',
+            'padding'       => $data['padding'] ?? '',
+            'margin'        => $data['margin'] ?? '',
         ), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'row"' . $styles . '>';

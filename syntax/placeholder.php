@@ -22,7 +22,7 @@ class syntax_plugin_mikioplugin_placeholder extends syntax_plugin_mikioplugin_co
     );
     
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
-        $styles = $this->buildStyle(array('width' => $data['width'], 'height' => $data['height']), TRUE);
+        $styles = $this->buildStyle(array('width' => $data['width'] ?? '', 'height' => $data['height'] ?? ''), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'placeholder"' . $styles . '>';
         $renderer->doc .= '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">';

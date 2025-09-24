@@ -29,13 +29,13 @@ class syntax_plugin_mikioplugin_step extends syntax_plugin_mikioplugin_core {
 
         $renderer->doc .= '<li class="' . $this->elemClass . ' ' . $this->classPrefix . 'step' . $classes . '">';
         if($data['url']) $renderer->doc .= '<a href="' . $data['url'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'step-link">';
-        if($data['icon'] != '') {
+        if(!empty($data['icon'])) {
             $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'step-icon">';
             $this->syntaxRender($renderer, 'icon', '', array_flip(explode(' ', $data['icon'])), MIKIO_LEXER_SPECIAL);
             $renderer->doc .= '</div>';
         }
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'step-text">';
-        if($data['title'] != '') $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'step-title">' . $data['title'] . '</div>';
+        if(!empty($data['title'])) $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'step-title">' . $data['title'] . '</div>';
     }
 
 

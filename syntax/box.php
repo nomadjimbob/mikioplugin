@@ -25,14 +25,14 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
         'color'         => array('type'    => 'color',    'default' => ''),
         'padding'       => array('type'     => 'multisize',  'default'   => ''),
         'margin'       => array('type'     => 'multisize',  'default'   => ''),
-        'grid-row'          => array('type' => 'text'),
-        'grid-row-start'    => array('type' => 'number'),
-        'grid-row-end'      => array('type' => 'number'),
-        'grid-row-span'     => array('type' => 'number'),
-        'grid-col'          => array('type' => 'text'),
-        'grid-col-start'    => array('type' => 'number'),
-        'grid-col-end'      => array('type' => 'number'),
-        'grid-col-span'     => array('type' => 'number'),
+        'grid-row'          => array('type' => 'text',    'default' => ''),
+        'grid-row-start'    => array('type' => 'number',    'default' => ''),
+        'grid-row-end'      => array('type' => 'number',    'default' => ''),
+        'grid-row-span'     => array('type' => 'number',    'default' => ''),
+        'grid-col'          => array('type' => 'text',    'default' => ''),
+        'grid-col-start'    => array('type' => 'number',    'default' => ''),
+        'grid-col-end'      => array('type' => 'number',    'default' => ''),
+        'grid-col-span'     => array('type' => 'number',    'default' => ''),
     );
 
     public function __construct() {
@@ -42,17 +42,17 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
     public function getPType() { return 'normal'; }
 
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        if($data['attr'] != '') {
+        if(!empty($data['attr'])) {
             $data = array_merge($data, $this->callMikioTag('setattr', $data['attr']));
         }
 
         $tag = 'div';
-        if($data['url'] != '') $tag = 'a';
+        if(!empty($data['url'])) $tag = 'a';
 
-        if($data['grid-row-span'] != '') $data['grid-row-end'] = 'span ' . $data['grid-row-span'];
-        if($data['grid-col-span'] != '') $data['grid-col-end'] = 'span ' . $data['grid-col-span'];
+        if(!empty($data['grid-row-span'])) $data['grid-row-end'] = 'span ' . $data['grid-row-span'];
+        if(!empty($data['grid-col-span'])) $data['grid-col-end'] = 'span ' . $data['grid-col-span'];
 
-        if($data['grid-row'] != '') {
+        if(!empty($data['grid-row'])) {
             $parts = explode(' ', $data['grid-row']);
             $i = count($parts);
             if($i == 2 || $i == 3) {
@@ -66,7 +66,7 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
             }
         }
 
-        if($data['grid-col'] != '') {
+        if(!empty($data['grid-col'])) {
             $parts = explode(' ', $data['grid-col']);
             $i = count($parts);
             if($i == 2 || $i == 3) {
@@ -82,18 +82,18 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
 
         $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array(
-            'width'         => $data['width'],
-            'height'        => $data['height'],
-            'border-radius' => $data['round'],
-            'border-color'  => $data['border-color'],
-            'border-width'  => $data['border-width'],
-            'color'         => $data['color'],
-            'padding'       => $data['padding'],
-            'margin'        => $data['margin'],
-            'grid-row-start'    => $data['grid-row-start'],
-            'grid-row-end'      => $data['grid-row-end'],
-            'grid-column-start'    => $data['grid-col-start'],
-            'grid-column-end'      => $data['grid-col-end'],
+            'width'         => $data['width'] ?? '',
+            'height'        => $data['height'] ?? '',
+            'border-radius' => $data['round'] ?? '',
+            'border-color'  => $data['border-color'] ?? '',
+            'border-width'  => $data['border-width'] ?? '',
+            'color'         => $data['color'] ?? '',
+            'padding'       => $data['padding'] ?? '',
+            'margin'        => $data['margin'] ?? '',
+            'grid-row-start'    => $data['grid-row-start'] ?? '',
+            'grid-row-end'      => $data['grid-row-end'] ?? '',
+            'grid-column-start'    => $data['grid-col-start'] ?? '',
+            'grid-column-end'      => $data['grid-col-end'] ?? '',
             
         ), TRUE);
 
@@ -104,7 +104,7 @@ class syntax_plugin_mikioplugin_box extends syntax_plugin_mikioplugin_core {
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
         $tag = 'div';
-        if($data['url'] != '') $tag = 'a';
+        if(!empty($data['url'])) $tag = 'a';
 
         $renderer->doc .= '</' . $tag . '>'; 
     }

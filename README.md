@@ -37,6 +37,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 - **_NEXT_**  
     -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
     -   Fixed rendering bug inside columns in certain instances due to flexbox [#41](https://github.com/nomadjimbob/mikioplugin/issues/41). Thanks reissmann.
+    -   Fixed undefined array key errors under PHP 8.1 [#37](https://github.com/nomadjimbob/mikioplugin/issues/37). Thanks MartijnSanders.
 
 - **_2025-07-24_**  
     -   Fixed security vulnerability, parsing less error discloses the physical path. Reported by B Mercer.

@@ -22,7 +22,7 @@ class syntax_plugin_mikioplugin_anchor extends syntax_plugin_mikioplugin_core {
     public function getPType() { return 'normal'; }
 
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
-        if($data['id'] != '') {
+        if(!empty($data['id'])) {
             $renderer->doc .= '<a id="' . $data['id'] . '"></a>';
         }
     }

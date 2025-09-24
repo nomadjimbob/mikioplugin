@@ -31,11 +31,11 @@ class syntax_plugin_mikioplugin_badge extends syntax_plugin_mikioplugin_core {
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('type', 'pill'));
-        $styles = $this->buildStyle(array('width' => $data['width']), TRUE);
+        $styles = $this->buildStyle(array('width' => $data['width'] ?? ''), TRUE);
 
         $tag = 'span';
         $href = '';
-        if($data['url'] != '') {
+        if(!empty($data['url'])) {
             $tag = 'a';
             $href = ' href="' . $data['url'] . '"' . ($data['target'] != '' ? ' target="'.$data['target'].'"' : '');
         }

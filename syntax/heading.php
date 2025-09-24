@@ -26,8 +26,8 @@ class syntax_plugin_mikioplugin_heading extends syntax_plugin_mikioplugin_core {
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = $this->buildStyle(array(
-            'color'             => $data['color'],
-            'text-decoration'   => $data['text-decoration'],
+            'color'             => $data['color'] ?? '',
+            'text-decoration'   => $data['text-decoration'] ?? '',
         ), TRUE);
 
         $renderer->doc .= '<h' . $data['size'] . ' class="' . $this->elemClass. ' ' . $this->classPrefix . 'heading ' . $this->classPrefix . 'heading-' . $data['size'] . '"' . $styles . '>';

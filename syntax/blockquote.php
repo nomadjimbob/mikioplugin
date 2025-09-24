@@ -47,10 +47,10 @@ class syntax_plugin_mikioplugin_blockquote extends syntax_plugin_mikioplugin_cor
     {
         $renderer->doc .= '</p>';
 
-        if($data['footer'] != '') {
+        if(!empty($data['footer'])) {
             $footer = $data['footer'];
 
-            if($data['cite'] != '') {
+            if(!empty($data['cite'])) {
                 $i = strripos($footer, $data['cite']);
                 if($i !== false) {
                     $cite = substr($footer, $i, strlen($data['cite']));

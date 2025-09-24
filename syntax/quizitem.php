@@ -40,7 +40,7 @@ class syntax_plugin_mikioplugin_quizitem extends syntax_plugin_mikioplugin_core
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-item' . $classes . '" data-question="' . $data['question'] . '" ' . ($data['answer'] != '' ? 'data-answer="' . $data['answer'] . '"' : '') . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-question">' . $data['question'] . '</div>';
-        if($data['text'] != '') { $renderer->doc .= '<p>' . $data['text'] . '</p>';
+        if(!empty($data['text'])) { $renderer->doc .= '<p>' . $data['text'] . '</p>';
         }
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'quiz-options">';
 

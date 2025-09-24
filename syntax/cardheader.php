@@ -24,7 +24,7 @@ class syntax_plugin_mikioplugin_cardheader extends syntax_plugin_mikioplugin_cor
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array(
-            'color'             => $data['text-color'],
+            'color'             => $data['text-color'] ?? '',
         ), true);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $classes . ' ' . $this->classPrefix . 'card-header"' . $styles . '>';

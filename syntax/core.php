@@ -887,41 +887,38 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     */
     protected function findTags($tagName, $content, $options, $hasEndTag = true)
     {
-        $items = array();
-        $search = '/<(?i:' . $tagName . ')(.*?)>(.*?)<\/(?i:' . $tagName . ')>/s';
+        $items = [];
+        $tn = preg_quote($tagName, '/');
 
-        if (!$hasEndTag) {
-            $search = '/<(?i:' . $tagName . ')(.*?)>/s';
-        }
+        $search = $hasEndTag
+            ? '/<(?i:' . $tn . ')(?P<attrs>.*?)>(?P<body>.*?)<\/(?i:' . $tn . ')>/s'
+            : '/<(?i:' . $tn . ')(?P<attrs>.*?)>/s';
 
-        if (preg_match_all($search, $content, $match)) {
-            if (count($match) >= 2) {
-                $count = count($match[1]);
-                for ($i = 0; $i < $count; $i++) {
-                    $item = array('options' => array(), 'content' => $this->render_text($match[2][$i]));
+        if (preg_match_all($search, $content, $m)) {
+            $n = count($m['attrs']);
+            for ($i = 0; $i < $n; $i++) {
+                $rawAttrs = trim($m['attrs'][$i] ?? '');
+                $body     = $hasEndTag ? ($m['body'][$i] ?? '') : '';
+                $item     = ['options' => [], 'content' => $this->render_text($body)];
 
-                    $optionlist = preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', trim($match[1][$i]));
+                $optionlist = $rawAttrs === '' ? [] :
+                    preg_split('/\s(?=([^"]*"[^"]*")*[^"]*$)/', $rawAttrs);
 
-                    foreach ($optionlist as $option) {
-                        $j = strpos($option, '=');
-                        if ($j !== false) {
-                            $value = substr($option, $j + 1);
-
-                            if (substr($value, 0, 1) == '"') { $value = substr($value, 1);
-                            }
-                            if (substr($value, -1) == '"') { $value = substr($value, 0, -1);
-                            }
-
-                            $item['options'][substr($option, 0, $j)] = $value;
-                        } else {
-                            $item['options'][$option] = true;
-                        }
+                foreach ($optionlist as $option) {
+                    if ($option === '') continue;
+                    $j = strpos($option, '=');
+                    if ($j !== false) {
+                        $value = trim($option, " \t\n\r\0\x0B");
+                        $value = substr($value, $j + 1);
+                        $value = trim($value, '"');
+                        $item['options'][substr($option, 0, $j)] = $value;
+                    } else {
+                        $item['options'][$option] = true;
                     }
-
-                    $item['options'] = $this->cleanOptions($item['options'], $options);
-
-                    $items[] = $item;
                 }
+
+                $item['options'] = $this->cleanOptions($item['options'], $options);
+                $items[] = $item;
             }
         }
 

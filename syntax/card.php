@@ -73,17 +73,17 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
     public function render_lexer_enter(Doku_Renderer $renderer, $data)
     {
         $classes = $this->buildClass($data, array('overlay', 'horizontal'));
-        $styles = $this->buildStyle(array('height' => $data['height'], 'width' => $data['width']), true);
+        $styles = $this->buildStyle(array('height' => $data['height'] ?? '', 'width' => $data['width'] ?? ''), true);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card' . $classes . '"' . $styles . '>';
 
         if($data['horizontal']) { $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-image">';
         }
-        if($data['placeholder-text'] != '') {
-            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['placeholder-text'], 'color' => $data['placeholder-color'], 'text-color' => $data['placeholder-text-color'], 'height' => $data['placeholder-height'])));
-        } elseif($data['image'] != '') {
+        if(!empty($data['placeholder-text'])) {
+            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['placeholder-text'] ?? '', 'color' => $data['placeholder-color'] ?? '', 'text-color' => $data['placeholder-text-color'] ?? '', 'height' => $data['placeholder-height'] ?? '')));
+        } elseif(!empty($data['image'])) {
             $style = '';
-            if($data['image-height'] != '') {
+            if(!empty($data['image-height'])) {
                 $style = 'height:' . $data['image-height'] . ';';
             }
             $renderer->doc .= '<img src="' . $data['image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . '" style="' . $style . '">';
@@ -91,19 +91,19 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
         if($data['horizontal']) { $renderer->doc .= '</div><div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-horizontal-body">';
         }
         
-        if($data['header'] != '') {
-            $this->syntaxRender($renderer, 'cardheader', $data['header'], $this->arrayRemoveEmpties(array('text-align' => $data['header-text-align'], 'text-color' => $data['header-text-color'])));
+        if(!empty($data['header'])) {
+            $this->syntaxRender($renderer, 'cardheader', $data['header'], $this->arrayRemoveEmpties(array('text-align' => $data['header-text-align'] ?? '', 'text-color' => $data['header-text-color'] ?? '')));
         }
 
-        if($data['no-body'] == false) { $this->syntaxRender($renderer, 'cardbody', '', $this->arrayRemoveEmpties(array('vertical-align' => $data['vertical-align'], 'text-color' => $data['text-color'])), MIKIO_LEXER_ENTER);
+        if($data['no-body'] == false) { $this->syntaxRender($renderer, 'cardbody', '', $this->arrayRemoveEmpties(array('vertical-align' => $data['vertical-align'] ?? '', 'text-color' => $data['text-color'] ?? '')), MIKIO_LEXER_ENTER);
         }
         
-        if($data['title'] != '') {
-            $this->syntaxRender($renderer, 'cardtitle', $data['title'], $this->arrayRemoveEmpties(array('text-align' => $data['title-text-align'], 'text-color' => $data['title-text-color'])));
+        if(!empty($data['title'])) {
+            $this->syntaxRender($renderer, 'cardtitle', $data['title'], $this->arrayRemoveEmpties(array('text-align' => $data['title-text-align'] ?? '', 'text-color' => $data['title-text-color'] ?? '')));
         }
 
-        if($data['subtitle'] != '') {
-            $this->syntaxRender($renderer, 'cardsubtitle', $data['subtitle'], $this->arrayRemoveEmpties(array('text-align' => $data['subtitle-text-align'], 'text-color' => $data['subtitle-text-color'])));
+        if(!empty($data['subtitle'])) {
+            $this->syntaxRender($renderer, 'cardsubtitle', $data['subtitle'], $this->arrayRemoveEmpties(array('text-align' => $data['subtitle-text-align'] ?? '', 'text-color' => $data['subtitle-text-color'] ?? '')));
         }
     }
 
@@ -113,13 +113,13 @@ class syntax_plugin_mikioplugin_card extends syntax_plugin_mikioplugin_core
         if($data['no-body'] == false) { $this->syntaxRender($renderer, 'cardbody', '', null, MIKIO_LEXER_EXIT);
         }
 
-        if($data['footer'] != '') {
-            $this->syntaxRender($renderer, 'cardfooter', $data['footer'], $this->arrayRemoveEmpties(array('small' => $data['footer-small'], 'text-align' => $data['footer-text-align'], 'text-color' => $data['footer-text-color'])));
+        if(!empty($data['footer'])) {
+            $this->syntaxRender($renderer, 'cardfooter', $data['footer'], $this->arrayRemoveEmpties(array('small' => $data['footer-small'] ?? '', 'text-align' => $data['footer-text-align'] ?? '', 'text-color' => $data['footer-text-color'] ?? '')));
         }
 
-        if($data['footer-placeholder-text'] != '') {
-            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['footer-placeholder-text'], 'color' => $data['footer-placeholder-color'], 'text-color' => $data['footer-placeholder-text-color'])));
-        } elseif($data['footer-image'] != '') {
+        if(!empty($data['footer-placeholder-text'])) {
+            $this->syntaxRender($renderer, 'placeholder', '', $this->arrayRemoveEmpties(array('text' => $data['footer-placeholder-text'] ?? '', 'color' => $data['footer-placeholder-color'] ?? '', 'text-color' => $data['footer-placeholder-text-color'] ?? '')));
+        } elseif(!empty($data['footer-image'])) {
             $renderer->doc .= '<img src="' . $data['footer-image'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-image' . ($data['footer-image-cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') .'">';
         }
         

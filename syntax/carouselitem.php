@@ -39,22 +39,22 @@ class syntax_plugin_mikioplugin_carouselitem extends syntax_plugin_mikioplugin_c
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-item' . $classes . '"' . ($data['delay'] != '' ? ' data-interval="' . $data['delay'] . '"' : '') . '>';
         
 
-        if($data['image'] != '') {
+        if(!empty($data['image'])) {
             $renderer->doc .= '<img src="' . $data['image'] . '">';
         } else {
-            if($data['placeholder-text'] != '') {
-                $this->syntaxRender($renderer, 'placeholder', '', array('text' => $data['placeholder-text'], 'color' => $data['placeholder-color'], 'text-color' => $data['placeholder-text-color']));
+            if(!empty($data['placeholder-text'])) {
+                $this->syntaxRender($renderer, 'placeholder', '', array('text' => $data['placeholder-text'] ?? '', 'color' => $data['placeholder-color'] ?? '', 'text-color' => $data['placeholder-text-color'] ?? ''));
             }
         }
         
         if($data['title'] != '' || $data['text'] != '') {
             $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-caption">';
 
-            if($data['title'] != '') {
+            if(!empty($data['title'])) {
                 $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-caption-title">' . ($data['url'] != '' ? '<a href="' . $data['url'] . '">' : '') . $data['title'] . ($data['url'] != '' ? '</a>' : '') . '</div>';
             }
 
-            if($data['text'] != '') {
+            if(!empty($data['text'])) {
                 $renderer->doc .= '<p>' . $data['text'] . '</p>';
             }
 

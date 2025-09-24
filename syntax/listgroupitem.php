@@ -32,12 +32,12 @@ class syntax_plugin_mikioplugin_listgroupitem extends syntax_plugin_mikioplugin_
         $classes = $this->buildClass($data, array('active', 'disabled', 'content-vertical'));
 
         $renderer->doc .= '<li class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group-item' . $classes . '">';
-        if($data['url'] != '') $renderer->doc .= '<a href="' . $data['url'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group-item-link">';
+        if(!empty($data['url'])) $renderer->doc .= '<a href="' . $data['url'] . '" class="' . $this->elemClass . ' ' . $this->classPrefix . 'list-group-item-link">';
     }
 
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {
-        if($data['url'] != '') $renderer->doc .= '</a>';
+        if(!empty($data['url'])) $renderer->doc .= '</a>';
         $renderer->doc .= '</li>'; 
     }
 }

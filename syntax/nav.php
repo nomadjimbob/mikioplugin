@@ -34,13 +34,13 @@ class syntax_plugin_mikioplugin_nav extends syntax_plugin_mikioplugin_core
     public function render_lexer_enter(Doku_Renderer $renderer, $data)
     {
         $classes = $this->buildClass($data, array('overlay', 'horizontal'));
-        $styles = $this->buildStyle(array('height' => $data['height'], 'width' => $data['width']), true);
+        $styles = $this->buildStyle(array('height' => $data['height'] ?? '', 'width' => $data['width'] ?? ''), true);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'nav' . $classes . '"' . $styles . '>';
 
         if($data['title'] != '' || $data['icon'] != '') {
             $renderer->doc .= '<div class="' . $this->classPrefix . 'nav-title">';
-            if($data['icon'] != '') {
+            if(!empty($data['icon'])) {
                 $renderer->doc .= '<div class="' . $this->classPrefix . 'nav-icon">';
                 $this->syntaxRender($renderer, 'icon', '', array_flip(explode(' ', $data['icon'])), MIKIO_LEXER_SPECIAL);
                 $renderer->doc .= '</div>';

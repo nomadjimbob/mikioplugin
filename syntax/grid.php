@@ -22,8 +22,8 @@ class syntax_plugin_mikioplugin_grid extends syntax_plugin_mikioplugin_core {
     
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $styles = $this->buildStyle(array(
-            'grid-template-rows'  => $data['rows'],
-            'grid-template-columns'  => $data['cols'],
+            'grid-template-rows'  => $data['rows'] ?? '',
+            'grid-template-columns'  => $data['cols'] ?? '',
         ), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'grid"' . $styles . '>';

@@ -33,7 +33,7 @@ class syntax_plugin_mikioplugin_progressbar extends syntax_plugin_mikioplugin_co
     
     public function render_lexer_special(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data, array('striped', 'animated'));
-        $styles = $this->buildStyle(array('height' => $data['height']), TRUE);
+        $styles = $this->buildStyle(array('height' => $data['height'] ?? ''), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' mikiop-progress"' . $styles . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' mikiop-progress-bar ' . $classes . '" role="progressbar" style="width:' . $data['width'] . '%" aria-valuenow="' . $data['width'] . '" aria-valuemin="0" aria-valuemax="100">' . $data['text'] . '</div>';

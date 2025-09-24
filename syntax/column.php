@@ -37,10 +37,10 @@ class syntax_plugin_mikioplugin_column extends syntax_plugin_mikioplugin_core {
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array(
-            'border-color'  => $data['border-color'],
-            'border-width'  => $data['border-width'],
-            'padding'       => $data['padding'],
-            'margin'        => $data['margin'],
+            'border-color'  => $data['border-color'] ?? '',
+            'border-width'  => $data['border-width'] ?? '',
+            'padding'       => $data['padding'] ?? '',
+            'margin'        => $data['margin'] ?? '',
         ), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'col ' . ($data['size'] != '' ? $this->classPrefix . 'col-' . $data['size'] : '') . $classes . '"' . $styles . '>';

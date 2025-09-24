@@ -24,7 +24,7 @@ class syntax_plugin_mikioplugin_cardtitle extends syntax_plugin_mikioplugin_core
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
         $classes = $this->buildClass($data);
         $styles = $this->buildStyle(array(
-            'color'             => $data['text-color'],
+            'color'             => $data['text-color'] ?? '',
         ), true);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'card-title' . $classes . '"' . $styles . '>';

@@ -39,11 +39,11 @@ class syntax_plugin_mikioplugin_alert extends syntax_plugin_mikioplugin_core
     public function render_lexer_enter(Doku_Renderer $renderer, $data)
     {
         $classes = $this->buildClass($data, array('dismissible'));
-        $styles = $this->buildStyle(array('width' => $data['width']), true);
+        $styles = $this->buildStyle(array('width' => $data['width'] ?? ''), true);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert ' . $classes . '" role="alert"' . $styles . '>';
 
-        if($data['icon'] != '') {
+        if(!empty($data['icon'])) {
             $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'alert-icon">';
             $this->syntaxRender($renderer, 'icon', '', array_flip(explode(' ', $data['icon'])), MIKIO_LEXER_SPECIAL);
             $renderer->doc .= '</div>';

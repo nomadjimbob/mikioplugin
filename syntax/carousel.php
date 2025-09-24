@@ -47,7 +47,7 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
     public function render_lexer_enter(Doku_Renderer $renderer, $data)
     {
         $classes = $this->buildClass($data, array('transition'));
-        $styles = $this->buildStyle(array('height' => $data['height']), TRUE);
+        $styles = $this->buildStyle(array('height' => $data['height'] ?? ''), TRUE);
 
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel' . ($data['cover'] ? ' ' . $this->classPrefix . 'image-cover' : '') . $classes . '" data-auto-start="' . ($data['start'] ? 'true' : 'false') . '"' . $styles . '>';
         $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-inner">';
@@ -97,7 +97,7 @@ class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
         $renderer->doc .= '</div>';
 
         if ($data['controls'] === TRUE) {
-            $svg_styles = $this->buildStyle(array('fill' => $data['control-color'], 'stroke' => $data['control-outline-color'], 'stroke-width' => $data['control-outline-width']), TRUE);
+            $svg_styles = $this->buildStyle(array('fill' => $data['control-color'] ?? '', 'stroke' => $data['control-outline-color'] ?? '', 'stroke-width' => $data['control-outline-width'] ?? ''), TRUE);
 
             $renderer->doc .= '<a href="#" class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-control ' . $this->classPrefix . 'carousel-control-prev" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 8 8"' . $svg_styles . '><path d="M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z"/></svg></a>';
             $renderer->doc .= '<a href="#" class="' . $this->elemClass . ' ' . $this->classPrefix . 'carousel-control ' . $this->classPrefix . 'carousel-control-next" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 8 8"' . $svg_styles . '><path d="M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z"/></svg></a>';
