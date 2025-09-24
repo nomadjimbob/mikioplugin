@@ -9,7 +9,7 @@
  */
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
-require_once(dirname(__FILE__) . '/core.php');
+require_once(__DIR__ . '/core.php');
 
 class syntax_plugin_mikioplugin_carousel extends syntax_plugin_mikioplugin_core
 {

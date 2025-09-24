@@ -12,7 +12,7 @@ if (!defined('DOKU_INC')) { die();
 if (!defined('DOKU_PLUGIN')) { define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 }
 
-require_once dirname(__FILE__).'/../disabled-tags.php';
+require_once __DIR__.'/../disabled-tags.php';
 
 define('MIKIO_LEXER_AUTO', 0);
 define('MIKIO_LEXER_ENTER', 1);

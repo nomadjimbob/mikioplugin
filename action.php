@@ -12,7 +12,7 @@ if (!defined('DOKU_INC')) { die();
 }
 
 require_once 'icons/icons.php';
-require_once dirname(__FILE__) . '/inc/polyfill-array-key-first.php';
+require_once __DIR__ . '/inc/polyfill-array-key-first.php';
 
 if (!function_exists('glob_recursive')) {
     function glob_recursive($pattern, $flags = 0)
@@ -40,7 +40,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
         global $conf;
         global $MIKIO_ICONS;
 
-        $baseDir = str_replace('\\', '/', DOKU_BASE . 'lib/plugins' . str_replace(dirname(dirname(__FILE__)), '', dirname(__FILE__)) . '/');
+        $baseDir = str_replace('\\', '/', DOKU_BASE . 'lib/plugins' . str_replace(dirname(__DIR__), '', __DIR__) . '/');
         $stylesheets = [];
         $less = [];
         $scripts = [];
@@ -65,7 +65,7 @@ class action_plugin_mikioplugin extends DokuWiki_Action_Plugin
             $MIKIO_ICONS = [];
         }
 
-        $stylesList = glob_recursive(str_replace('\\', '/', 'lib/plugins' . str_replace(dirname(dirname(__FILE__)), '', dirname(__FILE__)) . '/styles/*'));
+        $stylesList = glob_recursive(str_replace('\\', '/', 'lib/plugins' . str_replace(dirname(__DIR__), '', __DIR__) . '/styles/*'));
         if ($stylesList !== false) {
             foreach ($stylesList as $value) {
                 $filename = strtolower($value);
