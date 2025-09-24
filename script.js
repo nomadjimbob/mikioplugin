@@ -657,6 +657,7 @@ jQuery().ready(function () {
 
     // Nav
     jQuery('.mikiop-nav').on('click', function (event) {
+        jQuery('.mikiop-nav').not(this).removeClass('mikiop-nav-open');
         jQuery(this).toggleClass('mikiop-nav-open');
     });
     jQuery(document).on('click', function (event) {
