@@ -34,8 +34,11 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+- **_NEXT_**  
+    -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
+
 - **_2025-07-24_**  
-    -   Fixed security vulnerability, parsing less error discloses the physical path . Reported by B Mercer.
+    -   Fixed security vulnerability, parsing less error discloses the physical path. Reported by B Mercer.
     -   Fixed invalid white-space property in stylesheet.
     -   Various PHP optimizations and code cleanup.
 
