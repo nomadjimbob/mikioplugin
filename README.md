@@ -38,7 +38,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
-- **_NEXT_**  
+- **_2025-10-05_**  
     -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
     -   Fixed rendering bug inside columns in certain instances due to flexbox [#41](https://github.com/nomadjimbob/mikioplugin/issues/41). Thanks reissmann.
     -   Fixed rendering bug inside card body in certain instances due to flexbox [#40](https://github.com/nomadjimbob/mikioplugin/issues/40). Thanks mueniko.
