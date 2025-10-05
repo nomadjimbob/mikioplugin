@@ -23,8 +23,8 @@ If you have the [Mikio DokuWiki template](http://dokuwiki.org/template:mikio) 20
 Download the [latest release](https://github.com/nomadjimbob/mikioplugin/releases/latest) and place it in the\
 \
 :file_folder: dokuwiki\
-&nbsp;&nbsp;&nbsp;&nbsp;:file_folder: lib\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:file_folder: plugins
+&nbsp;&nbsp;&nbsp;&nbsp; :file_folder: lib\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :file_folder: plugins
 
 directory of your DokuWiki installation.
 
