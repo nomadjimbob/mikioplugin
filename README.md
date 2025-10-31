@@ -38,6 +38,9 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+- **_2025-11-01_**
+    -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin. 
+
 - **_2025-10-05_**  
     -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
     -   Fixed rendering bug inside columns in certain instances due to flexbox [#41](https://github.com/nomadjimbob/mikioplugin/issues/41). Thanks reissmann.

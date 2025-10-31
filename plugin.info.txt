@@ -1,7 +1,7 @@
 base   mikioplugin
 author James Collins
 email  james.collins@outlook.com.au
-date   2025-10-05
+date   2025-11-01
 name   Mikio plugin
 desc   Mikio Plugin adds a heap of layout and Bootstrap 4 elements that can be used on your DokuWiki pages
 url    https://github.com/nomadjimbob/mikioplugin
