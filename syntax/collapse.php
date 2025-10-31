@@ -13,13 +13,13 @@ require_once(__DIR__.'/core.php');
 class syntax_plugin_mikioplugin_collapse extends syntax_plugin_mikioplugin_core {
     public $tag                 = 'collapse';
     public $hasEndTag           = true;
+    public $isContainer         = true;
     public $options             = array(
         'id'            => array('type' => 'text',  'default'   => ''),
     );
-    
-    
+
     public function render_lexer_enter(Doku_Renderer $renderer, $data) {
-        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'collapse" id="' . $data['id'] . '">';
+        $renderer->doc .= '<div class="' . $this->elemClass . ' ' . $this->classPrefix . 'collapse" id="' . hsc($data['id']) . '">';
     }
 
     public function render_lexer_exit(Doku_Renderer $renderer, $data) {

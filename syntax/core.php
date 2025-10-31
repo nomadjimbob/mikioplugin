@@ -28,6 +28,7 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     public $requires_tag        = '';
     public $hasEndTag           = true;
     public $options             = array();
+    public $isContainer         = false;
 
     protected $tagPrefix          = ''; //'mikio-';
     protected $classPrefix        = 'mikiop-';
@@ -62,11 +63,11 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
 
     public function getType()
     {
-        return 'formatting';
+        return $this->isContainer ? 'container' : 'formatting';
     }
     public function getAllowedTypes()
     {
-        return array('formatting', 'substition', 'disabled', 'paragraphs');
+        return $this->isContainer ? array('formatting','substition','disabled','container','protected','paragraphs') : array('formatting', 'substition', 'disabled', 'paragraphs');
     }
     // public function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }
     public function getSort()
@@ -383,6 +384,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     }
     protected function render_lexer_unmatched(Doku_Renderer $renderer, $data)
     {
+        if($this->isContainer) {
+            return false;
+        }
+
         $renderer->doc .= $renderer->_xmlEntities($data);
     }
     protected function render_lexer_exit(Doku_Renderer $renderer, $data)
