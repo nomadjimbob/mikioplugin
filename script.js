@@ -54,9 +54,19 @@ jQuery().ready(function () {
             event.preventDefault();
         }
 
-        if (jQuery(this).attr('data-toggle') == 'collapse') {
+        if (jQuery(this).attr('data-toggle') === 'collapse') {
             event.preventDefault();
-            jQuery(jQuery(this).attr('data-target')).slideToggle();
+
+            const btn = jQuery(this);
+            const target = jQuery(btn.attr('data-target'));
+
+            const newText = btn.attr('data-toggle-text');
+            if (newText !== '') {
+                btn.attr('data-toggle-text', btn.text());
+                btn.text(newText);
+            }
+
+            target.slideToggle();
         }
     });
 

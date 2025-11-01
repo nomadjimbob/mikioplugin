@@ -38,6 +38,9 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+- **_Next-Release_**
+    -   Added support for the attribute [`collapse-opened-text`](https://github.com/nomadjimbob/mikioplugin/wiki/Collapse#attributes-button) for buttons that support a collapsable element.
+
 - **_2025-11-01_**
     -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin. 
 

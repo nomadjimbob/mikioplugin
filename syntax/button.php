@@ -24,6 +24,7 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
         'target'        => array('type'     => 'text',      'default'   => ''),
         'newtab'        => array('type'     => 'set',       'option'    => 'target',    'data'  => '_blank'),
         'collapse-id'   => array('type'     => 'text',      'default'   => ''),
+        'collapse-opened-text' => array('type'     => 'text',      'default'   => ''),
         'nowrap'        => array('type'     => 'boolean',   'default'   => 'false'),
     );
 
@@ -45,7 +46,7 @@ class syntax_plugin_mikioplugin_button extends syntax_plugin_mikioplugin_core {
         $target = $data['target'];
         $collapse = $data['collapse-id'];
 
-        $renderer->doc .= '<a href="' . $url . '"' . ($target != '' ? ' target="'.$target.'"' : '') . ' class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $classes . '" role="button"' . ($collapse != '' ? ' data-toggle="collapse" data-target="#' . $data['collapse-id'] . '"' : '') . ' ' . ($data['disabled'] ? 'disabled' : '') . $styles . $this->buildTooltip($data['tooltip']) . '>';
+        $renderer->doc .= '<a href="' . $url . '"' . ($target !== '' ? ' target="'.$target.'"' : '') . ' class="' . $this->elemClass . ' ' . $this->classPrefix . 'button ' . $classes . '" role="button"' . ($collapse !== '' ? ' data-toggle="collapse" data-target="#' . $data['collapse-id'] . '"' . ($data['collapse-opened-text'] !== '' ? ' data-toggle-text="' . $data['collapse-opened-text'] . '"' : '') : '') . ' ' . ($data['disabled'] ? 'disabled' : '') . $styles . $this->buildTooltip($data['tooltip']) . '>';
     }
 
 
