@@ -41,6 +41,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 - **_2026-06-18_**
     -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
     -   Fixed image attribute functioning correctly with the overlay attribute in cards. Thanks LMayer.
+    -   Fix function name for ctype_xdigit [#46](https://github.com/nomadjimbob/mikioplugin/pull/46). Thanks jorge-leon 
 
 - **_2026-01-28_**
     -   Improved support for older themes [#44](https://github.com/nomadjimbob/mikioplugin/issues/44). Requested by jheim2.
