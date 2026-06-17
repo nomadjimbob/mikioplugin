@@ -437,7 +437,8 @@
   box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.35);
 }
 
-#dokuwiki__site {
+#dokuwiki__site,
+body>div {
   .mikiop-links-match a {
     color: inherit;
   }
@@ -1733,7 +1734,9 @@
 }
 
 ._mikiop-custom-type(@type) {
-  #dokuwiki__content {
+
+  #dokuwiki__content,
+  body>div .dokuwiki {
     .mikiop-button {
       &.mikiop-type-@{type} {
         ._mikiop-btn-type('@{type}');
@@ -1773,7 +1776,9 @@
 }
 
 @media (max-width: 960px) {
-  #dokuwiki__content {
+
+  #dokuwiki__content,
+  body>div .dokuwiki {
     .mikiop-row {
       .flex-wrap(wrap);
     }
@@ -1795,7 +1800,8 @@
   }
 }
 
-#dokuwiki__site .mikio-sidebar-content .mikiop-nav ul li {
+#dokuwiki__site .mikio-sidebar-content .mikiop-nav ul li,
+body>div .mikio-sidebar-content .mikiop-nav ul li {
 
   a,
   a:visited,

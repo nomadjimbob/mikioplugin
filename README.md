@@ -38,21 +38,22 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
-- **_Next-Release_**
+- **_2026-01-28_**
+    -   Improved support for older themes [#44](https://github.com/nomadjimbob/mikioplugin/issues/44). Requested by jheim2.
     -   Added support for the attribute [`collapse-opened-text`](https://github.com/nomadjimbob/mikioplugin/wiki/Collapse#attributes-button) for buttons that support a collapsable element.
     -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
 
 - **_2025-11-01_**
-    -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin. 
+    -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin.
 
-- **_2025-10-05_**  
+- **_2025-10-05_**
     -   Fixed bug in icon engine where bootstrap icons were not being rendered correctly [#42](https://github.com/nomadjimbob/mikioplugin/issues/42). Thanks nhratos.
     -   Fixed rendering bug inside columns in certain instances due to flexbox [#41](https://github.com/nomadjimbob/mikioplugin/issues/41). Thanks reissmann.
     -   Fixed rendering bug inside card body in certain instances due to flexbox [#40](https://github.com/nomadjimbob/mikioplugin/issues/40). Thanks mueniko.
     -   Other Navs now close when a second one is opened [#39](https://github.com/nomadjimbob/mikioplugin/issues/39). Thanks aloade.
     -   Fixed undefined array key errors under PHP 8.1 [#37](https://github.com/nomadjimbob/mikioplugin/issues/37). Thanks MartijnSanders.
 
-- **_2025-07-24_**  
+- **_2025-07-24_**
     -   Fixed security vulnerability, parsing less error discloses the physical path. Reported by B Mercer.
     -   Fixed invalid white-space property in stylesheet.
     -   Various PHP optimizations and code cleanup.
@@ -64,7 +65,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
     -   Added `align-` support to cards [#35](https://github.com/nomadjimbob/mikioplugin/issues/35). Requested by garanovich.
     -   `<right-sidebar>` element added for making right handed sidebars within the page.
 
-- **_2024-02-09_**   
+- **_2024-02-09_**
 
     -   Added support for DokuWiki Kaos
     -   Updated to support PHP 8.2

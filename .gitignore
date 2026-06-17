@@ -2,4 +2,4 @@
 manager.dat
 styles/*.less
 styles/*.css
-.idea
+.idea/*
