@@ -38,10 +38,12 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+- **_2026-06-18_**
+    -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
+
 - **_2026-01-28_**
     -   Improved support for older themes [#44](https://github.com/nomadjimbob/mikioplugin/issues/44). Requested by jheim2.
     -   Added support for the attribute [`collapse-opened-text`](https://github.com/nomadjimbob/mikioplugin/wiki/Collapse#attributes-button) for buttons that support a collapsable element.
-    -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
 
 - **_2025-11-01_**
     -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin.
