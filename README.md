@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/nomadjimbob/nomadjimbob/master/wiki/mikioplugin/images/mikio_plugin_header.png">
+<img src="https://raw.githubusercontent.com/nomadjimbob/nomadjimbob/master/wiki/mikioplugin/images/mikio_plugin_header.png" alt="Mikio Plugin">
 
 [![License: GPL-2](https://img.shields.io/github/license/nomadjimbob/mikioplugin?color=blue)](LICENSE)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/james.collins%40outlook.com.au)
@@ -40,6 +40,7 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 - **_Next-Release_**
     -   Added support for the attribute [`collapse-opened-text`](https://github.com/nomadjimbob/mikioplugin/wiki/Collapse#attributes-button) for buttons that support a collapsable element.
+    -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
 
 - **_2025-11-01_**
     -   Fixed Collapse elements not supporting other markdown items inside [#43](https://github.com/nomadjimbob/mikioplugin/issues/43). Thanks locodarwin. 

@@ -6,13 +6,19 @@ $core = new syntax_plugin_mikioplugin_core();
 $renderer = new Doku_Renderer_xhtml();
 
 if (isset($_GET['id'])) {
-    $content = rawWiki($_GET['id']);
+    $id = cleanID($_GET['id']);
+    if (auth_quickaclcheck($id) < AUTH_READ) {
+        http_response_code(403);
+        die('Permission denied');
+    }
+
+    $content = rawWiki($id);
     preg_match_all('/<carousel[^-item].*?>.*?<\/carousel>/s', $content, $matches);
 
     $carousel_index = 0;
     if (isset($_GET['carousel'])) {
-        $carousel_index = $_GET['carousel'];
-        if ($carousel_index > count($matches[0])) {
+        $carousel_index = (int) $_GET['carousel'];
+        if ($carousel_index < 1 || $carousel_index > count($matches[0])) {
             die('The page does not have ' . $carousel_index . ' carousels');
         }
 
