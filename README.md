@@ -38,6 +38,9 @@ Simply change the tag you want to disable to `true` instead of `false`. Pages th
 
 ## Releases
 
+- **_2026-06-24_**
+    -   Fixed tabgroup content normalization so source indentation can be preserved without breaking tab body formatting. [#47](https://github.com/nomadjimbob/mikioplugin/issues/47). Thanks danielhofer.
+
 - **_2026-06-18_**
     -   Fixed unauthenticated reflected XSS in carousel. Thanks radiospikes.
     -   Fixed image attribute functioning correctly with the overlay attribute in cards. Thanks LMayer.

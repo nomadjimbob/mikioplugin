@@ -888,9 +888,10 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
     * @param $content       search within content
     * @param $options       parse options similar to syntax element options
     * @param $hasEndTag     tagName search also looks for an end tag
+    * @param $contentFilter  optional callable to normalize raw tag body before rendering
     * @return               array of tags containing 'options' => array of 'name' => 'value', 'content' => content inside the tag
     */
-    protected function findTags($tagName, $content, $options, $hasEndTag = true)
+    protected function findTags($tagName, $content, $options, $hasEndTag = true, $contentFilter = null)
     {
         $items = [];
         $tn = preg_quote($tagName, '/');
@@ -899,11 +900,27 @@ class syntax_plugin_mikioplugin_core extends DokuWiki_Syntax_Plugin
             ? '/<(?i:' . $tn . ')(?P<attrs>.*?)>(?P<body>.*?)<\/(?i:' . $tn . ')>/s'
             : '/<(?i:' . $tn . ')(?P<attrs>.*?)>/s';
 
-        if (preg_match_all($search, $content, $m)) {
+        if (preg_match_all($search, $content, $m, PREG_OFFSET_CAPTURE)) {
             $n = count($m['attrs']);
             for ($i = 0; $i < $n; $i++) {
-                $rawAttrs = trim($m['attrs'][$i] ?? '');
-                $body     = $hasEndTag ? ($m['body'][$i] ?? '') : '';
+                $rawAttrs = trim($m['attrs'][$i][0] ?? '');
+                $body     = $hasEndTag ? ($m['body'][$i][0] ?? '') : '';
+                $openingIndent = '';
+
+                if ($hasEndTag && isset($m[0][$i][1])) {
+                    $matchOffset = $m[0][$i][1];
+                    $beforeMatch = substr($content, 0, $matchOffset);
+                    $lineBreak = strrpos($beforeMatch, "\n");
+                    $lineStart = $lineBreak === false ? 0 : $lineBreak + 1;
+                    $prefix = substr($content, $lineStart, $matchOffset - $lineStart);
+                    preg_match('/^[ \t]*/', $prefix, $indentMatches);
+                    $openingIndent = $indentMatches[0] ?? '';
+                }
+
+                if ($contentFilter !== null && is_callable($contentFilter)) {
+                    $body = call_user_func($contentFilter, $body, $openingIndent);
+                }
+
                 $item     = ['options' => [], 'content' => $this->render_text($body)];
 
                 $optionlist = $rawAttrs === '' ? [] :

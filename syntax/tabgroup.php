@@ -43,7 +43,7 @@ class syntax_plugin_mikioplugin_tabgroup extends syntax_plugin_mikioplugin_core 
             'disabled'  => array('type' => 'boolean',   'default'   => 'false'),
         );
 
-        $tabs = $this->findTags($this->tagPrefix . 'tab', $data, $tabOptions);
+        $tabs = $this->findTags($this->tagPrefix . 'tab', $data, $tabOptions, true, array($this, 'normalizeTabContent'));
 
         foreach($tabs as $tab) {
             $classes = $this->buildClass($tab['options'], array('disabled'));
@@ -55,6 +55,48 @@ class syntax_plugin_mikioplugin_tabgroup extends syntax_plugin_mikioplugin_core 
         }
 
         $renderer->doc .= $bar . '</ul><div class="' . $this->elemClass . ' ' . $this->classPrefix . 'tab-content">' . $content . '</div>';
+    }
+
+    /**
+     * Remove the indentation that matches the opening <tab> line.
+     *
+     * This keeps source formatting aligned with the surrounding markup while
+     * preserving any extra indentation inside the tab body.
+     */
+    protected function normalizeTabContent($content, $openingIndent = '')
+    {
+        $content = str_replace(array("\r\n", "\r"), "\n", (string)$content);
+
+        if ($content === '') {
+            return $content;
+        }
+
+        $lines = explode("\n", $content);
+
+        while (count($lines) > 0 && trim($lines[0]) === '') {
+            array_shift($lines);
+        }
+
+        while (count($lines) > 0 && trim($lines[count($lines) - 1]) === '') {
+            array_pop($lines);
+        }
+
+        if (count($lines) === 0) {
+            return '';
+        }
+
+        if ($openingIndent !== '') {
+            $indentLength = strlen($openingIndent);
+
+            foreach ($lines as &$line) {
+                if ($line !== '' && strncmp($line, $openingIndent, $indentLength) === 0) {
+                    $line = substr($line, $indentLength);
+                }
+            }
+            unset($line);
+        }
+
+        return implode("\n", $lines);
     }
 }
 ?>
